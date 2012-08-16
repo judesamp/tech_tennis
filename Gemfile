@@ -8,7 +8,7 @@ end
 
 group :test do
   gem 'rspec'
-  gem 'rspec-test'
+  gem 'rack-test'
   gem 'factory_girl'
   gem 'capybara'
   gem 'cucumber'
