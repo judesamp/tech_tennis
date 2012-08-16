@@ -1,3 +1,5 @@
-class PlayGame
+module Domain
+  class PlayGame
   
+  end
 end

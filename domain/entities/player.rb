@@ -1,3 +1,4 @@
-class Player
-  
+module Domain
+  class Player
+  end
 end

@@ -1,3 +1,5 @@
-class Game
-  
+module Domain
+  class Game
+
+  end
 end
