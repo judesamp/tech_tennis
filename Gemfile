@@ -4,6 +4,7 @@ gem 'sinatra'
 group :development do
   gem 'thin'
   gem 'shotgun'
+  gem 'haml'
 end
 
 group :test do
