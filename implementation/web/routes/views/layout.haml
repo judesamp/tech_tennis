@@ -1,15 +1,12 @@
 !!!
 %html
 	%head
-		%title Tech Tennis
-		%link(rel="stylesheet"href="http://yui.yahoo.apis.com/2.8.0r4/build/reset/reset-min.css")
-		%link(rel="stylesheet" href="css/styles.css")
+		%title Tech Tennis							
+		%link(rel="stylesheet" href="/css/tech_tennis.css")
 		
 	%body
 		#wrapper
-			#header
-				%h1 Welcome to Tech Tennis
-				%h2 Test your tech knowledge in a game of speed and wit
+			
 			#nav
 				%a(href="/")
 					%li Home
@@ -17,10 +14,26 @@
 					%li About
 				%a(href="/profile")
 					%li Profile
-					
-			#content
-				=yield
+			#header
+				%h1 Welcome to Tech Tennis
+				%h2 Test your tech knowledge in a game of speed and wit
+			
+			#gamecontainer
+				#scoreboard
+					=yield
 				
+				#questionbox
+					%h3 Why in the world isn't this a better question?
+					%p a. dude who wrote it is an idiot
+					%p b. what question?
+					%p c. subject sucks
+					%p d. questions always suck
+				
+				#clock
+					%h1 10
+					
+			#answerblock
+				%h1 Type your answer here
 			#footer
 				This is the footer
 					
