@@ -10,6 +10,8 @@ end
 module Implementation
   class Web < Sinatra::Base
     get '/' do
+      @game = Domain::Game.new
+      @game.greeter
       haml :index
       
     end

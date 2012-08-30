@@ -23,17 +23,15 @@
 					=yield
 				
 				#questionbox
-					%h3 Why in the world isn't this a better question?
-					%p a. dude who wrote it is an idiot
-					%p b. what question?
-					%p c. subject sucks
-					%p d. questions always suck
+					%h3= @game.greeter
+					
 				
 				#clock
 					%h1 10
 					
 			#answerblock
 				%h1 Type your answer here
+				
 			#footer
 				This is the footer
 					
