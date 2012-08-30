@@ -37,7 +37,7 @@ li {
 }
 
 #gamecontainer {
-	width:810px;
+	width:820px;
 	margin:auto;
 	
 }
@@ -46,7 +46,7 @@ li {
 	height:225px;
 	float:right;
 	background-color: #F5F5F5;
-	border: 1px solid #FFE600;
+	border: 3px solid #FFE600;
 }
 
 #questionbox {
@@ -55,7 +55,7 @@ li {
 	height: 225px;
 	float:right;
 	text-align:center;
-	border: 1px solid #FFE600;
+	border: 3px solid #FFE600;
 }
 
 
@@ -65,7 +65,7 @@ height: 225px;
 background-color: #F5F5F5;
 text-align: center;
 float:right;
-border: 1px solid #FFE600;
+border: 3px solid #FFE600;
 
 
 }
