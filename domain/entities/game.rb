@@ -1,5 +1,6 @@
 module Domain
   class Game
+    attr_accessor :greeter
     
     def greeter
       "<h3>Do you want to sign in or play as a guest?</h3>

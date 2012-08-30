@@ -9,9 +9,19 @@ end
 
 module Implementation
   class Web < Sinatra::Base
+    register Mustache::Sinatra
+      require './implementation/web/views/web_layout'
+      set :public, "implementation/web/public"
+      set :view, "implementation/web/templates"
+      set :mustache, {
+        :views => 'implementation/web/views',
+        :templates => 'implementation/web/templates'
+      }
+
+      
+    
     get '/' do
       @game = Domain::Game.new
-      @game.greeter
       haml :index
       
     end
