@@ -11,9 +11,9 @@ module Implementation
   class Web < Sinatra::Base
     require './implementation/web/views/web_layout'
     set :views, "implementation/web/templates"
-    set :public, "implementation/web/public"
+    set :public_folder, "implementation/web/public"
     
-    get '/' do
+    get '/mobile' do
       "This is the index which loads Sencha Touch"
       # Replace above with:
       # haml :mobile_index

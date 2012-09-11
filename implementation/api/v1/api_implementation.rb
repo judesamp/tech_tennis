@@ -10,7 +10,7 @@ end
 module Implementation
   module API
     class V1 < Sinatra::Base
-      set :public, "implementation/api/v1/public"
+      set :public_folder, "implementation/api/v1/public"
       
       get '/' do
         "Please use a specific endpoint."

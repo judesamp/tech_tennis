@@ -1,0 +1,136 @@
+<!doctype html>
+		<html lang="en">
+	<head>
+		<link href="/css/tech_tennis.css" rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="/js/jquery-1.7.1.js"></script>
+			<script>
+				$(document).ready(function() {
+					
+					$('#scoreboard').fadeTo('normal', .25);
+					
+					$('#questions').hide(); //hide questions
+					
+					$('#hider').hide();
+					$('#home').hover(function() {
+								$('#hider').slideDown();
+						});
+					
+					
+						
+					
+						$('#playasguest').click(function() {
+							$('#greeter').toggle('slow');
+							$('#questions').toggle('slow');
+						});// play as guest
+						
+						//$(document).keypress(function(evt) {
+						//	var x = evt.which;
+						//	x = String.fromCharCode(x)
+						//	alert(x); 
+						// }); keypress return
+						
+						$('#scoreboard').click(function() {
+							$(this).animate(
+								{
+									right: '500px'
+								}, 4000, 'linear'
+								
+								
+								);
+							
+							
+						});
+								
+					
+				
+					
+						
+				}); //end ready
+				
+			
+					
+					
+			
+			</script>
+		
+		<meta charset="utf-8">
+		
+		<title>Tech Tennis</title>
+
+	</head>
+	
+	<body>
+		<div id="wrapper">
+			
+			<div id="nav">
+				<ul>
+					<a href="/"><li class="navitem"id="home">Home</li>	</a>
+			
+						<ul id ="hider">
+							<a href="#"><li>test</li></a>
+							<a href="#"><li>test2</li></a>
+							</ul>
+					
+					
+					<a href="/about"><li class="navitem">About</li></a>
+					<a href="/profile"><li class="navitem">Profile</li></a>
+				</ul>
+			</div>
+			
+			<div id="header">
+				
+				<h1>Welcome to Tech Tennis</h1>
+				<h2>Test your tech knowledge in a game of speed and wit</h2>
+				<script>
+					function printToday() {
+						var today = new Date();
+						document.write(today.toDateString());
+					}
+					printToday();
+				</script>
+			</div>
+		
+				
+			<div id="gamecontainer">
+			
+			
+			<div id="scoreboard">
+				{{>index}}
+			</div>
+			
+			<div id="questionbox">
+				{{>questionbox}}
+			</div>
+			
+			<div id="clock">
+				<h1>10</h1>
+			</div>
+			</div>
+			
+			<div id="answerblock">
+				<h1>Type your answer here</h1>
+			
+			</div>
+			
+			<div id="footer">
+				<h1>This is the mustache footer</h1>
+			</div>
+		</div>
+		
+
+	</body>
+</html>
+
+
+
+
+
+			
+			
+				
+		
+						
+					
+					
+		
+
