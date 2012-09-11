@@ -4,6 +4,9 @@ module Domain
     def test 
       
     end
+    
+    def test2
+    end
 
   end
 end
