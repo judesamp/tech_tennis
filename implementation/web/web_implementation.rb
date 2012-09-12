@@ -21,13 +21,23 @@ module Implementation
       
     
     get '/' do
-      @game = Domain::Game.new
-      @player_score = @game.player_score
-      @opponent_score = @game.opponent_score
+      game = Domain::Game.new
+      @player_score = game.player_score
+      @cpu_score = game.cpu_score
+      @question = game.retrieve_question
+      @answer_a = game.retrieve_answers[0]
+      @answer_b = game.retrieve_answers[1]
+      @answer_c = game.retrieve_answers[2]
+      @answer_d = game.retrieve_answers[3]
+      
       
       mustache :index
     end
-    
+   
+   post "/" do
+     @answer = params{:}
+     
+    end 
    
   end
 end

@@ -1,11 +1,21 @@
 <div id="questions">
-<h3>What is that thing in the sky?</h3>
+<h3>{{question}}</h3>
+
+
+
+<div id="multiple_choice">
 <ul id="answers">
-	<li>a. moon</li>
-	<li>b. sun</li>
-	<li>c. star</li>
-	<li>d. grass</li>
+	<li><input type="button" value=" A " />{{answer_a}}</li>
+	<li><input type="button" value=" B " />{{answer_b}}</li>
+	<li><input type="button" value=" C " />{{answer_c}}</li>
+	<li><input type="button" value=" D " />{{answer_d}}</li>
 </ul>
+</div>
+
+<div id="fill_in_the_blank">
+	<input type="text" />
+</div>
+
 </div>
 
 <div id="greeter">

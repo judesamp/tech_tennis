@@ -8,7 +8,7 @@ Game
 Start Game - api/v1/game	GET
 	This starts the game
 	
-Submit Answer - api/vi/game POST
+Submit Answer - api/v1/game POST
 	Submit an answer given a question from the previous response
 	
 	Inputs

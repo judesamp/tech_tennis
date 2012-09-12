@@ -1,12 +1,25 @@
 class Views
   class Layout < Mustache
-    def greeter
-      "boogie?"
-    end
+     def question
+        @question || " error"
+      end
       
-    def question
-      "What in the world?"
-    end
+      def answer_a
+        @answer_a || " error"
+      end
+      
+      def answer_b
+        @answer_b || " error"
+      end
+      
+      def answer_c
+        @answer_c || " error"
+      end
+      
+      def answer_d
+        @answer_d || " error"
+      end
+      
   end
     
   class Index < Layout 
@@ -14,14 +27,10 @@ class Views
       @player_score || "0"
     end
       
-    def opponent_score
-      @opponent_score || "0"
+    def cpu_score
+      @cpu_score || "0"
     end
   end
   
-  class Questionbox < Layout
-    def question
-      @question || "How many moons?"
-    end
-  end
+  
 end

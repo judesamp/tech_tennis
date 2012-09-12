@@ -1,22 +1,36 @@
 require_relative '../spec_helper'
 
-describe Domain do 
-  before(:each) do
-    @match = Domain::Game.new
-end
-
-
-  describe "Greeter" do
-    it "should send a message greeting user" do
-      @match.greeter.should be_an_instance_of(String)
-    end
+module Domain
+  describe Game do
+    describe "a new Game" do
+      before (:each) do
+        @game = Game.new
+      end
+        
+      it "score should be 0-0" do
+        @game.player_score.should == 0
+        @game.cpu_score.should == 0
+      end
+        
+      it "should retrive a question" do
+         @game.retrieve_question.instance_of?(String)
+      end
+        
+        
+        
+        
+        
+      it "should accept a response" do
+          @game.process_answer.instance_of?(String)
+      end
+          
+          
+          
+          
+          
+         
+       
+      end
+    end 
   end
-  
-  describe "Greeter" do
-    it "should accept user to decide if they want to play as guest or create profile" do
-      @match.greeter.shoul
-    end
-  end
-      
-  
-end
+
