@@ -13,11 +13,12 @@ module Domain
   
     def retrieve_question
       @game = Question.new
-      @game.questions["1"]
+      x = rand(0..@game.questions.length - 1)
+      @game.questions[x.to_s]
     end
     
-    def retrieve_answers
-      @game.answers["1"]
+    def send_json
+      
     end
     
     def process_answer

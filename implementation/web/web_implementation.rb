@@ -24,18 +24,16 @@ module Implementation
       game = Domain::Game.new
       @player_score = game.player_score
       @cpu_score = game.cpu_score
-      @question = game.retrieve_question
-      @answer_a = game.retrieve_answers[0]
-      @answer_b = game.retrieve_answers[1]
-      @answer_c = game.retrieve_answers[2]
-      @answer_d = game.retrieve_answers[3]
-      
-      
+      @test = game.retrieve_question
+      @question = @test[0]
+      @answer_a = @test[1][0]
+      @answer_b = @test[1][1]
+      @answer_c = @test[1][2]
+      @answer_d = @test[1][3]
       mustache :index
     end
    
    post "/" do
-     @answer = params{:}
      
     end 
    
