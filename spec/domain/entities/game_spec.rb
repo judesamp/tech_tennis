@@ -12,12 +12,9 @@ module Domain
         @game.cpu_score.should == 0
       end
         
-      it "should retrive a question" do
+      it "should retrieve a question" do
          @game.retrieve_question.instance_of?(String)
       end
-        
-        
-        
         
         
       it "should accept a response" do

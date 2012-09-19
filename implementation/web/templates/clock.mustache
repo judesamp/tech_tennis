@@ -1,0 +1,70 @@
+
+<script>
+(function($){
+              $.fn.extend({
+
+                  countdown: function(options) {
+              
+                  var defaults = {
+                    
+                      secondsSelector : 'span.seconds'
+                  }
+
+                  var options =  $.extend(defaults, options);
+                  var _this  = $(this);
+                  
+                 var tick =  function()
+                  {
+                    
+                      var    seconds = _this.find(options.secondsSelector);
+                      console.log(_this);
+                      var currentSeconds=seconds.text();
+                      currentSeconds--;
+                      if(currentSeconds<0)
+                      {
+                          seconds.text("10");
+                      }
+                      else
+                      {
+                          if(currentSeconds.toString().length==1)
+                          {
+                              seconds.text('0'+currentSeconds);
+                          }
+                          else
+                          {
+                              seconds.text(currentSeconds);
+                          }
+                      }    
+                  }
+                      
+                  return _this.each(function()
+                  {
+                      console.log(_this);
+                      setInterval(tick,1000);
+                  });
+              }
+          });
+
+          })(jQuery);
+
+          $(document).ready(function()
+          {
+              $("#timer1").countdown();
+            
+          });
+
+
+//$('#current').click(function() {
+
+  //  $('#current span').text(time);
+
+//});
+	
+	
+
+	
+
+</script>
+<div id ="timer1">
+<h1><span class="seconds"></span></h1>
+</div>

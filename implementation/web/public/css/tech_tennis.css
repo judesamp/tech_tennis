@@ -1,47 +1,81 @@
 
 
 
-body {
+
+
+
+
+
+/*Opera Fix*/
+body:before {/* thanks to Maleika (Kohoutec)*/
+content:"";
+height:100%;
+float:left;
+width:0;
+margin-top:-32767px;/* thank you Erik J - negate effect of float*/
+}
+
+
+html, body {
+	height:100%;
 	background-color:#3A6629;
 	margin:0px;
 	padding:0px;
+	
 }
 #wrapper {
+	min-height: 100%;
 	width:960px;
 	margin:auto;
-	padding:0px;
-	margin-top: 0px;
-	
 	
 }
+
+#main {
+	overflow:auto;
+	margin:0px;
+	padding:0px;
+	}  /* must be same height as the footer */
 
 #header {
 	text-align:center;
-	margin-bottom:40px;
+	margin:0px;
+	padding-top:40px;
 }
+
+
 
 li.navitem {
-	display: inline;	
+	display: inline;
+	padding:10px;	
 }
 
-#hider {
-	list-style:none;
-	position:absolute;
-	left:40px;
-	top:50px;
-	width:60px;
-	}
+ul#navlist {
+list-style-type:none;
+margin:0;
+padding:0;
+}
+
+a.listlinks {
+display:block;
+width:60px;
+background-color: #820BBB;
+}
+
+
 
 #nav {
+	position:absolute;
+	display:block;
+	top: 0px;
 	background-color: #820BBB;
-	padding: 3px;
+	padding: 0px;
 	margin:0px;
+	width: 100%;
 	
 }
 
 #nav a {
 	text-decoration:none;
-	margin-right: 15px;
 	color:black;
 	
 }
@@ -49,6 +83,7 @@ li.navitem {
 #gamecontainer {
 	width:820px;
 	margin:auto;
+	padding-top:40px;
 	
 }
 #scoreboard {
@@ -70,6 +105,7 @@ li.navitem {
 }
 
 
+
 #clock {
 width: 150px;
 height: 225px;
@@ -87,21 +123,8 @@ border: 3px solid #FFE600;
 	top:50px;	
 }
 
-#answerblock {
-	clear:both;
-	text-align:center;
-	padding-top: 20px; 
-	position:relative;
-	right: 60px;
-}
 
-#footer {
-	background-color: #820BBB;
-	margin: 50px 0px 0px 0px;
-	padding: 3px;
-	
-	clear:both;
-}
+
 
 #greeting li{
 	padding:30px;
@@ -122,3 +145,35 @@ ul#answers li {
 li.cool {
 	list-style:none;
 }
+
+span.answer_list {
+	padding: 10px;
+}
+
+#a, #b, #c, #d {
+	width: 50px;
+	height: 20px;
+	padding: 10px;
+	
+}
+
+#ball {
+	position:absolute;
+	top: 140px;
+}
+
+#footer {
+	background-color: #820BBB;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	clear:both;
+	padding:0px;
+}
+
+#footer p {
+	padding: 0px;
+	margin : 0px;
+}
+
+

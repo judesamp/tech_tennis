@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require './domain/entities/game'
-require 'Haml'
+require 'json'
 
 Dir.glob(File.expand_path("./implementation/web/routes") +"/*_routes.rb").each do |file|
   require file
@@ -18,25 +18,33 @@ module Implementation
         :templates => 'implementation/web/templates/'
       }
 
-      
+      before do
+        @game = Domain::Game.new
+      end
     
     get '/' do
-      game = Domain::Game.new
-      @player_score = game.player_score
-      @cpu_score = game.cpu_score
-      @test = game.retrieve_question
-      @question = @test[0]
-      @answer_a = @test[1][0]
-      @answer_b = @test[1][1]
-      @answer_c = @test[1][2]
-      @answer_d = @test[1][3]
+      @player_score = @game.player_score
+      @cpu_score = @game.cpu_score
+      @test = @game.retrieve_question
+      @new_visit = @game.new_visit?
+      @multiplechoice = @game.multiple_choice?
+      @fillintheblank = @game.fill_in_the_blank?
       mustache :index
     end
+    
+    get '/json' do
+      @game.retrieve_question.to_json
+    end
+    
+    get '/clock' do
+       mustache :clock, :layout => false
+    end
+    
+    
+    
+   end
+ end
+
    
-   post "/" do
-     
-    end 
-   
-  end
-end
+ 
    
