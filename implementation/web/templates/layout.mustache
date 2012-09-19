@@ -16,15 +16,11 @@
 		
 		
 		<script>
-		var a;
-		var b;
-		var c;
-		var d;
+	
 		function processScore_NewQuestion(data) {
-				a = ""
-				b = ""
-				c = ""
-				d = ""
+		
+				
+				$(this).questionNumber = String(data[2]);
 			$('#question').html(data[0]);
 			$('#answer_a').html(data[1][0]);
 			$('#answer_b').html(data[1][1]);
@@ -60,14 +56,24 @@
 						
 						
 						$('#a').click(function() {
-							$.getJSON('/json', 'answer=a', processScore_NewQuestion);
-							answer = "a";
-					
-							
-		
-						}); //end "a" click
+							$.getJSON('/json', "answer=a", processScore_NewQuestion);
+							answer = "a";	
+							}); //end "a" click
 				
-			
+							$('#b').click(function() {
+								$.getJSON('/json', 'answer=b', processScore_NewQuestion);
+								answer = "b";	
+								}); //end "a" click
+								
+								$('#c').click(function() {
+									$.getJSON('/json', 'answer=c', processScore_NewQuestion);
+									answer = "c";	
+									}); //end "a" click
+									
+									$('#d').click(function() {
+										$.getJSON('/json', 'answer=d', processScore_NewQuestion);
+										answer = "d";	
+										}); //end "a" click
 				
 						 //<input type="button" value="click me" 
 						  //onclick="setTimeout('window.alert(\'Hello!\')', 2000)" />
@@ -90,7 +96,7 @@
 	
 	<body>
 	
-			<div id="wrapper">
+		
 				
 			<div id="nav">
 				<ul id="navlist">
@@ -100,7 +106,7 @@
 				</ul>
 			</div>
 			
-			
+				<div id="wrapper">
 				
 				<div id="header">
 				

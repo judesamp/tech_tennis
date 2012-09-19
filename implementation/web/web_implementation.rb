@@ -33,8 +33,14 @@ module Implementation
     end
     
     get '/json' do
+      puts params
       @game.retrieve_question.to_json
     end
+    
+    get '/user_answer' do
+      
+    end
+    
     
     get '/clock' do
        mustache :clock, :layout => false
