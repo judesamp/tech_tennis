@@ -17,15 +17,13 @@
 		
 		<script>
 	
-		function processScore_NewQuestion(data) {
-		
-				
+		function processScore_NewQuestion(data) {		
 				$(this).questionNumber = String(data[2]);
-			$('#question').html(data[0]);
-			$('#answer_a').html(data[1][0]);
-			$('#answer_b').html(data[1][1]);
-			$('#answer_c').html(data[1][2]);
-			$('#answer_d').html(data[1][3]);
+			$('#question').html(data.question_data.question);
+			$('#answer_a').html(data.question_data.answer_options[0]);
+			$('#answer_b').html(data.question_data.answer_options[1]);
+			$('#answer_c').html(data.question_data.answer_options[2]);
+			$('#answer_d').html(data.question_data.answer_options[3]);
 			$('#clock').load('/clock');
 			}
 		</script>
