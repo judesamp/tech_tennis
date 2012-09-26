@@ -41,10 +41,16 @@ module Implementation
     
     get '/question' do
       @game = Domain::Game.new
-      puts @game.retrieve_question.to_json
+      @game.retrieve_question.to_json
        
       
     end
+    
+     get '/answer' do
+        puts params
+
+
+      end
      
     get '/clock' do
        mustache :clock, :layout => false
