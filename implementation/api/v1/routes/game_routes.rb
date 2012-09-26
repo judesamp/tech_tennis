@@ -6,7 +6,7 @@ module Implementation
         @game.retrieve_question.to_json
       end
       put '/answer' do
-        
+        puts params
       end
     end
   end
