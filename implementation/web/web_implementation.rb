@@ -39,9 +39,10 @@ module Implementation
       mustache :index
     end
     
-    get '/json' do
-      puts params
-      @game.retrieve_question.to_json
+    get '/question' do
+      @game = Domain::Game.new
+      puts @game.retrieve_question.to_json
+       
       
     end
      

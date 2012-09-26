@@ -1,16 +1,18 @@
 module Domain
-  class Question
+  class QuizContentProcessor
     attr_accessor :list
     
     def initialize
-      @questions = [  
+      #move CGI::escape HTML to web layout?...I think we can run every string through it without harm.
+      
+      @HTML = [  
        {
       :quiz_id => "HTML",
       :question_id => "1",
       :last_answer_response => "wrong",
       :question => "What tag would you use to make text bold (opening tag only)?",
-      :answer => "a",
-      :answer_options => [CGI::escapeHTML("<b>"), CGI::escapeHTML("<i>"), CGI::escapeHTML("<p>"), "none of the above"],
+      :answer => "<b>",
+      :answer_options => ["<b>", "<i>", "<p>", "none of the above"],
       :answer_format => "multiple_choice"
       },
 
@@ -19,8 +21,8 @@ module Domain
       :question_id => "2",
       :last_answer_response => "wrong",
       :question => "What tag would you use to make text italic (opening tag only)?",
-      :answer => "a",
-      :answer_options => [CGI::escapeHTML("<i>"), CGI::escapeHTML("<p>"), CGI::escapeHTML("<b>"), "none of the above"],
+      :answer => "<i>",
+      :answer_options => ["<i>", "<p>", "<b>", "none of the above"],
       :answer_format => "multiple_choice"
       },
 
@@ -60,7 +62,7 @@ module Domain
       :last_answer_response => "wrong",
       :question => "What tag would you use to create an unordered list (opening tag only)?",
       :answer => "<ul>",
-      :answer_options => [CGI::escapeHTML("<ul>"), CGI::escapeHTML("<li>"), CGI::escapeHTML("<ol>"), CGI::escapeHTML("<un>")],
+      :answer_options => ["<ul>", "<li>", "<ol>", "<un>"],
       :answer_format => "multiple_choice"
       },
       {
@@ -69,7 +71,7 @@ module Domain
       :last_answer_response => "wrong",
       :question => "What tag would you use to create or contain a paragraph (opening tag only)?",
       :answer => "<p>",
-      :answer_options => [CGI::escapeHTML("<pg>"), CGI::escapeHTML("<b>"), CGI::escapeHTML("<c>"), CGI::escapeHTML("<p>")],
+      :answer_options => ["<pg>", "<b>", "<c>", "<p>"],
       :answer_format => "multiple_choice"
       },
 
@@ -79,14 +81,14 @@ module Domain
       :last_answer_response => "wrong",
       :question => "What does a closing tag contain that an opening tag does not?",
       :answer => "/",
-      :answer_options => [CGI::escapeHTML("<"), CGI::escapeHTML(">"), CGI::escapeHTML("/"), CGI::escapeHTML("*")],
+      :answer_options => ["<", ">", "/", "*"],
       :answer_format => "multiple_choice"
       }
-    ] #end of questions
-    end
+    ] 
+  end
     
    def list
-     @questions.shuffle #a.shuffle(random: Random.new(1))
+     @HTML.shuffle #a.shuffle(random: Random.new(1
    end
    
       
@@ -94,11 +96,3 @@ module Domain
     
   end
 end
-
-
-
-
-
-
-    
-    

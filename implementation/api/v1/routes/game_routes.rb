@@ -2,10 +2,12 @@ module Implementation
   module API
     class V1 < Sinatra::Base
       get '/question' do
-        puts params
+        @game = Domain::Game.new
         @game.retrieve_question.to_json
+        puts params
+        
       end
-      put '/answer' do
+      get '/answer' do
         puts params
       end
     end
