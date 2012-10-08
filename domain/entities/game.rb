@@ -11,8 +11,8 @@ module Domain
     def initialize
       connection    = Mongo::Connection.new
       db            = connection[DATABASE_NAME]
-      @questions    = db[COLLECTION_NAME[0][0]]
-      @game_data    = db[COLLECTION_NAME[1]] 
+      @questions    = db[COLLECTION_NAME][0][0]
+      @game_data    = db[COLLECTION_NAME][1] 
     
 
       #@tweets.create_index([['id', 1]], :unique => true)
@@ -93,7 +93,7 @@ module Domain
       "in progress"
     end
     
-    
+    def temp_question_to_database
     
     
   end
