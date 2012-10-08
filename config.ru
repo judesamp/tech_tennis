@@ -1,5 +1,4 @@
-DATABASE_NAME = "tech_tennis"
-COLLECTION_NAME = [["HTML", "CSS", "Ruby"]["game_data"]["player_data"]]
+
 
 
 require './init.rb'
