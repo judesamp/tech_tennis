@@ -1,3 +1,7 @@
+DATABASE_NAME = "quizzes"
+COLLECTION_NAME = [["HTML", "CSS", "Ruby"]["game_data"]["player_data"]]
+
+
 require './init.rb'
 
 
@@ -7,9 +11,9 @@ map "/" do
 	run Implementation::Web
 end
 
-#map "/api/v1/" do
-#  run Implementation::API::V1
-#end
+map "/api/v1/" do
+  run Implementation::API::V1
+end
 
 #map "/mobile" do
 #  run Implementation::Mobile

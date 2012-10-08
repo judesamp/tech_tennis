@@ -1,3 +1,5 @@
+require 'CGI'
+
 class Views
   class Layout < Mustache
      
@@ -13,6 +15,10 @@ class Views
       def fillintheblank
         @fillintheblank || false
       end
+      def quiz
+        "HTML"
+      end
+      
     end
     
   class Index < Layout 
@@ -26,12 +32,15 @@ class Views
   end
   
       class Multiplechoice < Layout
+        
+        
+        
         def question
-          @question || "error"
+          @question|| "error"
         end
 
         def answer_a
-          @answer_a || "error"
+          @answer_a|| "error"
         end
 
         def answer_b
@@ -49,6 +58,10 @@ class Views
         def next_question
           @next_question || "error"
         end
+        
+        def quiz
+          "HTML"
+        end
       end
   
   class Greeter < Index
@@ -60,6 +73,11 @@ class Views
   end
   
   class Clock < Index
+  end
+  class Incorrect < Index
+    def quiz
+      "HTML"
+    end
   end
   
 end

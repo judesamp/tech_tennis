@@ -162,6 +162,14 @@ span.answer_list {
 	top: 140px;
 }
 
+h1.answer_response {
+	font-size: 250%;
+}
+
+.tag {
+	font-size: 150%;
+}
+
 #footer {
 	background-color: #820BBB;
 	position: fixed;

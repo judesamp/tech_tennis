@@ -1,12 +1,29 @@
 require_relative 'quizcontentprocessor'
 require_relative 'player'
 require 'json'
+require 'digest/sha1'
+include ObjectSpace
 
 module Domain
   class Game
-    attr_accessor :player_score, :cpu_score, :unanswered_questions
+    attr_accessor :player_score, :cpu_score, :unanswered_questions, :id
     
     def initialize
+      connection    = Mongo::Connection.new
+      db            = connection[DATABASE_NAME]
+      @questions    = db[COLLECTION_NAME[0][0]]
+      @game_data    = db[COLLECTION_NAME[1]] 
+    
+
+      #@tweets.create_index([['id', 1]], :unique => true)
+      #@tweets.create_index([['tags', 1], ['id', -1]])
+
+      @tag = tag
+      @tweets_found = 0
+    end
+      
+      
+      @id = Digest::SHA1.hexdigest Time.now.to_s
       @player_score = 0
       @cpu_score = 0
       @questions = QuizContentProcessor.new
@@ -14,9 +31,19 @@ module Domain
       @correctly_answered_questions = []
       @incorrectly_unanswered_questions = []
     end
-  
+    
+    def self.find_by_id(id)
+      found = nil
+      ObjectSpace.each_object(Game) { |o|
+        found = o if o.id == id
+      }
+      found
+    end
+    
+    
     def retrieve_question
      @current_question = @unanswered_questions[0]
+     @current_question[:id] = @id
      remove_current_question
      @current_question
     end
@@ -72,9 +99,9 @@ module Domain
   end
 end
 
-@game = Domain::Game.new
-puts @game.retrieve_question
 
+@test = Domain::Game.new
+puts @test.id
 
 
 

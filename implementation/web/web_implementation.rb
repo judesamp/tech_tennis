@@ -2,6 +2,8 @@ require 'rubygems'
 require 'sinatra'
 require './domain/entities/game'
 require 'json'
+require 'CGI'
+
 
 Dir.glob(File.expand_path("./implementation/web/routes") +"/*_routes.rb").each do |file|
   require file
@@ -18,12 +20,12 @@ module Implementation
         :templates => 'implementation/web/templates/'
       }
 
-      before do
-        @game = Domain::Game.new
-      end
+      
     
     get '/' do
-      @game.retrieve_question.to_json
+      
+      
+      
       
       
 =begin
@@ -39,18 +41,7 @@ module Implementation
       mustache :index
     end
     
-    get '/question' do
-      @game = Domain::Game.new
-      @game.retrieve_question.to_json
-       
-      
-    end
-    
-     get '/answer' do
-        puts params
-
-
-      end
+   
      
     get '/clock' do
        mustache :clock, :layout => false
