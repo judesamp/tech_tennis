@@ -8,21 +8,7 @@ module Domain
   class Game
     attr_accessor :player_score, :cpu_score, :unanswered_questions, :id
     
-    def initialize
-      connection    = Mongo::Connection.new
-      db            = connection[DATABASE_NAME]
-      @questions    = db[COLLECTION_NAME][0][0]
-      @game_data    = db[COLLECTION_NAME][1] 
-    
-
-      #@tweets.create_index([['id', 1]], :unique => true)
-      #@tweets.create_index([['tags', 1], ['id', -1]])
-
-      @tag = tag
-      @tweets_found = 0
-    end
-      
-      
+    def initialize  
       @id = Digest::SHA1.hexdigest Time.now.to_s
       @player_score = 0
       @cpu_score = 0
@@ -93,15 +79,12 @@ module Domain
       "in progress"
     end
     
-    def temp_question_to_database
-    
     
   end
 end
 
 
-@test = Domain::Game.new
-puts @test.id
+
 
 
 
