@@ -1,4 +1,4 @@
-rrequire "./init"
+require "./init"
 require 'rspec'
 require 'rspec/expectations'
 require 'rack/test'
