@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 gem 'sinatra'
+gem 'roar'
+gem 'haml'
 gem 'mustache'
 
 group :development do
