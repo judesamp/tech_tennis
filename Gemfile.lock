@@ -42,6 +42,11 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
+    representable (1.2.7)
+      json
+      nokogiri
+    roar (0.11.3)
+      representable (>= 1.2.2)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -80,6 +85,7 @@ DEPENDENCIES
   haml
   mustache
   rack-test
+  roar
   rspec
   shotgun
   sinatra
