@@ -17,6 +17,13 @@ Dir["./implementation/**/*.rb"].each do |file|
   require file
 end
 
+# require datamapper
+#DataMapper.setup (blah)
+
+#require mongoid
+# :mongo_db = blah
+
+
 
 
 

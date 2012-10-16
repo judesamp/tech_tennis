@@ -1,4 +1,8 @@
 require './init.rb'
+
+DATABASE_NAME = "tech_tennis"
+COLLECTION_NAME = [["HTML", "CSS", "Ruby"]["game_data"]["player_data"]]
+
 # ::Views = Module.new #ask Ryan about this and view logic page!!!
 
 map "/" do

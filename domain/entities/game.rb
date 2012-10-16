@@ -1,11 +1,13 @@
 require_relative 'quizcontentprocessor'
 require_relative 'player'
 require 'json'
+#require 'mongo'
 require 'digest/sha1'
 include ObjectSpace
 
 module Domain
   class Game
+     # include Persistence::GameData
     attr_accessor :player_score, :cpu_score, :unanswered_questions, :id
     
     def initialize  
@@ -16,6 +18,12 @@ module Domain
       @unanswered_questions = @questions.list
       @correctly_answered_questions = []
       @incorrectly_unanswered_questions = []
+      
+        #connection = Mongo::Connection.new
+        #db         = connection.db(DATABASE_NAME)
+        #@quiz = db.collection('quiz')
+        #@id = @quiz.insert(@unanswered_questions)
+      
     end
     
     def self.find_by_id(id)
