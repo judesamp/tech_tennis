@@ -4,6 +4,10 @@ require 'bundler/setup'
 require 'thin'
 require 'shotgun'
 require 'mustache/sinatra'
+require 'data_mapper'
+require 'dm-postgres-adapter'
+
+
 
 Bundler.require(:default)
 
@@ -17,8 +21,10 @@ Dir["./implementation/**/*.rb"].each do |file|
   require file
 end
 
-# require datamapper
-#DataMapper.setup (blah)
+DataMapper.setup :default, 'postgres://localhost/tech_tennis'
+DataMapper.auto_upgrade!
+
+##DataMapper.finalize.auto_upgrade!
 
 #require mongoid
 # :mongo_db = blah

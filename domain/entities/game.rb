@@ -8,7 +8,7 @@ include ObjectSpace
 module Domain
   class Game
      # include Persistence::GameData
-    attr_accessor :player_score, :cpu_score, :unanswered_questions, :id
+    attr_accessor :player_score, :cpu_score, :unanswered_questions, :id, :all_questions
     
     def initialize  
       @id = Digest::SHA1.hexdigest Time.now.to_s
@@ -34,6 +34,9 @@ module Domain
       found
     end
     
+    def all_questions
+      @unanswered_questions.to_a
+    end
     
     def retrieve_question
      @current_question = @unanswered_questions[0]

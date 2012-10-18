@@ -3,9 +3,15 @@ require 'sinatra'
 require './domain/entities/game'
 require 'json'
 require 'CGI'
+require 'data_mapper'
+require 'dm-validations'
 
 
 Dir.glob(File.expand_path("./implementation/web/routes") +"/*_routes.rb").each do |file|
+  require file
+end
+
+Dir.glob(File.expand_path("./persistence") +"/*.rb").each do |file|
   require file
 end
 
@@ -23,8 +29,22 @@ module Implementation
       
     
     get '/' do
+      @new = Domain::Game.new
+      y = 
+      x = @new.all_questions
+      puts x
+      @quiz = Persistence::Quiz.create(:quiz_id => "HTML")
+
+      
+      x.each do |question_array|
+        @questions = Persistence::Question.create(question_array)
+      end
+      
+      puts Persistence::Question.all().inspect
       
       
+         
+     
       
       
       
