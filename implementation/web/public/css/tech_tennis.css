@@ -80,6 +80,22 @@ background-color: #820BBB;
 	
 }
 
+#ready {
+	display:none;
+}
+
+#correct {
+	display:none;
+}
+
+#incorrect {
+	display:none;
+}
+
+#multiplechoice {
+	display:none;
+}
+
 #gamecontainer {
 	width:820px;
 	margin:auto;
@@ -113,8 +129,6 @@ background-color: #F5F5F5;
 text-align: center;
 float:right;
 border: 3px solid #FFE600;
-
-
 }
 
 #clock h1 {

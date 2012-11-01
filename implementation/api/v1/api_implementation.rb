@@ -1,8 +1,7 @@
 require 'rubygems'
-require 'sinatra'
 require './domain/entities/game'
 require 'Haml'
-
+# 
 Dir.glob(File.expand_path("./implementation/api/v1/routes") +"/*_routes.rb").each do |file|
   require file
 end

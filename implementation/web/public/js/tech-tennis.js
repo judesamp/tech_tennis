@@ -9,14 +9,15 @@ var dataDealer = {
 	
 
 	processNewQuestion: function (game_data) {
+		alert('yep');
 				dataDealer.dataHolder(game_data);
 			
 				$('#question').html(dataDealer.incoming_data.question);
-				$('#answer_a').html(dataDealer.incoming_data.answer_options[0]);
-				$('#answer_b').html(dataDealer.incoming_data.answer_options[1]);
-				$('#answer_c').html(dataDealer.incoming_data.answer_options[2]);
-				$('#answer_d').html(dataDealer.incoming_data.answer_options[3]);
-				$('#clock').load('/clock');
+				//$('#answer_a').html(dataDealer.incoming_data.answer_options[0]);
+				//$('#answer_b').html(dataDealer.incoming_data.answer_options[1]);
+				//$('#answer_c').html(dataDealer.incoming_data.answer_options[2]);
+				//$('#answer_d').html(dataDealer.incoming_data.answer_options[3]);
+				//$('#clock').load('/clock');
 		},
 
 			processAnswer: function() {
@@ -57,15 +58,10 @@ var dataDealer = {
 	
 		dataDealer.dataHolder = dataHolder; 
 	
-$(document).ready(function() {
-	$('#ready').hide();
-	$('#correct').hide();
-	$('#incorrect').hide();
-	$('#multiplechoice').hide();
-	
+$(document).ready(function() {	
 		$('#playasguestbutton').click(function(){
 			$('#greeter').hide();
-			$.getJSON('api/v1/question', dataDealer.processNewQuestion);
+			$.getJSON('api/v1/start', dataDealer.processNewQuestion);
 			$('#ready').fadeIn().delay(1200).fadeOut(function() {
 				$("#multiplechoice").fadeIn();
 			

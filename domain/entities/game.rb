@@ -1,23 +1,46 @@
 require_relative 'quizcontentprocessor'
 require_relative 'player'
-require 'json'
-#require 'mongo'
-require 'digest/sha1'
-include ObjectSpace
 
 module Domain
   class Game
-     # include Persistence::GameData
     attr_accessor :player_score, :cpu_score, :unanswered_questions, :id, :all_questions
+    # My expected API for Persistence is:
+    # Persistence::GameData is the main api point from a persistence context
+    # Persistence::GameData.find(:id)
+    # Persistence::GameData.all_questions
+    # Persistence::GameData.correct_questions
+    # Persistence::GameData.incorrect_questions
+    # Persistence::Question.some_method if it makes sense
+    
+    # probably how we DRY up the code across classes
+    # include Persistence::Find
+    # include Persistence::Save
     
     def initialize  
-      @id = Digest::SHA1.hexdigest Time.now.to_s
-      @player_score = 0
-      @cpu_score = 0
       @questions = QuizContentProcessor.new
-      @unanswered_questions = @questions.list
-      @correctly_answered_questions = []
-      @incorrectly_unanswered_questions = []
+      @all_questions = @questions.list
+      
+      #### database stuff  #####
+      user = Persistence::UserData.create()
+      @user_id = user[:id]
+      @this_game_data = Persistence::GameData.new()
+      @this_game_data.user_data = Persistence::UserData.get(@user_id)
+      
+      @this_game_data.save
+      @game_id = @this_game_data[:id]
+      
+      @all_questions.each do |question|
+        x = Persistence::Question.new(question)
+        x.game_data = Persistence::UserData.get(@user_id)
+        x.save
+      end
+      #### database stuff  #####
+        
+        
+        
+     
+        
+      
       
         #connection = Mongo::Connection.new
         #db         = connection.db(DATABASE_NAME)
@@ -26,27 +49,43 @@ module Domain
       
     end
     
-    def self.find_by_id(id)
-      found = nil
-      ObjectSpace.each_object(Game) { |o|
-        found = o if o.id == id
-      }
-      found
-    end
+    
     
     def all_questions
       @unanswered_questions.to_a
     end
     
     def retrieve_question
-     @current_question = @unanswered_questions[0]
-     @current_question[:id] = @id
-     remove_current_question
-     @current_question
+      @all_questions = Persistence::GameData.all_questions(@game_id)
+      @current_question = @all_questions[0]
+      @current_question
+      # break if incoming_data == nil
+      #                  else
+      #                    processed_answer = process_current_answer(incoming_data)
+      #                end
+      
     end
     
-    def remove_current_question 
-      @unanswered_questions.shift
+    def retrieve_game_data
+      @this_game_data
+    end
+        
+      
+      # process the current answer
+      # return response on answer
+      # return only question data NEEDED for jQuery (as per the Respresenter)
+      # AND it should not be the same key names as anything in @game
+      
+      
+     # @current_question = @unanswered_questions[0]
+     # @current_question[:id] = @id
+     # remove_current_question
+     # #@current_question[:answer_options].map! {|value| CGI::escapeHTML(value)}
+     # @current_question.game_id = id
+    end
+    
+    def update_current_question 
+      
     end
     
     def new_visit?(user_response=true)
@@ -90,9 +129,10 @@ module Domain
       "in progress"
     end
     
-    
   end
-end
+
+
+
 
 
 

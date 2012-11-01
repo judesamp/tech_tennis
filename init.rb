@@ -4,6 +4,8 @@ require 'bundler/setup'
 require 'thin'
 require 'shotgun'
 require 'mustache/sinatra'
+require 'roar/representer/json'
+require 'roar/representer/feature/hypermedia'
 require 'data_mapper'
 require 'dm-postgres-adapter'
 
@@ -18,6 +20,11 @@ end
 
 # Load all implementation files.
 Dir["./implementation/**/*.rb"].each do |file|
+  require file
+end
+
+# Load all implementation files.
+Dir["./persistence/**/*.rb"].each do |file|
   require file
 end
 
