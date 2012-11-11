@@ -6,16 +6,17 @@ module Implementation
     class V1 < Sinatra::Base
       
       get '/start' do
-        @game = Domain::Game.new
-        @start_game = Play.new.extend(PlayRepresenter)
-        @game_data = {:user_game => "0", :opponent_game => "0", :last_result => false}
-        @start_game.question_data = @game.retrieve_question
-        @start_game.game_data = @game_data
+        @game = Domain::Game.new(2).extend(PlayRepresenter)
+        # #@start_game = Play.new.extend(PlayRepresenter)
+        #         @game_data = {:user_game => "0", :opponent_game => "0", :last_result => false}
+        #@start_game.question_data = @game.retrieve_question
+        #@start_game.game_data = @game_data
         
-        puts @start_game.to_json.inspect
+        #puts @start_game.to_json.inspect
         
-        @start_game.to_json
-        
+        #@start_game.to_json
+        puts @game.retrieve_question.to_json
+        @game.retrieve_question.to_json
         
         
         
@@ -28,8 +29,10 @@ module Implementation
       
       get '/play' do
         puts params
-        @game = Domain::Game.new
+        @game = Domain::Game.find_game(params[:question_data][:game_data_id])
+        ## consume!(@game, :represent_with => AnswerRepresenter)
         
+          
         @answer = @game.process_answer(params[:question_data][:game_data_id], params[:question_data][:id], params[:question_data][:user_answer])
         @score_now = @game.process_score(params[:question_data][:game_data_id])
         puts @score_now.inspect

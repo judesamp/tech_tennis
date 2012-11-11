@@ -5,6 +5,7 @@ require 'cgi'
 module Domain
   class Game
     attr_accessor :player_score, :cpu_score, :unanswered_questions, :id, :all_questions
+    attr_writer :answer
     # My expected API for Persistence is:
     # Persistence::GameData is the main api point from a persistence context
     # Persistence::GameData.find(:id)
@@ -17,45 +18,22 @@ module Domain
     # include Persistence::Find
     # include Persistence::Save
     
-    def initialize  
-      @questions = QuizContentProcessor.new
-      @all_questions = @questions.list
-      player_score = 0
-      
-      
-      #### database stuff  #####
-       user = Persistence::UserData.create()
-           @user_id = user[:id]
-                @this_game_data = Persistence::GameData.new()
-                @this_game_data.user_data = Persistence::UserData.get(@user_id)
-              
-                @this_game_data.save
-                @game_id = @this_game_data[:id]
-              
-                @all_questions.each do |question|
-                  x = Persistence::Question.new(question)
-                  x.game_data = Persistence::UserData.get(@user_id)
-                  x.save
+    def initialize(user_id) 
+      Persistence::UserData.create() 
+        @game_data = Persistence::GameData.create(:user_data_id => user_id)
+        @game_id = @game_data[:id]
+         
+        @processor = QuizContentProcessor.new
+        @all_processor_questions = @processor.list          
+        @all_processor_questions.each do |processor_question|
+          question = Persistence::Question.create(processor_question)
+          @game_data.questions << question
+          @game_data.questions.save
+        end
       end
-      #### database stuff  #####
-        
-        
-        
-     
-        
-      
-      
-        #connection = Mongo::Connection.new
-        #db         = connection.db(DATABASE_NAME)
-        #@quiz = db.collection('quiz')
-        #@id = @quiz.insert(@unanswered_questions)
-      
-end
-    
     
     def self.find_game(game_id)
-      @game_instance = Persistence::GameData.find(game_id)
-      @game_instance
+      @game = Persistence::GameData.get(game_id)
     end
     
     def all_questions
@@ -65,9 +43,8 @@ end
     def retrieve_question(game_id = @game_id)
       @all_questions = Persistence::GameData.all_questions(game_id)
       @sorted_questions = @all_questions.all(:order=>[:times_asked.asc])
-      @current_question = @sorted_questions.first(:fields => [:times_asked, :id, :question, :game_data_id, :answer_option_a, :answer_option_b, :answer_option_c, :answer_option_d, :answer_format])
+      @current_question = @sorted_questions.first
       @current_question[:times_asked] = @current_question[:times_asked] + 1
-      puts @current_question.inspect
       @current_question.save
       @current_question[:answer_option_a] = CGI::escapeHTML(@current_question[:answer_option_a])
       @current_question[:answer_option_b] = CGI::escapeHTML(@current_question[:answer_option_b])
@@ -86,6 +63,8 @@ end
       #                end
       
     end
+    
+    
     
     def retrieve_game_data
       @this_game_data

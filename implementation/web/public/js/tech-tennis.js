@@ -10,16 +10,16 @@ var dataDealer = {
 
 	processNewQuestion: function (game_data) {
 				dataDealer.dataHolder(game_data);
-				if (dataDealer.incoming_data.game_data.last_result) {
-				dataDealer.processAnswer(dataDealer.incoming_data.game_data.last_result);
-			};
-				$('#player_score').html(dataDealer.incoming_data.game_data.user_game).fadeIn();
-				$('#opponent_score').html(dataDealer.incoming_data.game_data.opponent_game).fadeIn();
-				$('#question').html(dataDealer.incoming_data.question_data.question);
-					$('#answer_a').html(dataDealer.incoming_data.question_data.answer_option_a);
-					$('#answer_b').html(dataDealer.incoming_data.question_data.answer_option_b);
-					$('#answer_c').html(dataDealer.incoming_data.question_data.answer_option_c);
-					$('#answer_d').html(dataDealer.incoming_data.question_data.answer_option_d);
+				//if (dataDealer.incoming_data.game_data.last_result) {
+				//dataDealer.processAnswer(dataDealer.incoming_data.game_data.last_result);
+			//};
+			//	$('#player_score').html(dataDealer.incoming_data.game_data.user_game).fadeIn();
+			//	$('#opponent_score').html(dataDealer.incoming_data.game_data.opponent_game).fadeIn();
+				$('#question').html(dataDealer.incoming_data.question);
+					$('#answer_a').html(dataDealer.incoming_data.answer_option_a);
+					$('#answer_b').html(dataDealer.incoming_data.answer_option_b);
+					$('#answer_c').html(dataDealer.incoming_data.answer_option_c);
+					$('#answer_d').html(dataDealer.incoming_data.answer_option_d);
 					$('#clock').load('/clock');		
 					
 				
