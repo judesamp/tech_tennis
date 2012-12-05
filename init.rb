@@ -8,6 +8,8 @@ require 'roar/representer/json'
 require 'roar/representer/feature/hypermedia'
 require 'data_mapper'
 require 'dm-postgres-adapter'
+require 'pry'
+require 'pry-doc'
 
 
 

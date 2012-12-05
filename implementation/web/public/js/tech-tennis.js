@@ -8,13 +8,18 @@ var dataDealer = {
 
 	
 
-	processNewQuestion: function (game_data) {
+	processNewQuestion: function(game_data) {
 				dataDealer.dataHolder(game_data);
-				//if (dataDealer.incoming_data.game_data.last_result) {
-				//dataDealer.processAnswer(dataDealer.incoming_data.game_data.last_result);
-			//};
-			//	$('#player_score').html(dataDealer.incoming_data.game_data.user_game).fadeIn();
-			//	$('#opponent_score').html(dataDealer.incoming_data.game_data.opponent_game).fadeIn();
+				if (dataDealer.incoming_data.last_result) {
+				dataDealer.processAnswer(dataDealer.incoming_data.last_result);
+			};
+			$('#player_game_score').html(dataDealer.incoming_data.user_set).fadeIn();
+			$('#opponent_game_score').html(dataDealer.incoming_data.opponent_set).fadeIn();
+			$('#player_score').html(dataDealer.incoming_data.user_game).fadeIn();
+			$('#opponent_score').html(dataDealer.incoming_data.opponent_game).fadeIn();
+			
+			
+			
 				$('#question').html(dataDealer.incoming_data.question);
 					$('#answer_a').html(dataDealer.incoming_data.answer_option_a);
 					$('#answer_b').html(dataDealer.incoming_data.answer_option_b);
@@ -69,22 +74,22 @@ $(document).ready(function() {
 			
 			
 					$('#a').click(function() {
-						dataDealer.incoming_data.question_data.user_answer = $('#answer_a').text();
+						dataDealer.incoming_data.user_answer = $('#answer_a').text();
 						$.getJSON('api/v1/play', dataDealer.incoming_data, dataDealer.processNewQuestion);	
 						}); //end "a" click
 
 						$('#b').click(function() {
-							dataDealer.incoming_data.question_data.user_answer = $('#answer_b').text();
+							dataDealer.incoming_data.user_answer = $('#answer_b').text();
 							$.getJSON('api/v1/play', dataDealer.incoming_data, dataDealer.processNewQuestion);
 							}); //end "b" click
 
 							$('#c').click(function() {
-								dataDealer.incoming_data.question_data.user_answer = $('#answer_c').text();
+								dataDealer.incoming_data.user_answer = $('#answer_c').text();
 								$.getJSON('api/v1/play', dataDealer.incoming_data, dataDealer.processNewQuestion);
 								}); //end "c" click
 
 								$('#d').click(function() {
-									dataDealer.incoming_data.question_data.user_answer = $('#answer_d').text();
+									dataDealer.incoming_data.user_answer = $('#answer_d').text();
 									$.getJSON('api/v1/play', dataDealer.incoming_data, dataDealer.processNewQuestion);	
 									}); //end "d" click
 

@@ -10,9 +10,18 @@ class Views
       @player_score || "0"
     end
       
-    def cpu_score
+    def opponent_score
       @cpu_score || "0"
     end
+    
+    def player_game_score
+      @player_game_score || "0"
+    end
+    
+    def opponent_game_score
+      @opponent_game_score || "0"
+    end
+    
   end
   
     

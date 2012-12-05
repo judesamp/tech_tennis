@@ -11,6 +11,8 @@ group :development do
   gem 'thin'
   gem 'shotgun'
   gem 'haml'
+  gem 'pry' 
+  gem 'pry-doc'
 end
 
 group :test do

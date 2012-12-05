@@ -1,6 +1,9 @@
 require './init.rb'
 
+
 # ::Views = Module.new #ask Ryan about this and view logic page!!!
+     
+
 
 map "/" do
 	run Implementation::Web

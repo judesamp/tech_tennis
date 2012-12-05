@@ -1,14 +1,104 @@
-<ul>
-	<li class="cool">
-		<h3 class="playerone">Player One</h3>
-		<h4 id="player_score">{{player_score}}</h4>
-	</li>
+<style>
 
-	<li class="cool">
-		<h3 class="tech_category">HTML</h3>
-		<h4 id="opponent_score">{{cpu_score}}</h4>
-	</li>
-</ul>
+
+table#top {
+	margin-bottom: 25px;
+	margin-left: 50px;
+	margin-top: 15px;
+	width: 150px;
+}
+
+caption#top {
+	font-size: 120%;
+	margin-bottom: 5px;
+	font-weight: bold;
+	
+}
+
+
+table#bottom {
+	margin-left: 50px;
+	width: 150px;
+}
+
+caption#bottom {
+	font-size: 120%;
+	font-weight: bold;
+}
+
+td {
+	text-align:center;
+}
+
+</style>
+
+<table border="1" id="top" >
+
+		<caption id="top">Player One</caption>
+		
+	
+	<tr>
+		<th class="scoreboard_header">Games</th>
+		<th class="scoreboard_header">Points</th>
+	</tr>
+	
+	<tr>
+		<td id="player_game_score">{{player_game_score}}</td>
+		<td id="player_score">{{player_score}}</td>
+	</tr>
+</table>
+
+<table id="bottom" border="1">
+
+		<caption id="bottom">HTML</caption>
+	
+	
+	<tr>
+		<th class="scoreboard_header">Games</th>
+		<th class="scoreboard_header">Points</th>
+	</tr>
+	
+	<tr>
+		<td id="opponent_game_score">{{opponent_game_score}}</td>
+		<td id="opponent_score">{{opponent_score}}</td>
+	</tr>
+</table>
+
+
+
+	
+	
+	
+	
+	<!-- <li class="cool">
+			<h3 class="playerone">Player One</h3>
+			<ul class = "player_scoreboard_headings_list">
+				<li class = "player_scoreboard_headings">Games</li>
+				<li class = "player_scoreboard_headings">Points</li>
+			</ul>
+		</li>
+		<li class="cool">
+			<ul class = "player_scoreboard_list">
+				<li class ="player_scoreboard"><span id="player_score">{{player_score}}</span></li>
+				<li class ="player_scoreboard"><span id="player_game_score">{{player_game_score}}</span></li>
+			</ul>
+		</li>
+
+
+		<li class="cool">
+			<h3 class="tech_category">HTML</h3>
+			<ul class = "player_scoreboard_headings_list">
+				<li class = "player_scoreboard_headings"><span>Games</span></li>
+				<li class = "player_scoreboard_headings"><span>Points</span></li>
+			</ul>
+		</li>
+		<li class="cool">
+			<ul class = "player_scoreboard_list">
+				<li class ="player_scoreboard"><span id="opponent_score">{{cpu_score}}</span></li>
+				<li class ="player_scoreboard"><span id="opponent_game_score">{{opponent_game_score}}</span></li>
+			</ul>
+		</li>
+	</ul> -->
 
 
 

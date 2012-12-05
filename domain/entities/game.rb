@@ -34,10 +34,23 @@ module Domain
     
     def self.find_game(game_id)
       @game = Persistence::GameData.get(game_id)
+      @game = self.allocate
     end
     
     def all_questions
       @unanswered_questions.to_a
+    end
+    
+    def retrieve_begin_game_data(game_id = @game_id)
+      question = JSON.parse(retrieve_question(game_id).to_json)
+      gamedata = begin_game_data
+      data_egg = gamedata.merge(question).to_json
+    end
+    
+    def retrieve_continued_game_data(game_id, current_scores)
+      question = JSON.parse(retrieve_question(game_id).to_json)
+      gamedata = continue_game_data(current_scores)
+      data_egg = gamedata.merge(question).to_json
     end
     
     def retrieve_question(game_id = @game_id)
@@ -51,25 +64,17 @@ module Domain
       @current_question[:answer_option_c] = CGI::escapeHTML(@current_question[:answer_option_c])
       @current_question[:answer_option_d] = CGI::escapeHTML(@current_question[:answer_option_d])
       @current_question
-     
-      
-      #@current_question_data = @all_questions[0]
-      
-      
-      
-      # break if incoming_data == nil
-      #                  else
-      #                    processed_answer = process_current_answer(incoming_data)
-      #                end
-      
     end
     
-    
-    
-    def retrieve_game_data
-      @this_game_data
-      puts @this_game_data
+    def begin_game_data
+      {:user_game => "0", :opponent_game => "0", :last_result => false, :user_set => "0", :opponent_set => "0"}
     end
+    
+    def continue_game_data(current_scores)
+      @continued_game_data = {:user_game => current_scores[:user_game], :opponent_game => current_scores[:opponent_game], :user_set => current_scores[:user_set], :opponent_set => current_scores[:opponent_set], :last_result => @answer}
+    end
+    
+ 
         
       
       # process the current answer
@@ -121,7 +126,7 @@ module Domain
         #what to send back
          
       else
-        puts "nope!"
+        
         @get_game[:opponent_score] = @get_game[:opponent_score] + 1
         @get_game[:last_result] = 1
         @get_current_question[:last_user_answer] = user_answer
@@ -132,11 +137,6 @@ module Domain
         #process_score(game_id)
         @get_game[:last_result]
       end
-     #puts game_id
-     #puts user_answer 
-     #@submitted_answer = game_data
-      #
-      #correct? ? award_player_point : award_cpu_point
     end
     
     def process_score(game_id)
@@ -145,22 +145,18 @@ module Domain
       @user_points = @scores[:user_score]
       @opponent_points = @scores[:opponent_score]
       @total_points = @user_points + @opponent_points
-      # print "User: "
-      #       puts @user_points 
-      #       print "CPU: "
-      #       puts @opponent_points
-      #       
+    
       if @total_points < 6
         if @user_points > 3
           @scores[:user_game] = end_game_message(true, @scores[:current_role])
           @scores[:opponent_game] = @tennis_game_one[@opponent_points]
-          reset_game(game_id)
+          reset_game(game_id, true)
           @scores
         elsif @opponent_points > 3
          
            @scores[:user_game] = @tennis_game_one[@user_points]
             @scores[:opponent_game] = end_game_message(false, @scores[:current_role])
-            reset_game(game_id)
+            reset_game(game_id, false)
             @scores
         else
           @scores[:user_game] = @tennis_game_one[@user_points]
@@ -181,7 +177,7 @@ module Domain
           
           @scores[:user_game] = end_game_message(true, @scores[:current_role])
           @scores[:opponent_game] = "-"
-          reset_game(game_id)
+          reset_game(game_id, true)
           @scores
         elsif @opponent_points - @user_points == 1
           @scores[:user_game] = "-"
@@ -191,7 +187,7 @@ module Domain
           
           @scores[:user_game] = "-"
           @scores[:opponent_game] = end_game_message(false, @scores[:current_role])
-          reset_game(game_id)
+          reset_game(game_id, false)
           @scores
         
       end
@@ -214,7 +210,7 @@ module Domain
       end
     end
     
-    def reset_game(game_id)
+    def reset_game(game_id, winner)
       #reset to 0 or "0"---- user_game, user_score, opponent_game, opponent_score
       #different method? change user_set, change opponent_set
       @in_progress_game = Persistence::GameData.first(:id => game_id)
@@ -222,6 +218,11 @@ module Domain
         @in_progress_game[:user_score] = 0
         @in_progress_game[:opponent_game] = "0"
         @in_progress_game[:opponent_score] = 0
+          if winner
+          @in_progress_game[:user_set] += 1
+          else
+          @in_progress_game[:opponent_set] += 1
+          end
       @in_progress_game.save
       
     end
