@@ -28,22 +28,7 @@ module Domain
     belongs_to :user
     has n, :questions
     
-    # def self.all_questions(game_id)
-    #   Question.all(:game_data_id => game_id)
-    # end
-    #   
-    # def self.sorted_by_times_asked
-    #   all_questions(:order => [:times_asked.asc])
-    # end
-    # 
-    # def self.current_question
-    #   sorted_by_times_asked.first
-    # end
-    # 
-    # def self.find(game_id)
-    #   GameDatum.all(:id => game_id)
-    # end
-    
+    #"after" hook
     after :create, :add_default_questions
     
     def add_default_questions

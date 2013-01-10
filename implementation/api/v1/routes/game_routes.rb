@@ -5,8 +5,7 @@ module Implementation
       get '/start' do
         @user = Domain::User.get(2)
         @game = Domain::Game.create
-        @game.user = 
-        
+        @game.user = @user
         @begin_game_data_send = Play.new.extend(PlayRepresenter)
         @begin_game_data_send.from_json(@game.retrieve_begin_game_data)
         @begin_game_data_send.to_json
