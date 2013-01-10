@@ -1,56 +1,63 @@
 require_relative 'quizcontentprocessor'
+require_relative "../../persistence/game_data" #why necessary
 require_relative 'player'
 require 'cgi'
 
+
 module Domain
   class Game
-    attr_accessor :player_score, :cpu_score, :unanswered_questions, :id, :all_questions
-    attr_writer :answer
-    # My expected API for Persistence is:
-    # Persistence::GameData is the main api point from a persistence context
-    # Persistence::GameData.find(:id)
-    # Persistence::GameData.all_questions
-    # Persistence::GameData.correct_questions
-    # Persistence::GameData.incorrect_questions
-    # Persistence::Question.some_method if it makes sense
+     ## this gives you class methods (.all, .first_or_create(), etc.)
+    include Persistence::GameDatum ##this give you property access (completed_in, user_score,etc)
+    extend Persistence::GameDatum::ClassMethods
+
+   
     
-    # probably how we DRY up the code across classes
-    # include Persistence::Find
-    # include Persistence::Save
+    
     
     def initialize(user_id) 
       Persistence::UserData.create() 
-        @game_data = Persistence::GameData.create(:user_data_id => user_id)
-        @game_id = @game_data[:id]
-         
-        @processor = QuizContentProcessor.new
-        @all_processor_questions = @processor.list          
-        @all_processor_questions.each do |processor_question|
-          question = Persistence::Question.create(processor_question)
-          @game_data.questions << question
-          @game_data.questions.save
-        end
+      @game_data = Domain::Game.create(:user_data_id => user_id)
+      @processor = QuizContentProcessor.new
+      @all_processor_questions = @processor.list          
+      @all_processor_questions.each do |processor_question|
+      question = Persistence::Question.create(processor_question)
+        @game_data.questions << question
+        @game_data.questions.save
       end
-    
-    def self.find_game(game_id)
-      @game = Persistence::GameData.get(game_id)
-      @game = self.allocate
     end
     
-    def all_questions
-      @unanswered_questions.to_a
+    def questions
+      questions
     end
+    # def self.find_game(game_id)
+    #   @game = Persistence::GameData.get(game_id)
+    #   #@game = self.allocate
+    # end
+    # 
+    # def all_questions
+    #   @unanswered_questions.to_a
+    # end
     
-    def retrieve_begin_game_data(game_id = @game_id)
+    
+    
+    def retrieve_begin_game_data(game_id = @game_data.id)
       question = JSON.parse(retrieve_question(game_id).to_json)
       gamedata = begin_game_data
       data_egg = gamedata.merge(question).to_json
     end
     
-    def retrieve_continued_game_data(game_id, current_scores)
+    def begin_game_data
+      {:user_game => "0", :opponent_game => "0", :last_result => 0, :user_set => "0", :opponent_set => "0"}
+    end
+    
+    def retrieve_continued_game_data(game_id, current_scores, result)
       question = JSON.parse(retrieve_question(game_id).to_json)
-      gamedata = continue_game_data(current_scores)
+      gamedata = continue_game_data(current_scores, result)
       data_egg = gamedata.merge(question).to_json
+    end
+    
+    def continue_game_data(current_scores, result)
+      @continued_game_data = {:user_game => current_scores[:user_game], :opponent_game => current_scores[:opponent_game], :user_set => current_scores[:user_set], :opponent_set => current_scores[:opponent_set], :last_result => result}
     end
     
     def retrieve_question(game_id = @game_id)
@@ -66,17 +73,6 @@ module Domain
       @current_question
     end
     
-    def begin_game_data
-      {:user_game => "0", :opponent_game => "0", :last_result => false, :user_set => "0", :opponent_set => "0"}
-    end
-    
-    def continue_game_data(current_scores)
-      @continued_game_data = {:user_game => current_scores[:user_game], :opponent_game => current_scores[:opponent_game], :user_set => current_scores[:user_set], :opponent_set => current_scores[:opponent_set], :last_result => @answer}
-    end
-    
- 
-        
-      
       # process the current answer
       # return response on answer
       # return only question data NEEDED for jQuery (as per the Respresenter)
@@ -105,33 +101,34 @@ module Domain
       fill_in_the_blank
     end
     
+    def process_answer_and_score(game_id, question_id, user_answer)
+      processed_answer = process_answer(game_id, question_id, user_answer)
+      processed_score = process_score(game_id)
+      retrieve_continued_game_data(game_id, processed_score, processed_answer)
+    end
+    
     def process_answer(game_id, question_id, user_answer, elapsed_seconds = 5)
       @get_game = Persistence::GameData.first(:id => game_id)
       @get_all_questions = Persistence::GameData.all_questions(game_id)
       @get_current_question = @get_all_questions.first(:id => question_id)
       
       if @get_current_question[:answer] == user_answer.chomp
-        
-     
         @get_game[:user_score] = @get_game[:user_score] + 1
         @get_game[:completed_in] = elapsed_seconds
         @get_game[:leftover_time] = @get_game[:leftover_time] + (10 - elapsed_seconds)
         @get_current_question[:last_user_answer] = user_answer
         @get_game[:last_result] = 2
-        
-        
+
         @get_game.save
         @get_current_question.save
         @get_game[:last_result]
         #what to send back
          
       else
-        
         @get_game[:opponent_score] = @get_game[:opponent_score] + 1
         @get_game[:last_result] = 1
         @get_current_question[:last_user_answer] = user_answer
-        
-        
+
         @get_game.save
         @get_current_question.save
         #process_score(game_id)

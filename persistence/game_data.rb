@@ -1,25 +1,8 @@
 require 'data_mapper'
 require 'dm-postgres-adapter'
 
-DataMapper.setup :default, 'postgres://localhost/tech_tennis'
-
 module Persistence
-  class UserData
-    include DataMapper::Resource
-    
-    property :id,                 Serial
-    property :user_type,          String, :default => "guest"
-    property :history,            Object, :default => []
-    property :completed_quizzes,  Object, :default => []
-    property :first_name,         String
-    property :last_name,          String
-    property :email,              String, :format => :email_address
-    property :password,           String, :length => 10..255  
-    
-    has n, :game_data
-  end
-  
-  class GameData
+  module GameDatum #this becomes a module which is included in Domain::Game
     include DataMapper::Resource
     #actual fields on the table
     property :id,                             Serial
@@ -42,6 +25,16 @@ module Persistence
     #associations with other tables
     belongs_to :user_data
     has n, :questions
+    
+    module ClassMethods
+      include DataMapper::Resource
+      property :id,                             Serial
+    end
+    
+    def self.included(base)
+      base.extend(ClassMethods)
+    end
+    
     
     #scopes into your data
     #all_questions = Question.all
@@ -69,12 +62,27 @@ module Persistence
     end
     
     def self.find(game_id)
-      GameData.all(:id => game_id)
+      GameDatum.all(:id => game_id)
     end
     
-  end
+    
 
-  class Question
+    
+
+    
+       
+    end
+    
+     
+  
+    #THIS WILL BE FOR THE EXTEND PORTION OF THE Domain::Game
+    
+    
+  
+     
+     
+    
+  class Question #this remains a class
       include DataMapper::Resource
     property :id,                Serial
     property :quiz_id,          String
@@ -90,7 +98,7 @@ module Persistence
     property :times_asked,      Integer, :default => 0
     
   
-    belongs_to :game_data
+    belongs_to :game_datum
     
     def self.times_asked_increment(question_id)
       question = Question.first(:question_id => question_id)
@@ -99,6 +107,7 @@ module Persistence
     end
     
   end
+
 end
 
 

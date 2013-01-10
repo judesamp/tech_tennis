@@ -13,6 +13,8 @@ group :development do
   gem 'haml'
   gem 'pry' 
   gem 'pry-doc'
+  gem 'sinatra'
+  gem 'mustache'
 end
 
 group :test do
