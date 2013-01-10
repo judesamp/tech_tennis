@@ -11,6 +11,6 @@ module Persistence
     property :email,              String, :format => :email_address
     property :password,           String, :length => 10..255  
     
-    has n, :game_data
+    has n, :games
   end
 end

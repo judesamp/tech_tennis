@@ -11,8 +11,6 @@ require 'dm-postgres-adapter'
 require 'pry'
 require 'pry-doc'
 
-
-
 Bundler.require(:default)
 
 # Load all domain files.
@@ -25,7 +23,7 @@ Dir["./implementation/**/*.rb"].each do |file|
   require file
 end
 
-# Load all implementation files.
+# Load all persistence files.
 Dir["./persistence/**/*.rb"].each do |file|
   require file
 end

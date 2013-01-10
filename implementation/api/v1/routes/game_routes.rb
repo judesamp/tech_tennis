@@ -3,9 +3,8 @@ module Implementation
     class V1 < Sinatra::Base
       
       get '/start' do
-        puts Domain::Game.foo
-        puts Domain::Game.methods
-        @game = Domain::Game.new(2)
+        @user = Domain::User.get(2)
+        @game = Domain::Game.create
         
         @begin_game_data_send = Play.new.extend(PlayRepresenter)
         @begin_game_data_send.from_json(@game.retrieve_begin_game_data)

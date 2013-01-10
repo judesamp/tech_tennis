@@ -1,44 +1,60 @@
-require_relative 'quizcontentprocessor'
-require_relative "../../persistence/game_data" #why necessary
-require_relative 'player'
+# require_relative 'quizcontentprocessor'
+require_relative "../../persistence/game_datum" #why necessary
+# require_relative 'player'
 require 'cgi'
-
 
 module Domain
   class Game
-     ## this gives you class methods (.all, .first_or_create(), etc.)
-    include Persistence::GameDatum ##this give you property access (completed_in, user_score,etc)
-    extend Persistence::GameDatum::ClassMethods
-
-   
+    include DataMapper::Resource
+    #actual fields on the table
+    property :id,                             Serial
+    property :current_quiz_type,              String, :default => "HTML"
     
+    property :current_role,                   String, :default => ["server", "receiver"].sample
     
+    property :user_score,                     Integer, :default => 0
+    property :user_game,                      String, :default => "0"
+    property :user_set,                       Integer, :default => 0
     
-    def initialize(user_id) 
-      Persistence::UserData.create() 
-      @game_data = Domain::Game.create(:user_data_id => user_id)
-      @processor = QuizContentProcessor.new
-      @all_processor_questions = @processor.list          
-      @all_processor_questions.each do |processor_question|
-      question = Persistence::Question.create(processor_question)
-        @game_data.questions << question
-        @game_data.questions.save
-      end
-    end
+    property :opponent_score,                 Integer, :default => 0
+    property :opponent_game,                  String,  :default => "0"
+    property :opponent_set,                    Integer, :default => 0
     
-    def questions
-      questions
-    end
-    # def self.find_game(game_id)
-    #   @game = Persistence::GameData.get(game_id)
-    #   #@game = self.allocate
+    property :completed_in,                   Integer, :default => 0
+    property :leftover_time,                  Integer, :default => 0
+    property :last_result,                    Integer, :default => 0
+    
+    #associations with other tables
+    belongs_to :user
+    has n, :questions
+    
+    # def self.all_questions(game_id)
+    #   Question.all(:game_data_id => game_id)
+    # end
+    #   
+    # def self.sorted_by_times_asked
+    #   all_questions(:order => [:times_asked.asc])
     # end
     # 
-    # def all_questions
-    #   @unanswered_questions.to_a
+    # def self.current_question
+    #   sorted_by_times_asked.first
+    # end
+    # 
+    # def self.find(game_id)
+    #   GameDatum.all(:id => game_id)
     # end
     
+    after :create, :add_default_questions
     
+    def add_default_questions
+      @processor = QuizContentProcessor.new
+      @all_processor_questions = @processor.list
+      @all_processor_questions.each do |processor_question|
+        question = Domain::Question.create(processor_question)
+        self.questions << question
+        self.questions.save
+      end
+    end
     
     def retrieve_begin_game_data(game_id = @game_data.id)
       question = JSON.parse(retrieve_question(game_id).to_json)
@@ -138,7 +154,7 @@ module Domain
     
     def process_score(game_id)
       @scores = Persistence::GameData.first(:id => game_id)
-      @tennis_game_one = {0 =>"0", 1 => "15", 2 => "30", 3 => "40"}
+      @tennis_game_one = { 0 =>"0", 1 => "15", 2 => "30", 3 => "40"}
       @user_points = @scores[:user_score]
       @opponent_points = @scores[:opponent_score]
       @total_points = @user_points + @opponent_points
@@ -247,6 +263,40 @@ module Domain
     end
     
   end
+  
+  class Question #this remains a class
+      include DataMapper::Resource
+    property :id,                Serial
+    property :quiz_id,          String
+    property :question_id,      String  
+    property :question,         Text
+    property :answer,           String
+    property :answer_option_a,   String
+    property :answer_option_b,   String
+    property :answer_option_c,   String
+    property :answer_option_d,   String
+    property :last_user_answer, String, :default => "none"
+    property :answer_format,    String
+    property :times_asked,      Integer, :default => 0
+    
+    belongs_to :game
+  end
+  
+  class User
+    include DataMapper::Resource
+    
+    property :id,                 Serial
+    property :user_type,          String, :default => "guest"
+    property :history,            Object, :default => []
+    property :completed_quizzes,  Object, :default => []
+    property :first_name,         String
+    property :last_name,          String
+    property :email,              String, :format => :email_address
+    property :password,           String, :length => 10..255  
+    
+    has n, :games
+  end
+  
 end
   
 
