@@ -5,7 +5,7 @@ module Implementation
   module API
     
     class Play
-      attr_accessor :id, :question, :answer_option_a, :answer_option_b, :answer_option_c, :answer_option_d, :current_quiz_type, :current_role, :user_score, :user_game, :user_set, :opponent_score, :opponent_game, :opponent_set, :completed_in, :leftover_time, :last_result, :times_asked, :game_data_id
+      attr_accessor :id, :question, :answer_option_a, :answer_option_b, :answer_option_c, :answer_option_d, :current_quiz_type, :current_role, :user_score, :user_game, :user_set, :opponent_score, :opponent_game, :opponent_set, :completed_in, :leftover_time, :last_result, :times_asked, :game_id
     end
     
     module PlayRepresenter
@@ -30,7 +30,7 @@ module Implementation
         property :answer_option_d
         property :current_quiz_type
         property :times_asked
-        property :game_data_id
+        property :game_id
     end
 
     

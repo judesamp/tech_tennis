@@ -29,19 +29,22 @@ module Domain
     has n, :questions
     
     #"after" hook
-    after :create, :add_default_questions
+    #after :create, :add_default_questions
     
-    def add_default_questions
+     
+    def add_default_questions(game_id)
       @processor = QuizContentProcessor.new
       @all_processor_questions = @processor.list
       @all_processor_questions.each do |processor_question|
         question = Domain::Question.create(processor_question)
+        question.game = Domain::Game.get(game_id)
         self.questions << question
         self.questions.save
       end
     end
     
-    def retrieve_begin_game_data(game_id = @game_data.id)
+    def retrieve_begin_game_data(game_id)
+      puts game_id
       question = JSON.parse(retrieve_question(game_id).to_json)
       gamedata = begin_game_data
       data_egg = gamedata.merge(question).to_json
@@ -61,10 +64,14 @@ module Domain
       @continued_game_data = {:user_game => current_scores[:user_game], :opponent_game => current_scores[:opponent_game], :user_set => current_scores[:user_set], :opponent_set => current_scores[:opponent_set], :last_result => result}
     end
     
-    def retrieve_question(game_id = @game_id)
-      @all_questions = Persistence::GameData.all_questions(game_id)
+    def retrieve_question(game_id)
+      @all_questions = Domain::Question.all(:game_id => game_id)
+      
+      
+      puts @all_questions.inspect
       @sorted_questions = @all_questions.all(:order=>[:times_asked.asc])
       @current_question = @sorted_questions.first
+      puts @current_question.inspect
       @current_question[:times_asked] = @current_question[:times_asked] + 1
       @current_question.save
       @current_question[:answer_option_a] = CGI::escapeHTML(@current_question[:answer_option_a])
@@ -109,8 +116,10 @@ module Domain
     end
     
     def process_answer(game_id, question_id, user_answer, elapsed_seconds = 5)
-      @get_game = Persistence::GameData.first(:id => game_id)
-      @get_all_questions = Persistence::GameData.all_questions(game_id)
+      @get_game = Domain::Game.first(:id => game_id)
+      puts @get_game.inspect
+      @get_all_questions = Domain::Question.all(:game_id => game_id)
+      puts @get_all_questions.inspect
       @get_current_question = @get_all_questions.first(:id => question_id)
       
       if @get_current_question[:answer] == user_answer.chomp
@@ -138,7 +147,7 @@ module Domain
     end
     
     def process_score(game_id)
-      @scores = Persistence::GameData.first(:id => game_id)
+      @scores = Domain::Game.first(:id => game_id)
       @tennis_game_one = { 0 =>"0", 1 => "15", 2 => "30", 3 => "40"}
       @user_points = @scores[:user_score]
       @opponent_points = @scores[:opponent_score]
@@ -211,7 +220,7 @@ module Domain
     def reset_game(game_id, winner)
       #reset to 0 or "0"---- user_game, user_score, opponent_game, opponent_score
       #different method? change user_set, change opponent_set
-      @in_progress_game = Persistence::GameData.first(:id => game_id)
+      @in_progress_game = Domain::Game.first(:id => game_id)
         @in_progress_game[:user_game] = "0"
         @in_progress_game[:user_score] = 0
         @in_progress_game[:opponent_game] = "0"
@@ -264,7 +273,7 @@ module Domain
     property :answer_format,    String
     property :times_asked,      Integer, :default => 0
     
-    belongs_to :game
+    belongs_to :game  
   end
   
   class User
