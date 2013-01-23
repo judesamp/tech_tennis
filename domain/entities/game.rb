@@ -44,7 +44,6 @@ module Domain
     end
     
     def retrieve_begin_game_data(game_id)
-      puts game_id
       question = JSON.parse(retrieve_question(game_id).to_json)
       gamedata = begin_game_data
       data_egg = gamedata.merge(question).to_json
@@ -68,10 +67,10 @@ module Domain
       @all_questions = Domain::Question.all(:game_id => game_id)
       
       
-      puts @all_questions.inspect
+     
       @sorted_questions = @all_questions.all(:order=>[:times_asked.asc])
       @current_question = @sorted_questions.first
-      puts @current_question.inspect
+
       @current_question[:times_asked] = @current_question[:times_asked] + 1
       @current_question.save
       @current_question[:answer_option_a] = CGI::escapeHTML(@current_question[:answer_option_a])
