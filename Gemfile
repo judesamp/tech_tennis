@@ -7,9 +7,10 @@ gem 'data_mapper'
 gem 'pg'
 gem "dm-postgres-adapter"
 gem 'factory_girl'
+gem 'thin'
 
 group :development do
-  gem 'thin'
+  
   gem 'shotgun'
   gem 'haml'
   gem 'pry' 
