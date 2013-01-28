@@ -11,8 +11,6 @@ gem 'thin'
 gem 'shotgun'
 
 group :development do
-  
-  
   gem 'haml'
   gem 'pry' 
   gem 'pry-doc'
