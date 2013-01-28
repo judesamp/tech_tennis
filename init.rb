@@ -27,7 +27,7 @@ Dir["./persistence/**/*.rb"].each do |file|
   require file
 end
 
-DataMapper.setup :default, 'postgres://localhost/tech_tennis'
+DataMapper::setup(:default, ENV['DATABASE_URL'] || "postgres://localhost/tech_tennis")
 DataMapper.auto_upgrade!
 
 ##DataMapper.finalize.auto_upgrade!
