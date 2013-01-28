@@ -8,10 +8,11 @@ gem 'pg'
 gem "dm-postgres-adapter"
 gem 'factory_girl'
 gem 'thin'
+gem 'shotgun'
 
 group :development do
   
-  gem 'shotgun'
+  
   gem 'haml'
   gem 'pry' 
   gem 'pry-doc'
