@@ -92,6 +92,14 @@ background-color: #820BBB;
 	display:none;
 }
 
+#end_of_game {
+	display:none;
+}
+
+#end_of_set {
+	display:none;
+}
+
 #multiplechoice {
 	display:none;
 }

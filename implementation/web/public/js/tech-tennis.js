@@ -10,8 +10,9 @@ var dataDealer = {
 
 	processNewQuestion: function(game_data) {
 				dataDealer.dataHolder(game_data);
+				
 				if (dataDealer.incoming_data.last_result) {
-				dataDealer.processAnswer(dataDealer.incoming_data.last_result);
+				dataDealer.processAnswer(dataDealer.incoming_data.last_result, dataDealer.incoming_data.game_context);
 			};
 			$('#player_game_score').html(dataDealer.incoming_data.user_set).fadeIn();
 			$('#opponent_game_score').html(dataDealer.incoming_data.opponent_set).fadeIn();
@@ -30,38 +31,65 @@ var dataDealer = {
 				
 		
 		},
+		
+		animateNewQuestion: function() {
+			$('#questionbox').fadeIn(1200);
+			$('#clock').animate({backgroundColor: '#FFF'});
+			$('#scoreboard').animate({backgroundColor: '#FFF'});
+			$("#multiplechoice").fadeIn(1200);
+		},
+		
+		
+		playAgain: function() {
+			$('#playagainbutton').on("click", function(){
+				$.getJSON('api/v1/start', dataDealer.processNewQuestion);
+				$('#end_of_set').hide();
+				$('#ready').fadeIn().delay(1200).fadeOut(function() {
+					$("#multiplechoice").fadeIn();
+		});});
+		},
 
-			processAnswer: function(result) {
+			processAnswer: function(result, game_context) {
+			
 				
 				$('#multiplechoice').fadeOut().delay(300).hide();
 				if (result == 2) {		
 					$('#clock').animate({backgroundColor: 'rgb(0,255,0)'});
 					$('#scoreboard').animate({backgroundColor: '#00FF00'});
-					$('#correct').fadeIn(900).delay(1200).fadeOut(function() {
-					$('#questionbox').fadeIn(1200);
-					$('#clock').animate({backgroundColor: '#FFF'});
-					$('#scoreboard').animate({backgroundColor: '#FFF'});
-					$("#multiplechoice").fadeIn(1200);
-					});} else {
+						
+						if (game_context == 0) {
+				
+							$('#correct').fadeIn(900).delay(1200).fadeOut(dataDealer.animateNewQuestion);} 
+						else if (game_context == 1) {
+							$('#end_of_game').fadeIn(900).delay(1200).fadeOut(dataDealer.animateNewQuestion);}
+						else 
+							$('#end_of_set').fadeIn(900, dataDealer.playAgain);}
+						
+						
+						
+							
+							
+				 else {
 				
 				//incorrect
 				$('#clock').animate({backgroundColor: '#F00000'});
 				$('#scoreboard').animate({backgroundColor: '"#F00000'});
-				$('#incorrect').fadeIn(900).delay(1000).fadeOut(function() {
-					$('#clock').animate({backgroundColor: '#FFF'});
-					$('#scoreboard').animate({backgroundColor: '#FFF'});
-						$("#multiplechoice").fadeIn(1200);
+						if (game_context == 0) {
+							$('#incorrect').fadeIn(900).delay(1200).fadeOut(dataDealer.animateNewQuestion);} 
+						else if (game_context == 1) {
+							$('#end_of_game').fadeIn(900).delay(1200).fadeOut(dataDealer.animateNewQuestion);}
+						else 
+							$('#end_of_set').fadeIn(900, dataDealer.playAgain);}
 
 						//end fade in multiple choice/create clock
-					});
-				}
-}
-}
+				
+				}}
+
 		dataDealer.dataHolder = dataHolder; 
 	
 $(document).ready(function() {	
-		$('#playasguestbutton').click(function(){
-			$('#greeter').hide();
+		$('#playasguestbutton').on("click", function(){
+			$('.greeter').hide();
 			$.getJSON('api/v1/start', dataDealer.processNewQuestion);
 			$('#ready').fadeIn().delay(1200).fadeOut(function() {
 				$("#multiplechoice").fadeIn();

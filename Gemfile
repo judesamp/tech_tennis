@@ -6,6 +6,7 @@ gem 'mustache'
 gem 'data_mapper'
 gem 'pg'
 gem "dm-postgres-adapter"
+gem 'factory_girl'
 
 group :development do
   gem 'thin'
@@ -23,4 +24,6 @@ group :test do
   gem 'factory_girl'
   gem 'capybara'
   gem 'cucumber'
+  gem 'pg'
+  gem "dm-postgres-adapter"
 end

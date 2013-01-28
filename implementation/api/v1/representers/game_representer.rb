@@ -5,7 +5,7 @@ module Implementation
   module API
     
     class Play
-      attr_accessor :id, :question, :answer_option_a, :answer_option_b, :answer_option_c, :answer_option_d, :current_quiz_type, :current_role, :user_score, :user_game, :user_set, :opponent_score, :opponent_game, :opponent_set, :completed_in, :leftover_time, :last_result, :times_asked, :game_id
+      attr_accessor :id, :question, :answer_option_a, :answer_option_b, :answer_option_c, :answer_option_d, :current_quiz_type, :current_role, :user_score, :user_game, :user_set, :opponent_score, :opponent_game, :opponent_set, :completed_in, :leftover_time, :last_result, :times_asked, :game_id, :game_context
     end
     
     module PlayRepresenter
@@ -31,11 +31,12 @@ module Implementation
         property :current_quiz_type
         property :times_asked
         property :game_id
+        property :game_context
     end
 
     
     class Answer
-      attr_accessor :id, :question, :answer_option_a, :answer_option_b, :answer_option_c, :answer_option_d, :current_quiz_type, :current_role, :user_score, :user_game, :user_set, :opponent_score, :opponent_game, :opponent_set, :completed_in, :leftover_time, :last_result, :times_asked, :user_answer, :game_id    
+      attr_accessor :id, :question, :answer_option_a, :answer_option_b, :answer_option_c, :answer_option_d, :current_quiz_type, :current_role, :user_score, :user_game, :user_set, :opponent_score, :opponent_game, :opponent_set, :completed_in, :leftover_time, :last_result, :times_asked, :user_answer, :game_id, :game_context    
     end
    
 
@@ -63,6 +64,7 @@ module Implementation
           property :times_asked
           property :user_answer
           property :game_id
+          property :game_context
     end
   end
 end
