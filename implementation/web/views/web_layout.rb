@@ -1,5 +1,3 @@
-require 'CGI'
-
 class Views
   class Layout < Mustache
     
