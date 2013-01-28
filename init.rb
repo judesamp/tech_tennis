@@ -2,14 +2,12 @@ require 'rubygems'
 require 'sinatra/base'
 require 'bundler/setup'
 require 'thin'
-require 'shotgun'
 require 'mustache/sinatra'
 require 'roar/representer/json'
 require 'roar/representer/feature/hypermedia'
 require 'data_mapper'
 require 'dm-postgres-adapter'
-require 'pry'
-require 'pry-doc'
+
 
 Bundler.require(:default)
 
