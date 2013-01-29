@@ -20,6 +20,14 @@ class Views
       @opponent_game_score || "0"
     end
     
+    def player_set_score
+      @user_set || "0"
+    end
+    
+    def opponent_set_score
+      @opponent_set || "0"
+    end
+    
   end
   
     
