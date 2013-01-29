@@ -82,12 +82,12 @@ var dataDealer = {
 						if (game_context == 0) {
 							$('#incorrect').fadeIn(900).delay(1200).fadeOut(dataDealer.animateNewQuestion);} 
 						else if (game_context == 1) {
-							$('#player_set_score').html(dataDealer.incoming_data.user_set).fadeIn();
-							$('#opponent_set_score').html(dataDealer.incoming_data.opponent_set).fadeIn();
+							$('.player_set_score').html(dataDealer.incoming_data.user_set).fadeIn();
+							$('.opponent_set_score').html(dataDealer.incoming_data.opponent_set).fadeIn();
 							$('#end_of_game').fadeIn(900).delay(1200).fadeOut(dataDealer.animateNewQuestion);}
 						else 	{
-							$('#player_set_score').html(dataDealer.incoming_data.user_set).fadeIn();
-							$('#opponent_set_score').html(dataDealer.incoming_data.opponent_set).fadeIn();
+							$('.player_set_score').html(dataDealer.incoming_data.user_set).fadeIn();
+							$('.opponent_set_score').html(dataDealer.incoming_data.opponent_set).fadeIn();
 							$('#end_of_set').fadeIn(900, dataDealer.playAgain);}}
 
 						//end fade in multiple choice/create clock
