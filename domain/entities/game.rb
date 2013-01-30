@@ -1,6 +1,3 @@
-# require_relative 'quizcontentprocessor'
-require_relative "../../persistence/game_datum" #why necessary
-# require_relative 'player'
 require 'cgi'
 
 module Domain
@@ -26,14 +23,14 @@ module Domain
     property :game_context,                    Integer, :default => 0
     
     #associations with other tables
-    belongs_to :user
+    #belongs_to :user
     has n, :questions
     
     #"after" hook
-    after :create, :add_default_questions
+    #after :create, :add_default_questions
     
      
-    def add_default_questions()
+    def add_default_questions
       @processor = QuizContentProcessor.new
       @all_processor_questions = @processor.list
       puts self.id
@@ -368,20 +365,7 @@ module Domain
     belongs_to :game  
   end
   
-  class User
-    include DataMapper::Resource
-    
-    property :id,                 Serial
-    property :user_type,          String, :default => "guest"
-    property :history,            Object, :default => []
-    property :completed_quizzes,  Object, :default => []
-    property :first_name,         String
-    property :last_name,          String
-    property :email,              String, :format => :email_address
-    property :password,           String, :length => 10..255  
-    
-    has n, :games
-  end
+ 
   
 end
   

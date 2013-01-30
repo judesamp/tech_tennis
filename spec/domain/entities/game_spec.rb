@@ -1,24 +1,7 @@
 require_relative '../spec_helper'
 require 'factory_girl'
 
-FactoryGirl.define do
-  factory :user, :class => Domain::User do
-    first_name         "The"
-    last_name          "Dude"
-  end
-end
-  
-  FactoryGirl.define do
-    factory :game, :class => Domain::Game do
-      
-    end
-  end
-  
-  FactoryGirl.define do
-    factory :question, :class => Domain::Question do
-      
-    end
-  end
+
 
 
 module GameSpecHelper

@@ -1057,3 +1057,57 @@ LOG:  autovacuum launcher started
 LOG:  database system was shut down at 2013-01-26 10:07:39 EST
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (123, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (124, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (125, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (126, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (127, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (128, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (129, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (130, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (131, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (132, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (133, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (134, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (135, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (136, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (137, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (138, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (139, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (140, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"

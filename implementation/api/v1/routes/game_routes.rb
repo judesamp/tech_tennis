@@ -3,9 +3,7 @@ module Implementation
     class V1 < Sinatra::Base
       
       get '/start' do
-        @user = Domain::User.get(2)
         @game = Domain::Game.create
-        @game.user = @user
         @game.save
         @game.add_default_questions
         @begin_game_data_send = Play.new.extend(PlayRepresenter)
