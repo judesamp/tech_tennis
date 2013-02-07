@@ -1,5 +1,6 @@
-require_relative '../spec_helper'
-require 'factory_girl'
+require_relative '../../spec_helper'
+require 'data_mapper'
+require 'dm-postgres-adapter'
 
 
 
@@ -13,7 +14,7 @@ end
 describe Domain::Game do
   describe "a new Game before :create hook" do
     include GameSpecHelper
-    before (:each) do
+    before(:each) do
       @game = Domain::Game.new(valid_game_attributes)
     end
     

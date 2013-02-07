@@ -1111,3 +1111,116 @@ STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "us
 ERROR:  null value in column "user_id" violates not-null constraint
 DETAIL:  Failing row contains (140, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, 0).
 STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+LOG:  database system was interrupted; last known up at 2013-02-04 13:53:17 EST
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  redo starts at 0/8C35F50
+LOG:  record with zero length at 0/8C5D1C8
+LOG:  redo done at 0/8C5D0F0
+LOG:  last completed transaction was at log time 2013-02-04 13:54:01.976585-05
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  lock file "postmaster.pid" already exists
+HINT:  Is another postmaster (PID 5772) running in data directory "/usr/local/var/postgres"?
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2013-02-04 13:58:50 EST
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (5, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (6, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (7, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (8, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  database "tech_tennis" already exists
+STATEMENT:  CREATE DATABASE tech_tennis;
+	
+ERROR:  database "tech_tennis" already exists
+STATEMENT:  CREATE DATABASE tech_tennis;
+	
+FATAL:  role "postgres" does not exist
+FATAL:  role "postgres" does not exist
+FATAL:  role "judefree" does not exist
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (9, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (10, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+FATAL:  database "umbrella" does not exist
+FATAL:  database "umbrella" does not exist
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (11, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (12, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (13, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (14, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (15, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (16, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (17, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (18, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (19, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (20, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (21, HTML, receiver, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (22, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  null value in column "user_id" violates not-null constraint
+DETAIL:  Failing row contains (23, HTML, server, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, null).
+STATEMENT:  INSERT INTO "domain_games" ("current_quiz_type", "current_role", "user_score", "user_game", "user_set", "opponent_score", "opponent_game", "opponent_set", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0) RETURNING "id"
+ERROR:  permission denied for relation domain_games
+STATEMENT:  select * from "public"."domain_games"  limit 1000 offset 0
+ERROR:  permission denied for relation domain_questions
+STATEMENT:  select * from "public"."domain_questions"  limit 1000 offset 0
+ERROR:  permission denied for relation domain_users
+STATEMENT:  select * from "public"."domain_users"  limit 1000 offset 0
+ERROR:  zero-length delimited identifier at or near """" at character 33
+STATEMENT:  ALTER USER "judefree" RENAME TO ""
+FATAL:  role "postgres" does not exist
+FATAL:  role "postgres" does not exist
+ERROR:  must be owner of database tech_tennis
+STATEMENT:  DROP DATABASE "tech_tennis"
+FATAL:  role "postgres" does not exist
+FATAL:  role "postgres" does not exist
+ERROR:  must be owner of database tech_tennis
+STATEMENT:  DROP DATABASE "tech_tennis"
+ERROR:  permission denied to drop role
+STATEMENT:  DROP user "judefree"
+ERROR:  database "tech_tennis" is being accessed by other users
+DETAIL:  There are 7 other sessions using the database.
+STATEMENT:  DROP DATABASE tech_tennis;
+	
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  statistics collector process (PID 782) was terminated by signal 9: Killed
+LOG:  database system was shut down at 2013-02-06 08:19:33 EST
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started

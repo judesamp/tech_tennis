@@ -12,7 +12,6 @@ module Implementation
       end     
       
       get '/play' do
-    
         @continued_game = Domain::Game.get(params[:game_id])
         @processing_answer_and_score = Play.new.extend(PlayRepresenter)
         @processing_answer_and_score.from_json(@continued_game.process_answer_and_score(params[:game_id], params[:id], params[:user_answer]))

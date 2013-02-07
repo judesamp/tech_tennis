@@ -29,11 +29,9 @@ module Domain
     #"after" hook
     #after :create, :add_default_questions
     
-     
     def add_default_questions
       @processor = QuizContentProcessor.new
       @all_processor_questions = @processor.list
-      puts self.id
       @all_processor_questions.each do |processor_question|
         question = Domain::Question.create(processor_question)
         question.game = self
@@ -62,38 +60,24 @@ module Domain
       @continued_game_data = {:user_game => current_scores[:user_game], :opponent_game => current_scores[:opponent_game], :user_set => current_scores[:user_set], :opponent_set => current_scores[:opponent_set], :last_result => result, :game_context => current_scores[:game_context]}
     end
     
+    
+    
+    
     def retrieve_question(game_id)
-      @all_questions = Domain::Question.all(:game_id => game_id)
-      @sorted_questions = @all_questions.all(:order=>[:times_asked.asc])
-      @current_question = @sorted_questions.first
-
+      @current_question = database_first_of_sorted_questions(game_id)
       @current_question[:times_asked] = @current_question[:times_asked] + 1
       @current_question.save
-      @current_question[:answer_option_a] = CGI::escapeHTML(@current_question[:answer_option_a])
-      @current_question[:answer_option_b] = CGI::escapeHTML(@current_question[:answer_option_b])
-      @current_question[:answer_option_c] = CGI::escapeHTML(@current_question[:answer_option_c])
-      @current_question[:answer_option_d] = CGI::escapeHTML(@current_question[:answer_option_d])
+      
+      (:a..:d).each do |letter|
+        current_symbol = "answer_option_#{letter}".to_sym
+        @current_question[current_symbol] = CGI::escapeHTML(@current_question[current_symbol])
+      end
+      
       @current_question
     end
     
-      # process the current answer
-      # return response on answer
-      # return only question data NEEDED for jQuery (as per the Respresenter)
-      # AND it should not be the same key names as anything in @game
-      
-      
-     # @current_question = @unanswered_questions[0]
-     # @current_question[:id] = @id
-     # remove_current_question
-     #@current_question[:answer_options_a] = CGI::escapeHTML(@current_question[:answer_option_a])}
-     # @current_question.game_id = id
-    
-    def update_current_question 
-      
-    end
-    
-    def new_visit?(user_response=true)
-        user_response
+    def escape_HTML(current_answer)
+      CGI::escapeHTML(current_answer)
     end
     
     def multiple_choice?(multiple_choice=false)
@@ -110,12 +94,10 @@ module Domain
       retrieve_continued_game_data(game_id, processed_score, processed_answer)
     end
     
-    ##need to set game_context here...then we should be working
-    
     def process_answer(game_id, question_id, user_answer, elapsed_seconds = 5)
-      @get_game = Domain::Game.first(:id => game_id)
-      @get_all_questions = Domain::Question.all(:game_id => game_id)
-      @get_current_question = @get_all_questions.first(:id => question_id)
+       @get_game = get_game_from_database(game_id)
+      @get_all_questions = database_all_questions(game_id)
+      @get_current_question = database_get_answered_question(question_id)
       
       if @get_current_question[:answer] == user_answer.chomp
         @get_game[:user_score] = @get_game[:user_score] + 1
@@ -140,12 +122,8 @@ module Domain
       end
     end
     
-    def check_end_game_status
-    
-    end
-    
     def process_score(game_id)
-      @scores = Domain::Game.first(:id => game_id)
+      @scores = get_game_from_database(game_id)
       @scores[:game_context] = 0
       @tennis_game_score_hash = { 0 =>"0", 1 => "15", 2 => "30", 3 => "40"}
       @user_points = @scores[:user_score]
@@ -161,12 +139,10 @@ module Domain
           @scores[:opponent_game] = "0"
           reset_game(game_id, true)
           if endgame(@scores[:user_set], @scores[:opponent_set])
-            puts "inside endgame"
             @scores[:user_game] = endgame(@scores[:user_set], @scores[:opponent_set])
             @scores[:game_context] = 2
           end
             
-         
           @scores
         elsif @opponent_points > 3
          
@@ -226,13 +202,11 @@ module Domain
           
           reset_game(game_id, false)
           @scores
-        
       end
     end
   end
   
   def endgame(user_score, opponent_score)
-    puts 'hello'
     
      if user_score + opponent_score > 13
        raise ScoreException, "Something has gone wrong, and you are no longer bound by the rules of tennis! Reload and start a new game!"
@@ -254,7 +228,6 @@ module Domain
                "You lost in a tiebreaker. Heartbreaking loss!"
              end
        end #end of 7/7
-
 
      elsif user_score >= 6 || opponent_score >= 6
 
@@ -281,13 +254,9 @@ module Domain
                      end
            end #end of 6/6
 
-
        else
-         puts "false"
          false 
        end # end of outer if
-
-
    end #end of method
          
     def end_game_message(winner, current_role)
@@ -319,33 +288,34 @@ module Domain
           else
           @in_progress_game[:opponent_set] += 1
           end
-      @in_progress_game.save
-      
+      @in_progress_game.save  
     end
     
-         
-    def correct?
-      @submitted_answer == @current_question[:answer]
-    end
-    
-    def award_player_point
-      @player_score += 1
-    end
-    
-    def award_cpu_point
-      @cpu_score += 1
-    end
- 
-    
-    def game_id
-      0
-    end
-    
-    def game_status
-      "in progress"
-    end
-    
+  #database methods below
+  def database_all_questions(game_id)
+    Domain::Question.all(:game_id => game_id)
   end
+  
+  def database_sort_all_questions(game_id)
+    all_database_questions = Domain::Question.all(:game_id => game_id)
+    sorted_database_questions = all_database_questions.all(:order=>[:times_asked.asc])
+  end
+  
+  def database_first_of_sorted_questions(game_id)
+    all_database_questions = Domain::Question.all(:game_id => game_id)
+    sorted_database_questions = all_database_questions.all(:order=>[:times_asked.asc])
+    first_of_sorted_questions = sorted_database_questions.first
+  end
+  
+   def get_game_from_database(game_id)
+      Domain::Game.first(:id => game_id)
+  end
+  
+  def database_get_answered_question(question_id)
+    @get_all_questions.first(:id => question_id)
+  end
+end
+  #end of database methods
   
   class Question #this remains a class
       include DataMapper::Resource
@@ -364,16 +334,4 @@ module Domain
     
     belongs_to :game  
   end
-  
- 
-  
 end
-  
-
-
-
-
-
-
-
-
