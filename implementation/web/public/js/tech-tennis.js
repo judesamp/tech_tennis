@@ -21,7 +21,7 @@ var dataDealer = {
 			
 			
 			
-				$('#question').html(dataDealer.incoming_data.question);
+				$('#question').html(dataDealer.incoming_data.question_text);
 					$('#answer_a').html(dataDealer.incoming_data.answer_option_a);
 					$('#answer_b').html(dataDealer.incoming_data.answer_option_b);
 					$('#answer_c').html(dataDealer.incoming_data.answer_option_c);
