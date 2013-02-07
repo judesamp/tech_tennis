@@ -3,7 +3,17 @@ require_relative '../../spec_helper'
 
 module GameSpecHelper
   def valid_game_attributes
-    {:current_role => "receiver"}
+    [{
+    :quiz_id => "HTML",
+    :question_id => "1",
+    :question => "What tag would you use to make text bold (opening tag only)?",
+    :answer => "<b>",
+    :answer_option_a => "<b>",
+    :answer_option_b => "<i>",
+    :answer_option_c => "<p>", 
+    :answer_option_d => "none of the above",
+    :answer_format => "multiple_choice"
+    }]
   end
 end
 
