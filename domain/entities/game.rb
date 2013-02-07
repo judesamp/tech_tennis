@@ -57,27 +57,23 @@ module Domain
     end
     
     def continue_game_data(current_scores, result)
-      @continued_game_data = {:user_game => current_scores[:user_game], :opponent_game => current_scores[:opponent_game], :user_set => current_scores[:user_set], :opponent_set => current_scores[:opponent_set], :last_result => result, :game_context => current_scores[:game_context]}
+      continued_game_data = {:user_game => current_scores[:user_game], :opponent_game => current_scores[:opponent_game], :user_set => current_scores[:user_set], :opponent_set => current_scores[:opponent_set], :last_result => result, :game_context => current_scores[:game_context]}
     end
-    
-    
-    
     
     def retrieve_question(game_id)
-      @current_question = database_first_of_sorted_questions(game_id)
-      @current_question[:times_asked] = @current_question[:times_asked] + 1
-      @current_question.save
-      
-      (:a..:d).each do |letter|
-        current_symbol = "answer_option_#{letter}".to_sym
-        @current_question[current_symbol] = CGI::escapeHTML(@current_question[current_symbol])
-      end
-      
-      @current_question
+      current_question = database_first_of_sorted_questions(game_id)
+      current_question[:times_asked] = current_question[:times_asked] + 1
+      current_question.save
+      current_question = escape_html(current_question)
+      current_question
     end
     
-    def escape_HTML(current_answer)
-      CGI::escapeHTML(current_answer)
+    def escape_html(current_question)
+        (:a..:d).each do |letter|
+        current_symbol = "answer_option_#{letter}".to_sym
+        current_question[current_symbol] = CGI::escapeHTML(current_question[current_symbol])
+      end
+      current_question
     end
     
     def multiple_choice?(multiple_choice=false)
@@ -95,7 +91,7 @@ module Domain
     end
     
     def process_answer(game_id, question_id, user_answer, elapsed_seconds = 5)
-       @get_game = get_game_from_database(game_id)
+      @get_game = get_game_from_database(game_id)
       @get_all_questions = database_all_questions(game_id)
       @get_current_question = database_get_answered_question(question_id)
       
@@ -278,7 +274,7 @@ module Domain
     def reset_game(game_id, winner)
       #reset to 0 or "0"---- user_game, user_score, opponent_game, opponent_score
       #different method? change user_set, change opponent_set
-      @in_progress_game = Domain::Game.first(:id => game_id)
+      @in_progress_game = get_game_from_database(game_id)
         @in_progress_game[:user_game] = "0"
         @in_progress_game[:user_score] = 0
         @in_progress_game[:opponent_game] = "0"
@@ -314,6 +310,11 @@ module Domain
   def database_get_answered_question(question_id)
     @get_all_questions.first(:id => question_id)
   end
+  
+  def self.database_save(object)
+    object.save
+  end
+  
 end
   #end of database methods
   
