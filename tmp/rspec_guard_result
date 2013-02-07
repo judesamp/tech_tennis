@@ -1,3 +1,4 @@
+./spec/domain/entities/game_spec.rb:17
 ./spec/domain/entities/game_spec.rb:21
 ./spec/domain/entities/game_spec.rb:25
 ./spec/domain/entities/game_spec.rb:29
@@ -6,8 +7,7 @@
 ./spec/domain/entities/game_spec.rb:41
 ./spec/domain/entities/game_spec.rb:45
 ./spec/domain/entities/game_spec.rb:49
-./spec/domain/entities/game_spec.rb:53
+./spec/domain/entities/game_spec.rb:54
 ./spec/domain/entities/game_spec.rb:58
 ./spec/domain/entities/game_spec.rb:62
 ./spec/domain/entities/game_spec.rb:66
-./spec/domain/entities/game_spec.rb:70
