@@ -3,7 +3,13 @@ module Implementation
     class V1 < Sinatra::Base
       
       get '/start' do
-        @game Game.start()
+        @game = Game.start
+        puts Play.new(@game, @game.questions.least_asked).extend(PlayRepresenter).to_json
+       
+       
+      
+       
+        #extend(PlayRepresenter).to_json
         # @game = Domain::Game.create
         # @game.save
         # @game.add_default_questions
@@ -16,7 +22,7 @@ module Implementation
         attributes = { :id => params[:id], 
                        :question_id => params[:question_id],
                        :user_answer => params[:user_answer] }
-        @game Game.play(attributes)
+        @game = Game.play(attributes)
         @game.extend(PlayRepresenter).to_json
       end
     end

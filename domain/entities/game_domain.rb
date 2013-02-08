@@ -1,9 +1,12 @@
 require 'cgi'
+require_relative 'quizcontentprocessor'
+require_relative '../value_objects/questions_persistence'
 class Game
   #keep public API class methods up top
-  def self.start(attributes)
+  def self.start
     #later, if you need to send data on game start, do it with attributes (sends an empty hash otherwise)
-    game = create(attributes)
+    game = create
+    game.add_default_questions
     game
   end
   
@@ -19,22 +22,22 @@ class Game
     @processor = QuizContentProcessor.new
     @all_processor_questions = @processor.list
     @all_processor_questions.each do |processor_question|
-      question = Domain::Question.create(processor_question)
+      question = Question.create(processor_question)
       question.game = self
       self.questions << question
       self.questions.save
     end
   end
   
-  def retrieve_begin_game_data(game_id)
-    question = JSON.parse(retrieve_question(game_id).to_json)
-    gamedata = begin_game_data
-    data_egg = gamedata.merge(question).to_json
-  end
+  # def retrieve_begin_game_data
+  #    question = JSON.parse(retrieve_question.to_json)
+  #    gamedata = begin_game_data
+  #    data_egg = gamedata.merge(question).to_json
+  #  end
   
-  def begin_game_data
-    {:user_game => "0", :opponent_game => "0", :last_result => 0, :user_set => "0", :opponent_set => "0", :game_context => 0}
-  end
+  # def begin_game_data
+  #     {:user_game => "0", :opponent_game => "0", :last_result => 0, :user_set => "0", :opponent_set => "0", :game_context => 0}
+  #   end
   
   # def retrieve_continued_game_data(game_id, current_scores, result)
   #   question = JSON.parse(retrieve_question(game_id).to_json)
@@ -48,7 +51,7 @@ class Game
   
   def retrieve_question
     #Split into atomic methods
-    current_question = database_first_of_sorted_questions(game_id)
+    current_question = self.questions.least_asked
     current_question[:times_asked] = current_question[:times_asked] + 1
     current_question.save
     current_question = escape_html_for_answer(current_question)
@@ -63,23 +66,13 @@ class Game
     string
   end
   
-  #GO BYE BYE if not using
-  # def multiple_choice?(multiple_choice=false)
-  #   multiple_choice
-  # end
-  # 
-  # def fill_in_the_blank?(fill_in_the_blank=false)
-  #   fill_in_the_blank
-  # end
-  
   def process_answer_and_score(question_id, user_answer)
-    processed_answer = process_answer(game_id, question_id, user_answer)
-    retrieve_continued_game_data(game_id, processed_score, processed_answer)
+    processed_answer = process_answer(id, question_id, user_answer)
+    retrieve_continued_game_data(id, processed_score, processed_answer)
   end
   
-  def process_answer(game_id, question_id, user_answer, elapsed_seconds = 5)
-    @get_game = get_game_from_database(game_id)
-    @get_all_questions = database_all_questions(game_id)
+  def process_answer(question_id, user_answer, elapsed_seconds = 5)
+    #@get_game = get_game_from_database(game_id)
     @get_current_question = database_get_answered_question(question_id)
     
     @get_current_question[:answer] == user_answer ? point_to_user : point_to_opponent
@@ -120,6 +113,10 @@ def total_points_below_six?
   total_points < 6
 end
 
+def increment
+  
+end
+
 def process_score_below_deuce(attributes)
   @tennis_game_score_hash = { 0 => "0", 1 => "15", 2 => "30", 3 => "40"}
   if @user_points > 3
@@ -141,7 +138,7 @@ def process_score_below_deuce(attributes)
      :opponent_game => end_game_message(false, @scores[:current_role]),
      :game_context => 1,
      :user_game => "0",
-     :opponent_set += 1,
+     :opponent_set => self.opponent_set += 1,
      }
      self.attributes(attributes)
      self.save

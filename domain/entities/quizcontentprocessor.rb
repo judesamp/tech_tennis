@@ -1,4 +1,4 @@
-module Domain
+
   class QuizContentProcessor
     attr_accessor :list
     
@@ -111,4 +111,3 @@ module Domain
   
     
   end
-end

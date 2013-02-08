@@ -4,6 +4,7 @@ require 'roar/representer/feature/hypermedia'
 module Implementation
   module API
     module PlayRepresenter
+      include Representable::JSON
       include Roar::Representer::JSON
       include Roar::Representer::Feature::Hypermedia
 
