@@ -180,6 +180,7 @@ DEPENDENCIES
   pry-doc
   rack-test
   rb-fsevent (~> 0.9.1)
+  representable
   roar
   rspec
   shotgun

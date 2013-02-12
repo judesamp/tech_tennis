@@ -4,11 +4,12 @@ module Implementation
       
       get '/start' do
         @game = Game.start
-        puts Play.new(@game, @game.questions.least_asked).extend(PlayRepresenter).to_json
-       
-       
+        puts @game.inspect
+        @game
+       # puts @game.inspect
+       #         @game.extend(PlayRepresenter).to_json
       
-       
+        
         #extend(PlayRepresenter).to_json
         # @game = Domain::Game.create
         # @game.save
@@ -19,11 +20,17 @@ module Implementation
       end     
       
       get '/play' do
-        attributes = { :id => params[:id], 
+        attributes = { :game_id => params[:game_id], 
                        :question_id => params[:question_id],
                        :user_answer => params[:user_answer] }
-        @game = Game.play(attributes)
-        @game.extend(PlayRepresenter).to_json
+        continued_game = Game.play(attributes)
+        puts continued_game.inspect
+        continued_game
+        
+        
+        #puts after play
+        #continued_game = Play.new.extend(PlayRepresenter).to_json
+        #puts "continued game: #{continued_game}"
       end
     end
     
