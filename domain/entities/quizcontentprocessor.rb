@@ -1,6 +1,5 @@
 
   class QuizContentProcessor
-    attr_accessor :list
     
     def initialize
       #move CGI::escape HTML to web layout?...I think we can run every string through it without harm.
@@ -106,8 +105,4 @@
    def list
      @HTML.shuffle #a.shuffle(random: Random.new(1
    end
-   
-      
-  
-    
   end
