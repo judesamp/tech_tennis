@@ -3,17 +3,12 @@ require 'roar/representer/feature/hypermedia'
 
 module Implementation
   module API
-    
-    class Play
-      attr_accessor :game_id, :current_role, :user_score, :user_game, :user_set, :opponent_score, :opponent_game, :opponent_set, :completed_in, :leftover_time, :last_result, :question_id, :question_text, :answer_option_a, :answer_option_b, :answer_option_c, :answer_option_d, :current_quiz_type, :times_asked, :game_context, :user_answer
-    end
-    
-    module PlayRepresenter
+    module GameRepresenter
       include Roar::Representer::JSON
       include Roar::Representer::Feature::Hypermedia
-
-      property :game_id
+ 
       property :current_role
+      property :current_quiz_type
       property :user_points
       property :user_game_score_translation
       property :user_set_score
@@ -23,16 +18,34 @@ module Implementation
       property :completed_in
       property :leftover_time
       property :last_result
-      property :question_id
-      property :question_text
-      property :answer_option_a
-      property :answer_option_b
-      property :answer_option_c
-      property :answer_option_d
-      property :current_quiz_type
-      property :times_asked
       property :game_context
-      property :user_answer    
+    end
+                
+    module QuestionRepresenter
+      include Roar::Representer::JSON
+      include Roar::Representer::Feature::Hypermedia
+           
+        property :question_id
+        property :question_text
+        property :answer_option_a
+        property :answer_option_b
+        property :answer_option_c
+        property :answer_option_d
+        property :times_asked
+        property :user_answer
+        property :game_id     
+    end
+    
+    class GameData
+      attr_accessor :game, :question
+    end
+    
+    module GameDataRepresenter
+      include Roar::Representer::JSON
+      include Roar::Representer::Feature::Hypermedia
+      
+        property :game, :class => Game, :extend => GameRepresenter
+        property :question, :class => Question, :extend => QuestionRepresenter
     end
   end
 end
