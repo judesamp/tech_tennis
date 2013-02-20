@@ -7,7 +7,7 @@ class Game
     #later, if you need to send data on game start, do it with attributes (sends an empty hash otherwise)
     game = create
     game.add_default_questions
-    game.retrieve_begin_game_data
+    game.retrieve_begin_game_data.to_json
   end
   
   def self.play(attributes)
@@ -29,7 +29,7 @@ class Game
   end
   
   def retrieve_begin_game_data
-    question = JSON.parse(retrieve_question.to_json)
+    question = retrieve_question.attributes
     gamedata = begin_game_data
     data_egg = gamedata.merge(question)
   end
