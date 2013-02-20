@@ -4,9 +4,9 @@ require 'roar/representer/feature/hypermedia'
 module Implementation
   module API
     
-    class Play
-      attr_accessor :game_id, :current_role, :user_score, :user_game, :user_set, :opponent_score, :opponent_game, :opponent_set, :completed_in, :leftover_time, :last_result, :question_id, :question_text, :answer_option_a, :answer_option_b, :answer_option_c, :answer_option_d, :current_quiz_type, :times_asked, :game_context, :user_answer
-    end
+    # class Play
+    #           attr_accessor :game_id, :current_role, :user_score, :user_game, :user_set, :opponent_score, :opponent_game, :opponent_set, :completed_in, :leftover_time, :last_result, :question_id, :question_text, :answer_option_a, :answer_option_b, :answer_option_c, :answer_option_d, :current_quiz_type, :times_asked, :game_context, :user_answer
+    #         end
     
     module PlayRepresenter
       include Roar::Representer::JSON

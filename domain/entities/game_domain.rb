@@ -31,11 +31,11 @@ class Game
   def retrieve_begin_game_data
     question = JSON.parse(retrieve_question.to_json)
     gamedata = begin_game_data
-    data_egg = gamedata.merge(question).to_json
+    data_egg = gamedata.merge(question)
   end
   
   def begin_game_data
-    {:user_game_score_translation => "0", :opponent_game_score_translation => "0", :last_result => "none", :user_set_score => "0", :opponent_set_score => "0", :game_context => false}
+    {:user_game_score_translation => "0", :opponent_game_score_translation => "0", :last_result => "none", :user_set_score => "0", :opponent_set_score => "0", :game_context => false, :current_role => self.current_role}
   end
   
   def retrieve_continued_game_data(current_scores, result)
@@ -176,96 +176,201 @@ def reset_game
 end
 
 
+
+
+
+
+def check_for_end_of_set
+  if end_of_set?
+    self.game_context = "end_of_set"
+  end
+end
+
+def deuce?
+  self.user_points == self.opponent_points
+end
+
+def ad_in?
+  self.user_points - self.opponent_points == 1
+end
+
+def user_wins_game?
+  self.user_points - self.opponent_points == 2
+end
+
+def ad_out?
+  self.opponent_points - self.user_points == 1
+end
+
+def opponent_wins_game?
+  self.opponent_points - self.user_points == 2
+end
+
+
+
+
 def process_score_deuce_and_above(attributes)
-  if self.user_points == self.opponent_points
+  case
+  when deuce?
     deuce
     
-  elsif self.user_points - self.opponent_points == 1
+  when ad_in?
     ad_in
     
-  elsif self.user_points - self.opponent_points == 2
+  when user_wins_game?
     user_wins_game
    
-  elsif self.opponent_points - self.user_points == 1
+  when ad_out?
     ad_out
     
-  elsif self.opponent_points - self.user_points == 2
+  when opponent_wins_game?
     opponent_wins_game
   end
 end
 
-def end_of_set?(user_points, opponent_points)
-  
-   if user_set_score + opponent_set_score > 13
-     raise ScoreException, "Something has gone wrong, and you are no longer bound by the rules of tennis! Reload and start a new game!"
 
-   elsif user_set_score == 7 || opponent_set_score == 7
+def sevens?
+  self.user_set_score == 7 || self.opponent_set_score == 7
+end
 
-     if user_set_score == 7
+def greater_than_or_equal_to_six?
+  self.user_set_score >= 6 || self.opponent_set_score >= 6
+end
 
-           if opponent_set_score == 5
-             self.user_game_score_translation = "A late break! You win!"
-           else 
-             self.user_game_score_translation = "You won in a tiebreaker! Nice job!"
-           end
+def end_of_set?
+  case
+    when sevens? 
+      end_of_set_with_sevens
 
-     elsif opponent_set_score == 7
-           if user_set_score == 5
-             self.opponent_game_score_translation = "A late break for your opponent. You lose!"
-           else
-             self.opponent_game_score_translation = "You lost in a tiebreaker. Heartbreaking loss!"
-           end
-     end #end of 7/7
+    when greater_than_or_equal_to_six?
+      puts end_of_set_with_sixes
+      end_of_set_with_sixes
+     
+    else
+      false 
+  end # end of outer if
+end #end of method
+ 
+ 
+def user_has_seven
+  if self.opponent_set_score == 5
+   self.user_game_score_translation = "A late break! You win!"
 
-   elsif user_set_score >= 6 || opponent_set_score >= 6
+ else 
+   self.user_game_score_translation = "You won in a tiebreaker! Nice job!"
 
-       if user_set_score == 6 
+ end
+end
 
-                   if opponent_set_score < 5
-                     self.user_game_score_translation = "user wins"
-                   elsif opponent_set_score == 5
-                     self.user_game_score_translation = "one more and you win"
-                   elsif opponent_set_score == 6
-                     self.user_game_score_translation = "now to the tiebreaker"
-                   elsif opponent_set_score == 7
-                     self.user_game_score_translation = "you lost in a tiebreaker...heartbreaking"
-                   end
+def opponent_has_seven
+  if self.user_set_score == 5
+    self.opponent_game_score_translation = "A late break for your opponent. You lose!"
 
-         elsif opponent_set_score == 6
+  else
+    self.opponent_game_score_translation = "You lost in a tiebreaker. Heartbreaking loss!"
 
-                   if user_set_score < 5
-                     self.opponent_game_score_translation = "opponent wins"
-                   elsif user_set_score == 5
-                     self.opponent_game_score_translation = "one more and opponent wins"
-                   elsif user_set_score == 7
-                     self.opponent_game_score_translation = "opponent lost in a tiebreaker...exciting"   
-                   end
-         end #end of 6/6
-
-     else
-       false 
-     end # end of outer if
- end #end of method
-       
-  def end_game_message(winner)
-    if winner
-      if current_role == "receiver"
-        ["You broke serve!", "Nice, you won the game!", "MMM. You're getting bad on me.", "Note: Break of Serve."].sample
-      else
-        ["You held serve!", "Winner!", "No break for you!", "You are on the way!"].sample
-      end
-    else 
-      if current_role == "server"
-        ["Winner!", "Held serve!", "Ace. Service winner. Ace. Ace."].sample
-      else
-        ["Break of serve!", "Winner!", "Uhoh."].sample
-      end
-    end
   end
+end
+ 
+ 
+ def end_of_set_with_sevens
+  if self.user_set_score == 7
+    user_has_seven
+    true
+
+  elsif self.opponent_set_score == 7
+    opponent_has_seven
+    true
+       
+  end
+ end
+ 
+def user_has_six
+  case
+   when self.opponent_set_score < 5
+    self.user_game_score_translation = "user wins"
+    true
+  when self.opponent_set_score == 5
+    self.user_game_score_translation = "one more and you win"
+    false
+  when self.opponent_set_score == 6
+    self.user_game_score_translation = "now to the tiebreaker"
+    false
+  when self.opponent_set_score == 7
+    self.user_game_score_translation = "you lost in a tiebreaker...heartbreaking"
+    true
+  end
+end
+
+def opponent_has_six
+  if self.user_set_score < 5
+    self.opponent_game_score_translation = "opponent wins"
+    true
+  elsif self.user_set_score == 5
+    self.opponent_game_score_translation = "one more and opponent wins"
+    false
+  elsif self.user_set_score == 7
+    self.opponent_game_score_translation = "opponent lost in a tiebreaker...exciting"
+    true   
+  end
+end
+ 
+def end_of_set_with_sixes
+  if self.user_set_score == 6 
+    user_has_six
+   
+  elsif self.opponent_set_score == 6
+    opponent_has_six
+    
+  end #end of 6/6
+end
+
+def end_game_message(winner)
+  case
+    when winner
+      user_wins_game_message_assignment
+        
+    else
+      opponent_wins_game_message_assignment
+  end
+end
+
+def user_wins_game_message_assignment
+  if current_role == "receiver"
+    user_breaks_opponents_serve
+  else
+    user_hold_of_serve
+  end
+end
+
+def opponent_wins_game_message_assignment
+  if current_role == "server"
+    opponent_breaks_users_serve
+  else
+    opponent_holds_serve
+  end
+end
+
+def user_hold_of_serve
+  ["You held serve!", "Winner!", "No break for you!", "You are on the way!"].sample
+end
+
+def user_breaks_opponents_serve
+  ["You broke serve!", "Nice, you won the game!", "MMM. You're getting bad on me.", "Note: Break of Serve."].sample
+end
+
+def opponent_hold_of_serve
+  ["Winner!", "Held serve!", "Ace. Service winner. Ace. Ace."].sample
+end
+
+def opponent_break_users_serve
+  ["Break of serve!", "Winner!", "Uhoh."].sample
+end
+       
+
   
 #database methods below
   def database_get_answered_question(attributes)
     self.questions.first(:question_id => attributes[:question_id])
   end
-
 end

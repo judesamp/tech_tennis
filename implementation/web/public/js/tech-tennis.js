@@ -56,7 +56,7 @@ var dataDealer = {
 					$('#clock').animate({backgroundColor: 'rgb(0,255,0)'});
 					$('#scoreboard').animate({backgroundColor: '#00FF00'});
 						
-						if (game_context = "end_of_point") {
+						if (game_context == "end_of_point") {
 				
 							$('#correct').fadeIn(900).delay(1200).fadeOut(dataDealer.animateNewQuestion);} 
 						else if (game_context == "end_of_game") {
