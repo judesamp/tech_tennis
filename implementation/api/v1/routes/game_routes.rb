@@ -3,21 +3,23 @@ module Implementation
     class V1 < Sinatra::Base
       
       get '/start' do
-        game = Game.start
-        puts game.extend(PlayRepresenter).to_json
-        
-      
+        game, question = Game.start
+        game.extend(GameRepresenter)
+        question.extend(QuestionRepresenter)
+        holder = {:game => game, :question => question}
+        holder.to_json
       end     
       
       get '/play' do
-        attributes = { :game_id => params[:game_id], 
-                       :question_id => params[:question_id],
+        attributes = { :id => params[:question][:game_id], 
+                       :question_id => params[:question][:question_id],
                        :user_answer => params[:user_answer] }
-        continued_game = Game.play(attributes)
-        continued_game
-        
+        game, question = Game.play(attributes)
+        game.extend(GameRepresenter)
+        question.extend(QuestionRepresenter)
+        holder = {:game => game, :question => question}
+        holder.to_json
       end
     end
-    
   end
 end

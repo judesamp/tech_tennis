@@ -2,12 +2,17 @@ require 'cgi'
 require_relative 'quizcontentprocessor'
 require_relative '../value_objects/questions_persistence'
 class Game
+  attr_accessor :question
   #keep public API class methods up top
   def self.start
     #later, if you need to send data on game start, do it with attributes (sends an empty hash otherwise)
     game = create
     game.add_default_questions
-    game.retrieve_begin_game_data
+    question = game.retrieve_question
+    game.user_set_score = 5
+    game.opponent_set_score = 5
+    game.save
+    return game, question
   end
   
   def self.play(attributes)
@@ -15,6 +20,8 @@ class Game
     game = get(attributes[:game_id])
     game.process_and_save_answer_and_score(attributes)
     #maybe the above method call should not be saving? instead game.save
+    question = game.retrieve_question
+    return game, question
   end
   
   def add_default_questions
@@ -28,27 +35,6 @@ class Game
     end
   end
   
-  def retrieve_begin_game_data
-    question = retrieve_question.attributes
-    gamedata = begin_game_data
-    #data_egg = gamedata.merge(question)
-    self
-  end
-  
-  def begin_game_data
-    {:user_game_score_translation => "0", :opponent_game_score_translation => "0", :last_result => "none", :user_set_score => "0", :opponent_set_score => "0", :game_context => false, :current_role => self.current_role}
-  end
-  
-  def retrieve_continued_game_data(current_scores, result)
-    question = JSON.parse(retrieve_question.to_json)
-    gamedata = continue_game_data(current_scores, result)
-    data_egg = gamedata.merge(question).to_json
-  end
-    
-  def continue_game_data(current_scores, result)
-    continued_game_data = {:user_game_score_translation => self.user_game_score_translation, :opponent_game_score_translation => self.opponent_game_score_translation, :user_set_score => self.user_set_score, :opponent_set_score => self.opponent_set_score, :last_result => self.last_result, :game_context => self.game_context}
-  end
-  
   def retrieve_question
     current_question = self.questions.least_asked
     increment(current_question, :times_asked)
@@ -56,19 +42,18 @@ class Game
   end
   
   
-  def escape_html_for_answer(string)
+  def escape_html_for_answer(question)
       (:a..:d).each do |letter|
       current_symbol = "answer_option_#{letter}".to_sym
-      string[current_symbol] = CGI::escapeHTML(string[current_symbol])
+      question[current_symbol] = CGI::escapeHTML(question[current_symbol])
     end
-    string
+    question
   end
   
   def process_and_save_answer_and_score(attributes)
     processed_answer = process_answer({:question_id => attributes[:question_id], :user_answer => attributes[:user_answer]})
     processed_score = process_score  
-    self.save  
-    retrieve_continued_game_data(processed_score, processed_answer)
+    self.save
   end
   
   def process_answer(attributes)
@@ -92,7 +77,7 @@ class Game
   end
   
   def process_score
-    self.attributes = {:game_context => "end_of_point"} # maybe change this value to an understandable string name, but also change the datatype in the DB
+    self.attributes = {:game_context => "end_of_point"} 
     total_points_below_six? ? process_score_below_deuce : process_score_deuce_and_above(attributes)
     self
   end
@@ -137,7 +122,7 @@ def opponent_wins_game
 end
 
 def check_for_end_of_set
-  if end_of_set?(self.user_set_score, self.opponent_set_score)
+  if end_of_set?
     self.game_context = "end_of_set"
   end
 end
@@ -177,6 +162,7 @@ def reset_game
 end
 
 
+<<<<<<< HEAD
 
 
 
@@ -187,6 +173,8 @@ def check_for_end_of_set
   end
 end
 
+=======
+>>>>>>> representer_experiments
 def deuce?
   self.user_points == self.opponent_points
 end
@@ -372,6 +360,7 @@ end
   
 #database methods below
   def database_get_answered_question(attributes)
-    self.questions.first(:question_id => attributes[:question_id])
+    self.get(attributes[:question_id])
   end
+  
 end

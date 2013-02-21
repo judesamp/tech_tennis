@@ -12,6 +12,7 @@ class Question #this remains a class
   property :last_user_answer, String, :default => "none"
   property :answer_format,    String
   property :times_asked,      Integer, :default => 0
+  property :user_answer,      String
   
   belongs_to :game  
   
