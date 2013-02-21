@@ -1,26 +1,25 @@
-require 'rspec'
-require 'rack/test'
-require 'JSON'
 require 'data_mapper'
-require 'dm-postgres-adapter'
-
-#load all your stuff either explicitly:
-require_relative '../domain/entities/game'
-#require_relative "../../persistence/game_datum" #why necessary
-# require_relative 'player'
-require 'cgi'
 require 'pg'
+require 'dm-postgres-adapter'
+require 'cgi'
+require 'rspec'
+require 'dm-rspec'
+require 'rack/test'
+require 'factory'
+#require 'factory_girl'
+#require 'ffaker'
 
 
-# this MIGHT work for the whole deal
-Dir.glob(File.expand_path("./domain") +"/**/*.rb").each do |file|
-   require file
- end
- 
- # Dir["./persistence/**/*.rb"].each do |file|
- #    require file
- #  end
- 
+ENV['RACK_ENV'] = 'test'
+config = YAML.load_file('config/database.yml')
+DataMapper.setup(:default, config[ENV['RACK_ENV']])
+DataMapper.finalize.auto_upgrade!
+
+RSpec.configure do |conf|
+ conf.include Rack::Test::Methods
+ conf.include DataMapper::Matchers
+ conf.before(:each) { DataMapper.auto_migrate! }
+end
 
  
  
