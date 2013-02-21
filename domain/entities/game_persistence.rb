@@ -17,7 +17,7 @@ class Game
   property :completed_in,                   Integer,  :default => 0
   property :leftover_time,                  Integer,  :default => 0
   property :last_result,                    String,   :default => "none"
-  property :game_context,                   String,   :default => "none"
+  property :game_context,                   String,   :default => false
   
   #associations with other tables
   #belongs_to :user

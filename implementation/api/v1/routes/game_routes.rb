@@ -4,9 +4,9 @@ module Implementation
       
       get '/start' do
         game = Game.start
-        holder = Bowl.new
-        holder.game = game
-        game.to_json
+        puts game.extend(PlayRepresenter).to_json
+        
+      
       end     
       
       get '/play' do
