@@ -1,6 +1,5 @@
-module Domain
+
   class QuizContentProcessor
-    attr_accessor :list
     
     def initialize
       #move CGI::escape HTML to web layout?...I think we can run every string through it without harm.
@@ -9,7 +8,7 @@ module Domain
        {
       :quiz_id => "HTML",
       :question_id => "1",
-      :question => "What tag would you use to make text bold (opening tag only)?",
+      :question_text  => "What tag would you use to make text bold (opening tag only)?",
       :answer => "<b>",
       :answer_option_a => "<b>",
       :answer_option_b => "<i>",
@@ -21,7 +20,7 @@ module Domain
       {
       :quiz_id => "HTML",
       :question_id => "2",
-      :question => "What tag would you use to make text italic (opening tag only)?",
+      :question_text => "What tag would you use to make text italic (opening tag only)?",
       :answer => "<i>",
       :answer_option_a => "<i>",
       :answer_option_b => "<p>",
@@ -34,7 +33,7 @@ module Domain
       {
       :quiz_id => "HTML",
       :question_id => "3",
-      :question => "What are the two main divisions in an HTML document?",
+      :question_text  => "What are the two main divisions in an HTML document?",
       :answer => "head and body",
        :answer_option_a => "top and bottom",
         :answer_option_b => "online and offline", 
@@ -46,7 +45,7 @@ module Domain
       {
       :quiz_id => "HTML",
       :question_id => "4",
-      :question => "If CSS formats a page's look. HTML formats a page's ______.",
+      :question_text  => "If CSS formats a page's look. HTML formats a page's ______.",
       :answer => "text",
        :answer_option_a => "text",
         :answer_option_b => "body", 
@@ -58,7 +57,7 @@ module Domain
       {
       :quiz_id => "HTML",
       :question_id => "5",
-      :question => "What part of an HTML document holds the content?",
+      :question_text  => "What part of an HTML document holds the content?",
       :answer => "body",
        :answer_option_a => "head",
         :answer_option_b => "page", 
@@ -69,7 +68,7 @@ module Domain
       {
       :quiz_id => "HTML",
       :question_id => "6",
-      :question => "What tag would you use to create an unordered list (opening tag only)?",
+      :question_text  => "What tag would you use to create an unordered list (opening tag only)?",
       :answer => "<ul>",
        :answer_option_a => "<ul>",
         :answer_option_b => "<li>",
@@ -80,7 +79,7 @@ module Domain
       {
       :quiz_id => "HTML",
       :question_id => "7",
-      :question => "What tag would you use to create or contain a paragraph (opening tag only)?",
+      :question_text => "What tag would you use to create or contain a paragraph (opening tag only)?",
       :answer => "<p>",
        :answer_option_a => "<pg>",
         :answer_option_b => "<b>",
@@ -92,7 +91,7 @@ module Domain
       {
       :quiz_id => "HTML",
       :question_id => "8",
-      :question => "What does a closing tag contain that an opening tag does not?",
+      :question_text  => "What does a closing tag contain that an opening tag does not?",
       :answer => "/",
       :answer_option_a => "<",
       :answer_option_b => ">",
@@ -106,9 +105,4 @@ module Domain
    def list
      @HTML.shuffle #a.shuffle(random: Random.new(1
    end
-   
-      
-  
-    
   end
-end

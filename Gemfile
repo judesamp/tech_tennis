@@ -9,6 +9,8 @@ gem "dm-postgres-adapter"
 gem 'factory_girl'
 gem 'thin'
 gem 'shotgun'
+gem 'representable'
+gem 'virtus'
 
 group :development, :test do
   

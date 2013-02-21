@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'sinatra'
-require './domain/entities/game'
+require './domain/entities/game_domain'
 require 'haml'
 
 Dir.glob(File.expand_path("./implementation/web/routes") +"/*_routes.rb").each do |file|

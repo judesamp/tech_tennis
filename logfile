@@ -1224,3 +1224,72 @@ LOG:  statistics collector process (PID 782) was terminated by signal 9: Killed
 LOG:  database system was shut down at 2013-02-06 08:19:33 EST
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
+LOG:  database system was interrupted; last known up at 2013-02-06 20:51:42 EST
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  record with zero length at 0/8FDA598
+LOG:  redo is not required
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  database system was interrupted; last known up at 2013-02-07 23:49:31 EST
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  redo starts at 0/90DF878
+WARNING:  could not open directory "base/101519": No such file or directory
+CONTEXT:  xlog redo drop db: dir 101519/1663
+WARNING:  some useless files may be left behind in old database directory "base/101519"
+CONTEXT:  xlog redo drop db: dir 101519/1663
+LOG:  record with zero length at 0/90F3630
+LOG:  redo done at 0/90F3600
+LOG:  last completed transaction was at log time 2013-02-07 23:50:09.871182-05
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  invalid input syntax for integer: "none" at character 319
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 319
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 319
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 317
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 317
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 319
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 317
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 319
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 319
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 319
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 317
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 319
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 319
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 317
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'server', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 319
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+ERROR:  invalid input syntax for integer: "none" at character 319
+STATEMENT:  INSERT INTO "games" ("current_quiz_type", "current_role", "user_points", "user_game_score_translation", "user_set_score", "opponent_points", "opponent_game_score_translation", "opponent_set_score", "completed_in", "leftover_time", "last_result", "game_context") VALUES ('HTML', 'receiver', 0, '0', 0, 0, '0', 0, 0, 0, 'none', 'point') RETURNING "id"
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  database system was interrupted; last known up at 2013-02-11 13:32:44 EST
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  redo starts at 0/9416510
+LOG:  record with zero length at 0/942EFF8
+LOG:  redo done at 0/942EF70
+LOG:  last completed transaction was at log time 2013-02-11 14:01:18.758336-05
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2013-02-11 19:01:27 EST
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  lock file "postmaster.pid" already exists
+HINT:  Is another postmaster (PID 708) running in data directory "/usr/local/var/postgres"?
