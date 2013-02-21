@@ -27,8 +27,13 @@ Dir["./persistence/**/*.rb"].each do |file|
   require file
 end
 
-DataMapper::setup(:default, (ENV['DATABASE_URL'] || "postgres://localhost/tech_tennis"))
-DataMapper.auto_upgrade!
+ENV['RACK_ENV'] = 'development'
+config = YAML.load_file('config/database.yml')
+DataMapper.setup(:default, config[ENV['RACK_ENV']])
+DataMapper.finalize.auto_upgrade!
+
+# DataMapper::setup(:default, (ENV['DATABASE_URL'] || "postgres://localhost/tech_tennis"))
+# DataMapper.auto_upgrade!
 
 ##DataMapper.finalize.auto_upgrade!
 

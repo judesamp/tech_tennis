@@ -1,5 +1,6 @@
 require_relative '../../spec_helper'
-
+require_relative '../../../domain/entities/game_domain'
+require_relative '../../../domain/entities/game_persisitence'
 
 module GameSpecHelper
   def valid_game_attributes
