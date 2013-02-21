@@ -2,7 +2,7 @@ require 'cgi'
 require_relative 'quizcontentprocessor'
 require_relative '../value_objects/questions_persistence'
 class Game
-  attr_accessor :game_data, :question
+  attr_accessor :question
   #keep public API class methods up top
   def self.start
     #later, if you need to send data on game start, do it with attributes (sends an empty hash otherwise)
@@ -44,12 +44,12 @@ class Game
   end
   
   
-  def escape_html_for_answer(string)
+  def escape_html_for_answer(question)
       (:a..:d).each do |letter|
       current_symbol = "answer_option_#{letter}".to_sym
-      string[current_symbol] = CGI::escapeHTML(string[current_symbol])
+      question[current_symbol] = CGI::escapeHTML(question[current_symbol])
     end
-    string
+    question
   end
   
   def process_and_save_answer_and_score(attributes)
@@ -349,7 +349,7 @@ end
   
 #database methods below
   def database_get_answered_question(attributes)
-    self.questions.first(:question_id => attributes[:question_id])
+    self.get(attributes[:question_id])
   end
 
 end
