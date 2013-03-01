@@ -11,6 +11,12 @@ module Implementation
       end     
       
       get '/play' do
+        puts params
+        
+        puts params[:question][:game_id]
+        puts params[:question][:question_id]
+        puts params[:user_answer]
+        
         attributes = { :id => params[:question][:game_id], 
                        :question_id => params[:question][:question_id],
                        :user_answer => params[:user_answer] }

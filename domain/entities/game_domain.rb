@@ -14,11 +14,14 @@ class Game
   end
   
   def self.play(attributes)
+    puts attributes[:id]
     #expects :id of the game, :question_id, :user_answer
-    game = get(attributes[:game_id])
+    game = self.get(attributes[:id])
     game.process_and_save_answer_and_score(attributes)
     #maybe the above method call should not be saving? instead game.save
     question = game.retrieve_question
+    puts game.inspect
+    puts question.inspect
     return game, question
   end
   
