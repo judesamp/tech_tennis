@@ -6,6 +6,7 @@ module Implementation
       include Roar::Representer::JSON
       include Roar::Representer::Feature::Hypermedia
          
+        property :id
         property :question_id
         property :question_text
         property :answer_option_a
@@ -13,7 +14,6 @@ module Implementation
         property :answer_option_c
         property :answer_option_d
         property :times_asked
-        property :user_answer
         property :game_id     
     end
     

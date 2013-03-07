@@ -25,10 +25,7 @@ var dataDealer = {
 					$('#answer_b').html(dataDealer.incoming_data.question.answer_option_b);
 					$('#answer_c').html(dataDealer.incoming_data.question.answer_option_c);
 					$('#answer_d').html(dataDealer.incoming_data.question.answer_option_d);
-					$('#clock').load('/clock');		
-					
-				
-		
+					$('#clock').load('/clock');				
 		},
 		
 		animateNewQuestion: function() {

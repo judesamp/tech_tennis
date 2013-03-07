@@ -14,14 +14,11 @@ class Game
   end
   
   def self.play(attributes)
-    puts attributes[:id]
     #expects :id of the game, :question_id, :user_answer
     game = self.get(attributes[:id])
     game.process_and_save_answer_and_score(attributes)
     #maybe the above method call should not be saving? instead game.save
     question = game.retrieve_question
-    puts game.inspect
-    puts question.inspect
     return game, question
   end
   
@@ -58,6 +55,7 @@ class Game
   end
   
   def process_answer(attributes)
+    puts attributes
     get_current_question = database_get_answered_question(attributes)
     get_current_question.last_user_answer = attributes[:user_answer]
     get_current_question.save
@@ -326,7 +324,7 @@ class Game
     if current_role == "server"
       opponent_breaks_users_serve
     else
-      opponent_holds_serve
+      opponent_hold_of_serve
     end
   end
 

@@ -4,6 +4,8 @@ module Implementation
       
       get '/start' do
         game, question = Game.start
+        puts game.inspect
+        puts question.inspect
         game.extend(GameRepresenter)
         question.extend(QuestionRepresenter)
         holder = {:game => game, :question => question}
@@ -12,7 +14,7 @@ module Implementation
       
       get '/play' do
         attributes = { :id => params[:question][:game_id], 
-                       :question_id => params[:question][:question_id],
+                       :question_id => params[:question][:id],
                        :user_answer => params[:user_answer] }
         game, question = Game.play(attributes)
         game.extend(GameRepresenter)
