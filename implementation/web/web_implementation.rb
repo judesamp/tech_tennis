@@ -29,17 +29,11 @@ module Implementation
       
     
     get '/' do      
-    
-     
-
-      
       mustache :index
     end
-    
-   
      
     get '/clock' do
-       mustache :clock, :layout => false
+      mustache :clock, :layout => false
     end
     
     
