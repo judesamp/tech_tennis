@@ -1,6 +1,6 @@
 require 'rubygems'
+require 'bundler'
 require 'sinatra/base'
-require 'bundler/setup'
 require 'thin'
 require 'shotgun'
 require 'mustache/sinatra'

@@ -347,7 +347,7 @@ class Game
   end
    
   def database_get_answered_question(attributes)
-    self.get(attributes[:question_id])
+    Question.get(attributes[:question_id])
   end
   
 end

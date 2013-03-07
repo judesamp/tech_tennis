@@ -11,6 +11,7 @@ gem 'thin'
 gem 'shotgun'
 gem 'representable'
 gem 'virtus'
+gem 'bundler'
 
 group :development, :test do
   

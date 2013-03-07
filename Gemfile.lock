@@ -171,6 +171,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler
   capybara
   cucumber
   data_mapper
