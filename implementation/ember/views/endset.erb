@@ -1,0 +1,18 @@
+<script type = "text/x-handlebars" data-template-name = "endset">
+	{{render "scoreboard"}}
+	{{#each endset in controller}}
+		<div class = "white_stripe">
+			<div class = "container question_container">
+
+				<h1 class="answer_response">Game, set, match!</h1>
+				<p class="tag"><span class = "player_set_score">{{endset.opponent_set_score}}</span> to <span class = "opponent_set_score">{{endset.opponent_set_score}}</span></p>
+				<p class = "incoming_message"></p>
+				<div class ="greeter"></div>
+				<h3>Do you want to play again?</h3>
+
+
+					{{#linkTo "game"}}<button class = "btn-large btn-info">Click to play again!</button>{{/linkTo}}
+			</div>
+		</div>
+		{{/each}}
+</script>

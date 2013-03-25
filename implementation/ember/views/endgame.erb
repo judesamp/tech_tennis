@@ -1,0 +1,13 @@
+<script type = "text/x-handlebars" data-template-name = "endgame">
+{{render "scoreboard"}}
+{{#each endgame in controller}}
+		<div class = "white_stripe">
+			<div class = "container question_container">
+					<h1 class="answer_response">That is the game!</h1>
+					<p class="tag">The score is <span class ="player_set_score">{{endgame.opponent_set_score}}</span> to <span class = "opponent_set_score">{{endgame.opponent_set_score}}</span></p>
+
+
+			</div>
+		</div>
+		{{/each}}
+</script>

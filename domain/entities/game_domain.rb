@@ -7,8 +7,8 @@ class Game
     game = create
     game.add_default_questions
     question = game.retrieve_question
-    game.user_set_score = 5
-    game.opponent_set_score = 5
+    game.user_set_score = 4
+    game.opponent_set_score = 3
     game.save
     return game, question
   end

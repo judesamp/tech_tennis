@@ -18,6 +18,8 @@ module GameSpecHelper
   end
 end
 
+##test validations first////with unit text, describe object/context/and then the test scenario///set specific version of RSpec...version 2.1.1 or higher
+
 describe Domain::Game do
   describe "a new Game before :create hook" do
     include GameSpecHelper

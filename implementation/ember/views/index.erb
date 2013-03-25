@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Tech Tennis</title>
+
+<link rel="stylesheet" href="css/magic-bootstrap-min.css" type="text/css">
+<link rel="stylesheet" href="css/tech_tennis.css" type="text/css">
+
+</head>
+ <body>
+	
+		<script type = "text/x-handlebars" data-template-name = "application">
+		<nav class="navbar navbar-static-top">
+		<div class="navbar-inner">
+		<ul class="nav">
+		  <li class="active">
+		    <a class = "brand" href="#">Tech Tennis</a>
+		  </li>
+		  <li><a class = "navlink" href="#">About</a></li>
+		</ul>
+		</div>
+		</nav>
+			<div class = "header_image">
+			</div>
+			<div>
+			{{render "game"}}
+			</div>
+			
+			
+		{{outlet}}
+		<div class = "navbar-fixed-bottom footer_stuff yellow">
+			<hr class = "hr yellow">
+			<span class = "name yellow">constructed by Jeremy Samples</span>
+		</div>
+		</script>
+		
+		
+		
+		
+		
+
+	
+
+
+
+	<script type = "text/x-handlebars" data-template-name = "game">
+		{{#each game in controller}} 
+		<div>
+		<div>
+			<div class="gray">
+
+				  <!--Game content-->
+				<div class="container">
+					<div class="row">
+						<div class = "span2">
+
+							<p></p>
+						</div>
+
+							<div class = "span2 white">
+								<h4>Games</h4>
+							</div>
+								<div class = "span2 white">
+
+									<h4>Points</h4>	
+
+								</div>
+					</div>	
+				</div>
+
+									<div class="container">
+										<div class="row">
+											<div class = "span2">
+											
+												<h4>USER</h4>
+											</div>
+												<div class = "span2" id = "user_games">
+												
+													<h4>{{game.user_game_score_translation}}</h4>
+												</div>
+
+													<div class = "span2" id = "user_points">
+														<h4>{{game.user_set_score}}</h4>
+													</div>
+										</div>
+									</div>
+
+
+
+									<div class="container">
+										<div class="row">
+											<div class = "span2">
+												<h4>{{game.current_quiz_type}}</h4>
+											</div>
+													<div class = "span2" id = "opponent_games">
+														<h4>{{game.opponent_game_score_translation}}</h4>
+													</div>
+															<div class = "span2" id = "opponent_points">
+																<h4>{{game.opponent_set_score}}</h4>
+															</div>
+																
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{{/each}}			
+				</script>
+				
+				
+					<script type = "text/x-handlebars" data-template-name = "gamespace">
+				{{#each gamespace in controller}}
+							<div class = "white_stripe">
+								<div class = "container question_container">
+								      <h3><span>{{question.question_text}}</span></h3>
+								</div>
+							</div>
+									<div id = "holder">
+										<div id="multiple_choice">
+											<ul id = "answers">
+												{{#view TechTennis.AnswerAView}}<li><input id = "a" class="wide btn-info btn-block" type="submit" value=" A " /><span class = "answer_list" id = "answer_a">{{gamespace.questions.answer_option_a}}</span></li>{{/view}}
+												{{#view TechTennis.AnswerBView}}<li><input id = "b" class="wide btn-info btn-block" type="submit" value=" B " /><span class = "answer_list" id = "answer_b">{{gamespace.answer_option_b}}</span></li>{{/view}}
+												{{#view TechTennis.AnswerCView}}<li><input id = "c" class="wide btn-info btn-block" type="submit" value=" C " /><span class = "answer_list" id = "answer_c">{{gamespace.answer_option_c}}</span></li>{{/view}}
+												{{#view TechTennis.AnswerDView}}<li><input id = "d" class="wide btn-info btn-block" type="submit" value=" D " /><span class = "answer_list" id = "answer_d">{{gamespace.answer_option_d}}</span></li>{{/view}}
+											</ul>
+										</div>
+									</div>
+				
+					{{/each}}
+					</script>
+
+	<script type = "text/x-handlebars" data-template-name = "correct_response">
+			<div class = "white_stripe">
+				<div class = "container question_container">
+
+	      			<h3><span>correct</span></h3>
+
+				</div>
+			</div>
+
+	</script>
+
+	<script type = "text/x-handlebars" data-template-name = "incorrect_response">
+		{{render "game"}}
+			<div class = "white_stripe">
+				<div class = "container question_container">
+
+	      			<h3><span>incorrect</span></h3>
+
+				</div>
+			</div>
+
+	</script>
+
+
+
+	<script type = "text/x-handlebars" data-template-name = "endgame">
+	{{#each endgame in controller}}
+			<div class = "white_stripe">
+				<div class = "container question_container">
+						<h1 class="answer_response">That is the game!</h1>
+						<p class="tag">The score is <span class ="player_set_score">{{endgame.opponent_set_score}}</span> to <span class = "opponent_set_score">{{endgame.opponent_set_score}}</span></p>
+
+
+				</div>
+			</div>
+		{{/each}}
+	</script>
+
+	<script type = "text/x-handlebars" data-template-name = "endset">
+		{{#each endset in controller}}
+			<div class = "white_stripe">
+				<div class = "container question_container">
+
+					<h1 class="answer_response">Game, set, match!</h1>
+					<p class="tag"><span class = "player_set_score">{{endset.opponent_set_score}}</span> to <span class = "opponent_set_score">{{endset.opponent_set_score}}</span></p>
+					<p class = "incoming_message"></p>
+					<div class ="greeter"></div>
+					<h3>Do you want to play again?</h3>
+
+
+						{{#linkTo "gamespace"}}<button class = "btn-large btn-info">Click to play again!</button>{{/linkTo}}
+				</div>
+			</div>
+			{{/each}}
+	</script>
+
+
+	<script type = "text/x-handlebars" data-template-name = "greeting">
+	{{#each controller}}
+			<div class = "white_stripe">
+				<div class = "container question_container">
+		      		<h3>{{greeting_text}}</h3>
+						<div class = "row play_button">
+
+							{{#view TechTennis.GreeterView}}<button class = "btn-large btn-info">Click to Play</button>{{/view}}
+
+						</div>
+				</div>
+			</div>
+			{{/each}}
+	</script>
+
+
+
+
+
+
+ 	<script src="js/libs/jquery-1.8.3.min.js"></script>
+	    <script src="js/libs/handlebars-1.0.0.rc.2.js"></script>
+	    <script src="js/libs/ember.js"></script>
+	    <script src="js/libs/ember-data.js"></script>
+	    <script src="js/tech_tennis/tech_tennis.js"></script>
+ </body>
+</html>

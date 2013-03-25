@@ -1,0 +1,137 @@
+	body {
+		margin-bottom: 50px;
+		background: white;
+	}
+	.gray {
+		position:absolute;
+		top:100px;
+		right:5px;
+		background: rgba(0, 0, 0, 0.85);
+		padding: 10px;
+		color:lightgray;
+		width: 360px;
+	}
+	
+	/*.yellow {
+				max-width: 1600px;
+			}*/
+	
+	.footer_stuff {
+		background: #333333;
+		background: rgba(84, 109, 90, 0.85);
+		padding: 0px 5px 5px 0px;
+		color:lightgray;
+		text-align: right;
+	}
+	
+	.white {
+		position:relative;
+		right: 25px;
+	}
+	
+	.header_image {
+		height: 210px;
+		background-image: url('../images/row_of_tennis_balls.png');
+		background-repeat:no-repeat;
+		background-size: cover;
+		
+	}
+	
+	#question {
+		padding: 20px;
+		
+	}
+	
+	body {
+		background: lightgray;
+		max-width:1600px;
+	}
+	
+	.wide {
+		width: 110px;
+		padding: 10px;
+		margin:10px;
+	}
+	
+	.answers {
+		margin-left: 40px;
+		padding:20px;
+	}
+	#a, #b, #c, #d {
+		width: 110px;
+		padding: 10px;
+		margin:10px;
+		
+	}
+	
+	#multiple_choice li {list-style-type: none; }
+	
+	#multiple_choice input { display: inline-block; }
+	
+	#holder {
+		width:600px;
+		margin:auto;
+		padding-bottom: 50px;
+		clear:both;
+		}
+		
+	.white_stripe {
+		width: 100%;
+		float:right;
+		background-color:white;
+	}
+	
+	.question_container {
+		clear:both;
+		width: 520px;
+		padding: 20px;
+		text-align:center;
+	}
+	
+	.hr {
+		border-top: 1px solid darkgray;
+		border-bottom: 1px solid darkgray;
+		width: 100%;
+	}
+	
+	.navlink {
+		font-size: 17px;
+	}
+	
+	.play_button {
+		text-align: center;
+	}
+
+
+	@media all and (max-width: 550px) {
+	
+		
+		#holder {
+			position:relative;
+			margin: auto;
+			clear:both;
+		}
+		
+			.white_stripe {
+				width: 100%;
+				float:left;
+				background-color:white;
+				background-size: cover;
+				height: auto;
+				z-index:-1;
+			}
+		
+		
+		.question_container {
+			position:relative;
+			background-color:white;
+				margin: auto;
+				width: 90%;
+				
+		}
+	}
+
+	
+	
+		
+	

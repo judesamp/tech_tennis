@@ -1,0 +1,23 @@
+<script type = "text/x-handlebars" data-template-name = "question">
+	{{#each question in controller}}
+		<div class = "white_stripe">
+			<div class = "container question_container">
+			      <h3><span>{{question.question_text}}</span></h3>
+			</div>
+		</div>
+				<div id = "holder">
+					<div id="multiple_choice">
+						<ul id = "answers">
+							{{#linkTo "endset"}}<li><input id = "a" class="wide btn-info btn-block" type="submit" value=" A " /><span class = "answer_list" id = "answer_a">{{question.answer_option_a}}</span></li>{{/linkTo}}
+							{{#linkTo "incorrect_response"}}<li><input id = "b" class="wide btn-info btn-block" type="submit" value=" B " /><span class = "answer_list" id = "answer_b">{{question.answer_option_b}}</span></li>{{/linkTo}}
+							{{#linkTo "correct_response"}}<li><input id = "c" class="wide btn-info btn-block" type="submit" value=" C " /><span class = "answer_list" id = "answer_c">{{question.answer_option_c}}</span></li>{{/linkTo}}
+							{{#linkTo "endgame"}}<li><input id = "d" class="wide btn-info btn-block" type="submit" value=" D " /><span class = "answer_list" id = "answer_d">{{question.answer_option_d}}</span></li>{{/linkTo}}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{/each}}
+</div>
+</script>

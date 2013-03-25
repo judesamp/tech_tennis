@@ -1,9 +1,10 @@
 module Implementation
-  class Web < Sinatra::Base
+  class Ember < Sinatra::Base
     set :public_folder, "implementation/ember/public"
-    set :view, "implementation/web/templates"
+    set :views, "implementation/ember/views"
     
-    get '/' do      
+    get '/' do
+      
       erb :index
     end
   end
