@@ -3,7 +3,7 @@ class Views
     
   end
     
-  class Index < Layout 
+  class Scoreboard < Layout 
     def player_score
       @player_score || "0"
     end
@@ -12,20 +12,24 @@ class Views
       @cpu_score || "0"
     end
     
-    def player_game_score
-      @player_game_score || "0"
+    def user_game_score_translation
+      @user_game_score_translation || "0"
     end
     
-    def opponent_game_score
-      @opponent_game_score || "0"
+    def opponent_game_score_translation
+      @opponent_game_score_translation || "0"
     end
     
-    def player_set_score
-      @user_set || "0"
+    def user_set_score
+      @user_set_score || "0"
     end
     
     def opponent_set_score
-      @opponent_set || "0"
+      @opponent_set_score || "0"
+    end
+    
+    def current_quiz_type
+      @current_quiz_type || "HTML"
     end
     
   end

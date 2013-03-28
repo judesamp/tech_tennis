@@ -3,7 +3,6 @@
  <head>
   <meta charset="UTF-8">
   <title>Tech Tennis</title>
-		<link href="/css/tech_tennis.css" rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="css/magic-bootstrap-min.css" type="text/css">
 		<link rel="stylesheet" href="css/tech_tennis.css" type="text/css">
 		<script type="text/javascript" src="/js/jquery-1.7.1.js"></script>
@@ -21,81 +20,78 @@
 	
 		
 				
-			<div id="nav">
-				<ul id="navlist">
-					<li class="navitem"><a class="navlinks" href="/">Home</a></li>	
-					<li class="navitem"><a class="navlinks" href="/about">About</a></li>
-					<li class="navitem"><a class="navlinks" href="/profile">Profile</a></li>
-				</ul>
+			<nav class="navbar navbar-static-top">
+			<div class="navbar-inner">
+			<ul class="nav">
+			  <li class="active">
+			    <a class = "brand" href="#">Tech Tennis</a>
+			  </li>
+			  <li><a class = "navlink" href="#">About</a></li>
+			</ul>
 			</div>
+			</nav>
+				<div class = "header_image">
+				</div>
 			
-				<div id="wrapper">
 				
-				<div id="header">
+
+					
 				
-					<h1>Welcome to Tech Tennis</h1>
-					<h2>Test your tech knowledge in a game of speed and wit</h2>
-					<script>
-						function printToday() {
-							var today = new Date();
-							document.write(today.toDateString());
-						}
-						printToday();
-					</script>
-					</div>
-		<div id="main">
-					<img id="ball" src = "images/tennis_ball.png">
-				
-						<div id="gamecontainer">
-			
-			
-							<div id="scoreboard">
-								{{>index}}
-							</div>
-			
-							<div id="questionbox">
-								<div id="greeter">
-									{{> greeter}}
-								</div>
 		
-								<div id="multiplechoice">
-									{{> multiplechoice}}
-								</div>
-			
-								<div id="ready">
-									{{> ready}}
+		
+						<div id="scoreboard">
+							{{>scoreboard}}
+						</div>
+						
+						<div id="questionbox">
+							<div class = "white_stripe">
+		
+						
+							<div id="greeter">
+								{{> greeter}}
+							</div>
+	
+							<div id="questionaire">
+								{{> question}}
+							</div>
+		
+							<div id="ready">
+								{{> ready}}
+							</div>
+							
+							<div id="correct">
+								{{> correct}}
+							</div>
+							
+							<div id="incorrect">
+								{{> incorrect}}
+							</div>
+							
+								<div id="end_of_game">
+									{{> end_of_game}}
 								</div>
 								
-								<div id="correct">
-									{{> correct}}
-								</div>
-								
-								<div id="incorrect">
-									{{> incorrect}}
-								</div>
-								
-									<div id="end_of_game">
-										{{> end_of_game}}
+									<div id="end_of_set">
+										{{> end_of_set}}
 									</div>
-									
-										<div id="end_of_set">
-											{{> end_of_set}}
-										</div>
-									
+								</div><!--end white_strip-->
 							</div> <!--end question box-->
 						
-						<div id="clock"> 
-						</div> <!--end clock container-->
-		
-			</div> <!-- end game container -->
+						
+							<div id="answers">
+								{{> answers}}
+							</div>
+						
+				
+	
+	
+	
+			<div class = "navbar-fixed-bottom footer_stuff yellow">
+				<hr class = "hr yellow">
+				<span class = "name yellow">made by Jeremy Samples</span>
 			</div>
-			</div> <!-- end content wrapper-->
-			
 		
-			
-			<div id="footer">
-				<p>This is the footer</p>
-			</div>
+				
 	
 		
 

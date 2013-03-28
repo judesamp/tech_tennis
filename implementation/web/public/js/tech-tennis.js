@@ -17,6 +17,7 @@ var dataDealer = {
 			$('#opponent_set_score').html(dataDealer.incoming_data.game.opponent_set_score).fadeIn();
 			$('#player_game_score').html(dataDealer.incoming_data.game.user_game_score_translation).fadeIn();
 			$('#opponent_game_score').html(dataDealer.incoming_data.game.opponent_game_score_translation).fadeIn();
+			$('#current_quiz_type').html(dataDealer.incoming_data.game.current_quiz_type).fadeIn();
 			
 			
 			
@@ -24,15 +25,13 @@ var dataDealer = {
 					$('#answer_a').html(dataDealer.incoming_data.question.answer_option_a);
 					$('#answer_b').html(dataDealer.incoming_data.question.answer_option_b);
 					$('#answer_c').html(dataDealer.incoming_data.question.answer_option_c);
-					$('#answer_d').html(dataDealer.incoming_data.question.answer_option_d);
-					$('#clock').load('/clock');				
+					$('#answer_d').html(dataDealer.incoming_data.question.answer_option_d);			
 		},
 		
 		animateNewQuestion: function() {
-			$('#questionbox').fadeIn(1200);
-			$('#clock').animate({backgroundColor: '#FFF'});
+			$('#questionaire').fadeIn(1200);
+			$('#answers').fadeIn(1200);
 			$('#scoreboard').animate({backgroundColor: '#FFF'});
-			$("#multiplechoice").fadeIn(1200);
 		},
 		
 		
@@ -41,17 +40,17 @@ var dataDealer = {
 				$.getJSON('api/v1/start', dataDealer.processNewQuestion);
 				$('#end_of_set').hide();
 				$('#ready').fadeIn().delay(1200).fadeOut(function() {
-					$("#multiplechoice").fadeIn();
+					$("#questionaire").fadeIn();
+					$('#answers').fadeIn();
 		});});
 		},
 
 			processAnswer: function(result, game_context) {
 			
 				
-				$('#multiplechoice').fadeOut().delay(300).hide();
+				$('#questionaire').fadeOut().delay(300).hide();
 				if (result == "correct") {		
-					$('#clock').animate({backgroundColor: 'rgb(0,255,0)'});
-					$('#scoreboard').animate({backgroundColor: '#00FF00'});
+					//$('.white_stripe').animate({backgroundColor: 'rgb(0,255,0)'});
 					
 						
 						if (game_context == "end_of_point") {
@@ -64,6 +63,7 @@ var dataDealer = {
 						else if (game_context == "end_of_set"){
 							$('.player_set_score').html(dataDealer.incoming_data.game.user_set_score).fadeIn();
 							$('.opponent_set_score').html(dataDealer.incoming_data.game.opponent_set_score).fadeIn();
+							$('#answers').hide();
 							$('#end_of_set').fadeIn(dataDealer.playAgain);}
 						
 						
@@ -73,8 +73,7 @@ var dataDealer = {
 			}	 else {
 				
 				//incorrect
-				$('#clock').animate({backgroundColor: '#F00000'});
-				$('#scoreboard').animate({backgroundColor: '"#F00000'});
+				//$('.white_stripe').animate({backgroundColor: '"#F00000'});
 						if (game_context == "end_of_point") {
 							$('#incorrect').fadeIn(900).delay(1200).fadeOut(dataDealer.animateNewQuestion);} 
 						else if (game_context == "end_of_game") {
@@ -97,7 +96,9 @@ $(document).ready(function() {
 			$('.greeter').hide();
 			$.getJSON('api/v1/start', dataDealer.processNewQuestion);
 			$('#ready').fadeIn().delay(1200).fadeOut(function() {
-				$("#multiplechoice").fadeIn();
+				$('#answers').fadeIn();
+				$("#questionaire").fadeIn();
+				
 			
 			//end fade in multiple choice/create clock
 		}); //end for prepare-to-play page

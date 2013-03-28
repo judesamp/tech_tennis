@@ -1,84 +1,131 @@
-
-
-
-
-
-
-
-
-/*Opera Fix*/
-body:before {/* thanks to Maleika (Kohoutec)*/
-content:"";
-height:100%;
-float:left;
-width:0;
-margin-top:-32767px;/* thank you Erik J - negate effect of float*/
+body {
+	margin-bottom: 50px;
+	background: lightgray;
 }
-
-
-html, body {
-	height:100%;
-	background-color:#3A6629;
-	margin:0px;
-	padding:0px;
-	
-}
-#wrapper {
-	min-height: 100%;
-	width:960px;
-	margin:auto;
-	
-}
-
-#main {
-	overflow:auto;
-	margin:0px;
-	padding:0px;
-	}  /* must be same height as the footer */
-
-#header {
-	text-align:center;
-	margin:0px;
-	padding-top:40px;
-}
-
-
-
-li.navitem {
-	display: inline;
-	padding:10px;	
-}
-
-ul#navlist {
-list-style-type:none;
-margin:0;
-padding:0;
-}
-
-a.listlinks {
-display:block;
-width:60px;
-background-color: #820BBB;
-}
-
-
-
-#nav {
+.gray {
 	position:absolute;
-	display:block;
-	top: 0px;
-	background-color: #820BBB;
-	padding: 0px;
-	margin:0px;
+	top:100px;
+	right:5px;
+	background: rgba(0, 0, 0, 0.85);
+	padding: 10px;
+	color:lightgray;
+	width: 360px;
+}
+
+
+.footer_stuff {
+	background: #333333;
+	background: rgba(84, 109, 90, 0.85);
+	padding: 0px 5px 5px 0px;
+	color:lightgray;
+	text-align: right;
 	width: 100%;
+}
+
+.white {
+	position:relative;
+	right: 25px;
+}
+
+.header_image {
+	height: 210px;
+	background-image: url('../images/row_of_tennis_balls.png');
+	background-repeat:no-repeat;
+	background-size: cover;
 	
 }
 
-#nav a {
-	text-decoration:none;
-	color:black;
+
+.wide {
+	width: 110px;
+	padding: 10px;
+	margin:10px;
+}
+
+#answer_list_div li {list-style-type: none; }
+
+#answer_list_div input { display: inline-block; }
+
+#holder {
+	width:600px;
+	margin:auto;
+	padding-bottom: 50px;
+	clear:both;
+	}
+	
+.white_stripe {
+	width: 100%;
+	float:right;
+	background-color:white;
+}
+
+.question_container {
+	clear:both;
+	width: 520px;
+	padding: 20px;
+	text-align:center;
+}
+
+
+
+.hr {
+	border-top: 1px solid darkgray;
+	border-bottom: 1px solid darkgray;
+	width: 100%;
+}
+
+.navlink {
+	font-size: 17px;
+}
+
+.play_button {
+	text-align: center;
+}
+
+
+@media all and (max-width: 550px) {
+
+	
+	#holder {
+		position:relative;
+		margin: auto;
+		clear:both;
+	}
+	
+		.white_stripe {
+			width: 100%;
+			float:left;
+			background-color:white;
+			background-size: cover;
+			height: auto;
+			z-index:-1;
+		}
+	
+	
+	.question_container {
+		position:relative;
+		background-color:white;
+			margin: auto;
+			width: 90%;
+			height:20%;
+			
+	}
+	
+	.gray {
+		position:absolute;
+		top:50px;
+		right:5px;
+		background: rgba(0, 0, 0, 0.85);
+		padding: 10px;
+		color:lightgray;
+	}
+	
+	.header_image {
+		height: 160px;
+	}
 	
 }
+
 
 #ready {
 	display:none;
@@ -100,89 +147,26 @@ background-color: #820BBB;
 	display:none;
 }
 
-#multiplechoice {
+#questionaire {
 	display:none;
 }
 
-#gamecontainer {
-	width:820px;
-	margin:auto;
-	padding-top:40px;
-	
-}
-#scoreboard {
-	width: 250px;
-	height:225px;
-	float:right;
-	background-color: #F5F5F5;
-	border: 3px solid #FFE600;
-	position:relative;
-}
-
-#questionbox {
-	background-color: #F5F5F5;
-	width:400px;
-	height: 225px;
-	float:right;
-	text-align:center;
-	border: 3px solid #FFE600;
-}
-
-
-
-#clock {
-width: 150px;
-height: 225px;
-background-color: #F5F5F5;
-text-align: center;
-float:right;
-border: 3px solid #FFE600;
-}
-
-#clock h1 {
-	font-size:50px;
-	position:relative;
-	top:50px;	
+#answers {
+	display:none;
 }
 
 
 
 
-#greeting li{
-	padding:30px;
-}
-
-ul#answers li {
-	text-align: left;
-	padding: 5px;
-	list-style: none;
-}
-
-#greeter li {
-	display:inline;
-	padding:20px;
-	list-style:none;
-}
-
-li.cool {
-	list-style:none;
-}
-
-span.answer_list {
-	padding: 10px;
-}
 
 #a, #b, #c, #d {
-	width: 50px;
-	height: 20px;
+	width: 100px;
+	height: 40px;
 	padding: 10px;
 	
 }
 
-#ball {
-	position:absolute;
-	top: 140px;
-}
+
 
 h1.answer_response {
 	font-size: 250%;
@@ -192,19 +176,24 @@ h1.answer_response {
 	font-size: 150%;
 }
 
-#footer {
-	background-color: #820BBB;
-	position: fixed;
-	bottom: 0px;
-	width: 100%;
-	clear:both;
-	padding:0px;
+.answer_list {
+	font-size:17.5px;
+	font-weight:bold;
 }
 
-#footer p {
-	padding: 0px;
-	margin : 0px;
+.navbar-fixed-bottom {
+	width: 100%;
 }
+
+.lasth3 {
+	padding: 0px;
+	margin: 0px;
+}
+
+
+
+
+
 
 
 
