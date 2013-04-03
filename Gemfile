@@ -23,6 +23,8 @@ group :development, :test do
   gem 'factory_girl'
   gem 'capybara'
   gem 'cucumber'
+  gem 'dm-rspec'
+  
   #below added to get growl/autotest-like working
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'turn'

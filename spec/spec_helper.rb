@@ -5,7 +5,7 @@ require 'cgi'
 require 'rspec'
 require 'dm-rspec'
 require 'rack/test'
-require 'factory'
+#require 'factory'
 #require 'factory_girl'
 #require 'ffaker'
 

@@ -55,7 +55,6 @@ class Game
   end
   
   def process_answer(attributes)
-    puts attributes
     get_current_question = database_get_answered_question(attributes)
     get_current_question.last_user_answer = attributes[:user_answer]
     get_current_question.save
@@ -64,19 +63,81 @@ class Game
   end
   
   def point_to_user
-    increment(self, :user_points)
-    self.last_result = "correct"
-    self.save
+    if self.tiebreaker == "true"
+      increment(self, :user_tiebreak)
+      self.user_points = 0
+      self.opponent_points = 0
+      self.last_result = "correct"
+      if end_of_tiebreaker?
+        process_end_of_tiebreaker
+      end
+      self.save
+    else
+      increment(self, :user_points)
+      self.last_result = "correct"
+      self.save
+    end
   end
   
   def point_to_opponent
-    increment(self, :opponent_points)
-    self.last_result = "incorrect"
-    self.save
+    if self.tiebreaker == "true"
+        increment(self, :opponent_tiebreak)
+        self.user_points = 0
+        self.opponent_points = 0
+        self.last_result = "incorrect"
+        if end_of_tiebreaker?
+          process_end_of_tiebreaker
+        end
+        self.save
+    else
+      increment(self, :opponent_points)
+      self.last_result = "incorrect"
+      self.save
+    end
+  end
+  
+  def process_end_of_tiebreaker
+    case
+      when user_ahead_by_two?
+        user_wins_tiebreak
+      else
+        opponent_wins_tiebreak
+    end
+  end
+  
+  def end_of_tiebreaker?
+    ahead_by_two? && seven_or_more_points_in_tiebreak?
+  end
+  
+  def seven_or_more_points_in_tiebreak?
+    self.user_tiebreak > 6 || self.opponent_tiebreak > 6
+  end
+  
+  def ahead_by_two?
+    user_ahead_by_two? || opponent_ahead_by_two?
+  end
+  
+  def user_ahead_by_two?
+    self.user_tiebreak - self.opponent_tiebreak > 1
+  end
+  
+  def opponent_ahead_by_two?
+    self.opponent_tiebreak - self.user_tiebreak > 1
+  end
+  
+  def user_wins_tiebreak
+    increment(self, :user_set_score)
+    check_for_end_of_set
+    
+  end
+  
+  def opponent_wins_tiebreak
+    increment(self, :opponent_set_score)
+    check_for_end_of_set
   end
   
   def process_score
-    self.attributes = {:game_context => "end_of_point"} 
+    self.attributes = {:game_context => "end_of_point"} unless end_of_tiebreaker?
     total_points_below_six? ? process_score_below_deuce : process_score_deuce_and_above(attributes)
     self
   end
@@ -109,6 +170,7 @@ class Game
   def user_wins_game
     save_attributes_for_user_wins_game
     reset_game
+    check_for_tiebreak
     check_for_end_of_set
     self
   end
@@ -116,8 +178,16 @@ class Game
   def opponent_wins_game
     save_attributes_for_opponent_wins_game
     reset_game
+    check_for_tiebreak
     check_for_end_of_set
     self
+  end
+  
+  def check_for_tiebreak
+    if tiebreak?
+      self.tiebreaker = "true"
+      self.save
+    end
   end
 
   def check_for_end_of_set
@@ -160,12 +230,6 @@ class Game
     self.opponent_points = 0  
   end
 
-  def check_for_end_of_set
-    if end_of_set?
-      self.game_context = "end_of_set"
-    end
-  end
-
   def deuce?
     self.user_points == self.opponent_points
   end
@@ -184,6 +248,15 @@ class Game
 
   def opponent_wins_game?
     self.opponent_points - self.user_points == 2
+  end
+  
+  
+  def user_wins_tiebreak?
+    self.user_tiebreak - self.opponent_tiebreak == 2
+  end
+
+  def opponent_wins_tiebreak?
+    self.opponent_tiebreak - self.user_tiebreak == 2
   end
 
   def process_score_deuce_and_above(attributes)
@@ -213,6 +286,10 @@ class Game
   def greater_than_or_equal_to_six?
     self.user_set_score >= 6 || self.opponent_set_score >= 6
   end
+  
+  def tiebreak?
+    self.user_set_score == 6 && self.opponent_set_score == 6
+  end
 
   def end_of_set?
     case
@@ -220,7 +297,6 @@ class Game
         end_of_set_with_sevens
 
       when greater_than_or_equal_to_six?
-        puts end_of_set_with_sixes
         end_of_set_with_sixes
      
       else
@@ -271,9 +347,11 @@ class Game
       self.user_game_score_translation = "one more and you win"
       false
     when self.opponent_set_score == 6
+      self.tiebreaker = "true"
       self.user_game_score_translation = "now to the tiebreaker"
       false
     when self.opponent_set_score == 7
+      self.tiebreaker = "true"
       self.user_game_score_translation = "you lost in a tiebreaker...heartbreaking"
       true
     end
@@ -287,6 +365,7 @@ class Game
       self.opponent_game_score_translation = "one more and opponent wins"
       false
     elsif self.user_set_score == 7
+      self.tiebreaker = "true"
       self.opponent_game_score_translation = "opponent lost in a tiebreaker...exciting"
       true   
     end
@@ -340,7 +419,7 @@ class Game
     ["Winner!", "Held serve!", "Ace. Service winner. Ace. Ace."].sample
   end
 
-  def opponent_break_users_serve
+  def opponent_breaks_users_serve
     ["Break of serve!", "Winner!", "Uhoh."].sample
   end
    

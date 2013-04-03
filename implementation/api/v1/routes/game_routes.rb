@@ -42,17 +42,6 @@ module Implementation
           holder.to_json
         end
         
-         # get '/questions' do
-         #          game, question = Game.start
-         #          puts game.inspect
-         #          puts question.inspect
-         #          game.extend(GameRepresenter)
-         #          question.extend(QuestionRepresenter)
-         #          holder = {:questions => [question]}
-         #          puts holder.to_json
-         #          holder.to_json
-         #        end
-        
         
         
          post '/games' do

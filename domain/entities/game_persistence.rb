@@ -8,16 +8,20 @@ class Game
   
   property :user_points,                    Integer,  :default => 0
   property :user_game_score_translation,    String,   :default => "0"
-  property :user_set_score,                 Integer,  :default => 0
+  property :user_set_score,                 Integer,  :default => 4
+  property :user_tiebreak,                  Integer,  :default => 0
   
   property :opponent_points,                Integer,  :default => 0
   property :opponent_game_score_translation,String,   :default => "0"
-  property :opponent_set_score,                   Integer,  :default => 0
+  property :opponent_set_score,             Integer,  :default => 4
+  property :opponent_tiebreak,              Integer,  :default => 0
   
   property :completed_in,                   Integer,  :default => 0
   property :leftover_time,                  Integer,  :default => 0
   property :last_result,                    String,   :default => "none"
   property :game_context,                   String,   :default => false
+  property :tiebreaker,                    String,   :default => false
+  
   
   #associations with other tables
   #belongs_to :user
