@@ -6,11 +6,11 @@ class Game
     #later, if you need to send data on game start, do it with attributes (sends an empty hash otherwise)
     game = create
     game.add_default_questions
-    question = game.retrieve_question
+    # question = game.retrieve_question
     game.user_set_score = 4
     game.opponent_set_score = 4
     game.save
-    return game, question
+    return game# , question
   end
   
   def self.play(attributes)
@@ -18,8 +18,8 @@ class Game
     game = self.get(attributes[:id])
     game.process_and_save_answer_and_score(attributes)
     #maybe the above method call should not be saving? instead game.save
-    question = game.retrieve_question
-    return game, question
+    # question = game.retrieve_question
+    return game# , question
   end
   
   def add_default_questions
@@ -35,8 +35,13 @@ class Game
   
   def retrieve_question
     current_question = self.questions.least_asked
+    # remove answer from current question
     increment(current_question, :times_asked)
     escape_html_for_answer(current_question)
+  end
+  
+  def question
+    retrieve_question
   end
   
   

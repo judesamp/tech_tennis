@@ -1315,3 +1315,64 @@ LOG:  database system is shut down
 LOG:  database system was shut down at 2013-03-28 09:46:10 EDT
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2013-04-02 23:26:17 EDT
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2013-04-04 00:35:40 EDT
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2013-04-04 01:15:31 EDT
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2013-04-04 01:25:04 EDT
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  role "db_samp" does not exist
+FATAL:  role "db_samp" does not exist
+FATAL:  role "db_samp" does not exist
+LOG:  statistics collector process (PID 2159) was terminated by signal 9: Killed
+LOG:  background writer process (PID 2156) was terminated by signal 9: Killed
+LOG:  terminating any other active server processes
+WARNING:  terminating connection because of crash of another server process
+DETAIL:  The postmaster has commanded this server process to roll back the current transaction and exit, because another server process exited abnormally and possibly corrupted shared memory.
+HINT:  In a moment you should be able to reconnect to the database and repeat your command.
+WARNING:  terminating connection because of crash of another server process
+DETAIL:  The postmaster has commanded this server process to roll back the current transaction and exit, because another server process exited abnormally and possibly corrupted shared memory.
+HINT:  In a moment you should be able to reconnect to the database and repeat your command.
+WARNING:  terminating connection because of crash of another server process
+DETAIL:  The postmaster has commanded this server process to roll back the current transaction and exit, because another server process exited abnormally and possibly corrupted shared memory.
+HINT:  In a moment you should be able to reconnect to the database and repeat your command.
+LOG:  all server processes terminated; reinitializing
+LOG:  database system was interrupted; last known up at 2013-04-05 18:15:54 EDT
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  redo starts at 0/63C67E60
+LOG:  record with zero length at 0/63C67EA0
+LOG:  redo done at 0/63C67E60
+LOG:  last completed transaction was at log time 2013-04-05 18:15:54.269059-04
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  database system was shut down at 2013-04-13 19:20:10 EDT
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  database system was interrupted; last known up at 2013-04-14 22:01:01 EDT
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  record with zero length at 0/64385FC8
+LOG:  redo is not required
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started

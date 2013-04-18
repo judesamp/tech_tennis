@@ -62,7 +62,20 @@ describe "Game" do
     end
   end #end Game.start
   
-  describe "Game.play" do    
+  describe "Game.play" do 
+    it "should respond with the least asked question" do
+      i = 1
+      this_game = game
+      this_game.all_questions.reverse.each do |question|
+        question.times_asked = i
+        question.save
+        i += 1
+      end
+      
+      expect(this_game[1].times_asked.to eq "1"
+      
+    end
+       
     context "after a correct answer" do
                                                   
       let(:game_with_correct_answer) {Game.play(correct_answer)}
@@ -72,12 +85,7 @@ describe "Game" do
       end
     
       it "translates point tally into tennis score" do
-        
         expect(game_with_correct_answer[0][:user_game_score_translation]).to eq "15"
-      end
-    
-      it "retrieves the second question (not the same as the first)" do
-        expect(game_with_correct_answer[1][:question_id]).to_not eq question_data.question_id 
       end
     end
     
@@ -102,367 +110,364 @@ describe "Game" do
 
     
   describe "scoring" do
-       let(:game_with_correct_answer) {Game.play(correct_answer)}
-        let(:game_with_incorrect_answer) {Game.play(incorrect_answer)}
+    let(:game_with_correct_answer) {Game.play(correct_answer)}
+    let(:game_with_incorrect_answer) {Game.play(incorrect_answer)}
+
+    let(:lost_first_point) {game_with_incorrect_answer[0]}
         
-        let(:lost_first_point) {game_with_incorrect_answer[0]}
-        
-    describe "game scoring" do  
-      describe "user wins first point" do
+    describe "when scoring individual game" do  
+      describe "where user wins first point" do
         let(:won_first_point) {game_with_correct_answer[0]}
-       
-        it "returns a score of 15 for user" do
+
+        it "should return a score of 15 for user" do
          expect(won_first_point.user_game_score_translation).to eq "15"
         end
-      
-       it "returns a score of 0 for opponent" do
+
+        it "should return a score of 0 for opponent" do
          expect(won_first_point.opponent_game_score_translation).to eq "0"  
-       end
-    end
+        end
+      end
 
-    describe "user wins first two points" do
-       let(:current_game) {Game.get(game_data.id)}
+      describe "user wins first two points" do
+         let(:current_game) {Game.get(game_data.id)}
        
-       before(:each) do
-         current_game.user_points = 1
-         current_game.opponent_points = 0
-         current_game.save
-       end
-    
-      it "returns a score of 30 for user" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.user_game_score_translation).to eq "30"
-      end
-      
-      it "returns a score of 0 for opponent" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.opponent_game_score_translation).to eq "0"
-      end
-    end
-  
-    describe "user wins first three points" do
-      let(:current_game) {Game.get(game_data.id)}
-      
-      before(:each) do
-       current_game.user_points = 2
-       current_game.save
-      end
-       
-      it "returns a score of 40 for user" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.user_game_score_translation).to eq "40"
-      end
-      
-      it "returns a score of 0 for opponent" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.opponent_game_score_translation).to eq "0"
-      end
-    end
-  
-    describe "user wins first four points" do
-      let(:current_game) {Game.get(game_data.id)}
-      
-      before(:each) do
-       current_game.user_points = 3
-       current_game.save
-      end
-      
-      it "changes game context to end of game" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.game_context).to eq "end_of_game"
-      end
-      
-      it "increments set score" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.user_set_score).to eq 5
-      end
-    end
-   #################
-    describe "opponent wins first point" do
-      let(:current_game) {Game.get(game_data.id)} 
-      
-      it "returns a score of 0 for user" do
-        current_game, current_question = Game.play(incorrect_answer)
-        expect(current_game.user_game_score_translation).to eq "0"
-      end
-      
-      it "returns a score of 15 for opponent" do
-        current_game, current_question = Game.play(incorrect_answer)
-        expect(current_game.opponent_game_score_translation).to eq "15"
-      end
-    end
-
-    describe "opponent wins first two points" do
-      let(:current_game) {Game.get(game_data.id)}
-    
-      before(:each) do
-       current_game.opponent_points = 1
-       current_game.save
-      end
-
-      it "returns a score of 0 for user" do
-        current_game, current_question = Game.play(incorrect_answer)
-        expect(current_game.user_game_score_translation).to eq "0"
-      end
-      
-      it "returns a score of 30 for opponent" do
-        current_game, current_question = Game.play(incorrect_answer)
-        expect(current_game.opponent_game_score_translation).to eq "30"
-      end
-    end
-
-    describe "opponent wins first three points" do
-      let(:current_game) {Game.get(game_data.id)}
-      
-      before(:each) do
-       current_game.opponent_points = 2
-       current_game.save
-      end
-
-      it "returns a score of 0 for user" do
-        current_game, current_question = Game.play(incorrect_answer)
-        expect(current_game.user_game_score_translation).to eq "0"
-      end
-      
-      it "returns a score of 40 for user" do
-        current_game, current_question = Game.play(incorrect_answer)
-        expect(current_game.opponent_game_score_translation).to eq "40"
-      end
-    end
-
-    describe "opponent wins first four points" do
-      let(:current_game) {Game.get(game_data.id)}
-      
-      before(:each) do
-       current_game.opponent_points = 3
-       current_game.save
-      end
-      
-      it "changes game context" do
-        current_game, current_question = Game.play(incorrect_answer)
-        expect(current_game.game_context).to eq "end_of_game"
-
-      end
-      
-      it "increments set score" do
-        current_game, current_question = Game.play(incorrect_answer)
-        expect(current_game.opponent_set_score).to eq 5
-      end
-    end
-  
-    describe "opponents split first two points" do
-      let(:current_game) {Game.get(game_data.id)}
-
-      it "returns a user score of 15" do
-        current_game, current_question = Game.play(incorrect_answer)
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.user_game_score_translation).to eq "15"
-      end
-      
-      it "returns an opponent score of 15" do
-        current_game, current_question = Game.play(incorrect_answer)
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.opponent_game_score_translation).to eq "15"
-      end
-    end
-  
-    describe "opponents split first four points" do
-      let(:current_game) {Game.get(game_data.id)}
-
-      before(:each) do
-       current_game.user_points = 2
-       current_game.opponent_points = 1
-       current_game.save
-      end
-
-      it "returns a user score of 30" do
-        current_game, current_question = Game.play(incorrect_answer)
-        expect(current_game.user_game_score_translation).to eq "30"
-      end
-      
-      it "returns an opponent score of 30" do
-        current_game, current_question = Game.play(incorrect_answer)
-        expect(current_game.opponent_game_score_translation).to eq "30"
-      end
-    end
-      
-    describe "user wins two of first three points" do
-      let(:current_game) {Game.get(game_data.id)}
-      
-      before(:each) do
-       current_game.user_points = 1
-       current_game.opponent_points = 1
-       current_game.save
-      end
-
-      it "returns a user score of 30" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.user_game_score_translation).to eq "30"
-      end 
-      
-      it "returns an opponent score of 15" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.opponent_game_score_translation).to eq "15"
-      end
-    end
-  
-    describe "user has one point, opponent has two" do
-      let(:current_game) {Game.get(game_data.id)}
-      
-      before(:each) do
-       current_game.user_points = 1
-       current_game.opponent_points = 1
-       current_game.save
-      end
-
-      it "returns a user score of 15" do
-        current_game, current_question = Game.play(incorrect_answer)
-        expect(current_game.user_game_score_translation).to eq "15"
-      end
-      
-      it "returns an opponent score of 30" do
-        current_game, current_question = Game.play(incorrect_answer)
-        expect(current_game.opponent_game_score_translation).to eq "30"
-      end
-    end
-  
-    describe "user has three points, opponent has one" do
-      let(:current_game) {Game.get(game_data.id)}
-      
-      before(:each) do
-       current_game.user_points = 2
-       current_game.opponent_points = 1
-       current_game.save
-      end
-
-      it "returns a user score of 40" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.user_game_score_translation).to eq "40"
-      end
-      
-      it "returns an opponent score of 15" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.opponent_game_score_translation).to eq "15"
-      end
-      
-    end
-      
-    describe "one point to three" do
-      let(:current_game) {Game.get(game_data.id)}
-      
-      before(:each) do
-       current_game.opponent_points = 3
-       current_game.save
-      end
-
-      it "returns a user score of 15" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.user_game_score_translation).to eq "15"
-      end
-      
-      it "returns an opponent score of 40" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.opponent_game_score_translation).to eq "40"
-      end
-      
-    end
-      
-      
-    describe "deuce" do
-      let(:current_game) {Game.get(game_data.id)}
-      
-      before(:each) do
-       current_game.opponent_points = 4
-       current_game.user_points = 4
-       current_game.save
-      end
-      
-      describe "user wins next point" do
-        it "returns score of user advantage" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.user_game_score_translation).to eq "Ad"
-        end
-        
-        it "returns score of \'-\' for opponent" do
-        current_game, current_question = Game.play(correct_answer)
-        expect(current_game.opponent_game_score_translation).to eq "-"
-        end
-      end
-          
-      describe "opponent wins next point" do
-        it "returns score of \'-\' for user" do
-          current_game, current_question = Game.play(incorrect_answer)
-          expect(current_game.user_game_score_translation).to eq "-"
-        end
-
-        it "returns score of \'-\' for opponent" do
-          current_game, current_question = Game.play(incorrect_answer)
-          expect(current_game.opponent_game_score_translation).to eq "Ad"
-        end
-      end
-          
-      describe "user wins next two points" do
          before(:each) do
-           current_game.opponent_points = 4
-           current_game.user_points = 5
+           current_game.user_points = 1
+           current_game.opponent_points = 0
            current_game.save
-          end
-        
-        it "changes game context" do
+         end
+    
+        it "returns a score of 30 for user" do
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.user_game_score_translation).to eq "30"
+        end
+      
+        it "returns a score of 0 for opponent" do
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.opponent_game_score_translation).to eq "0"
+        end
+      end
+  
+      describe "user wins first three points" do
+        let(:current_game) {Game.get(game_data.id)}
+      
+        before(:each) do
+         current_game.user_points = 2
+         current_game.save
+        end
+       
+        it "returns a score of 40 for user" do
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.user_game_score_translation).to eq "40"
+        end
+      
+        it "returns a score of 0 for opponent" do
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.opponent_game_score_translation).to eq "0"
+        end
+      end
+  
+      describe "user wins first four points" do
+        let(:current_game) {Game.get(game_data.id)}
+      
+        before(:each) do
+         current_game.user_points = 3
+         current_game.save
+        end
+      
+        it "changes game context to end of game" do
           current_game, current_question = Game.play(correct_answer)
           expect(current_game.game_context).to eq "end_of_game"
         end
-
+      
         it "increments set score" do
           current_game, current_question = Game.play(correct_answer)
           expect(current_game.user_set_score).to eq 5
         end
       end
-          
-      describe "opponent wins next two points" do
+    
+      describe "opponent wins first point" do
+        let(:current_game) {Game.get(game_data.id)} 
+      
+        it "returns a score of 0 for user" do
+          current_game, current_question = Game.play(incorrect_answer)
+          expect(current_game.user_game_score_translation).to eq "0"
+        end
+      
+        it "returns a score of 15 for opponent" do
+          current_game, current_question = Game.play(incorrect_answer)
+          expect(current_game.opponent_game_score_translation).to eq "15"
+        end
+      end
+
+      describe "opponent wins first two points" do
+        let(:current_game) {Game.get(game_data.id)}
+    
         before(:each) do
-         current_game.opponent_points = 5
-         current_game.user_points = 4
+         current_game.opponent_points = 1
          current_game.save
         end
-        
-        
+
+        it "returns a score of 0 for user" do
+          current_game, current_question = Game.play(incorrect_answer)
+          expect(current_game.user_game_score_translation).to eq "0"
+        end
+      
+        it "returns a score of 30 for opponent" do
+          current_game, current_question = Game.play(incorrect_answer)
+          expect(current_game.opponent_game_score_translation).to eq "30"
+        end
+      end
+
+      describe "opponent wins first three points" do
+        let(:current_game) {Game.get(game_data.id)}
+      
+        before(:each) do
+         current_game.opponent_points = 2
+         current_game.save
+        end
+
+        it "returns a score of 0 for user" do
+          current_game, current_question = Game.play(incorrect_answer)
+          expect(current_game.user_game_score_translation).to eq "0"
+        end
+      
+        it "returns a score of 40 for user" do
+          current_game, current_question = Game.play(incorrect_answer)
+          expect(current_game.opponent_game_score_translation).to eq "40"
+        end
+      end
+
+      describe "opponent wins first four points" do
+        let(:current_game) {Game.get(game_data.id)}
+      
+        before(:each) do
+         current_game.opponent_points = 3
+         current_game.save
+        end
+      
         it "changes game context" do
           current_game, current_question = Game.play(incorrect_answer)
           expect(current_game.game_context).to eq "end_of_game"
-        end
 
+        end
+      
         it "increments set score" do
           current_game, current_question = Game.play(incorrect_answer)
           expect(current_game.opponent_set_score).to eq 5
         end
       end
-    end
-    describe "user advantage" do
-      describe "second deuce" do
+  
+      describe "opponents split first two points" do
         let(:current_game) {Game.get(game_data.id)}
-        
+
+        it "returns a user score of 15" do
+          current_game, current_question = Game.play(incorrect_answer)
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.user_game_score_translation).to eq "15"
+        end
+      
+        it "returns an opponent score of 15" do
+          current_game, current_question = Game.play(incorrect_answer)
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.opponent_game_score_translation).to eq "15"
+        end
+      end
+  
+      describe "opponents split first four points" do
+        let(:current_game) {Game.get(game_data.id)}
+
         before(:each) do
-         current_game.opponent_points = 5
+         current_game.user_points = 2
+         current_game.opponent_points = 1
+         current_game.save
+        end
+
+        it "returns a user score of 30" do
+          current_game, current_question = Game.play(incorrect_answer)
+          expect(current_game.user_game_score_translation).to eq "30"
+        end
+      
+        it "returns an opponent score of 30" do
+          current_game, current_question = Game.play(incorrect_answer)
+          expect(current_game.opponent_game_score_translation).to eq "30"
+        end
+      end
+      
+      describe "user wins two of first three points" do
+        let(:current_game) {Game.get(game_data.id)}
+      
+        before(:each) do
+         current_game.user_points = 1
+         current_game.opponent_points = 1
+         current_game.save
+        end
+
+        it "returns a user score of 30" do
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.user_game_score_translation).to eq "30"
+        end 
+      
+        it "returns an opponent score of 15" do
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.opponent_game_score_translation).to eq "15"
+        end
+      end
+  
+      describe "user has one point, opponent has two" do
+        let(:current_game) {Game.get(game_data.id)}
+      
+        before(:each) do
+         current_game.user_points = 1
+         current_game.opponent_points = 1
+         current_game.save
+        end
+
+        it "returns a user score of 15" do
+          current_game, current_question = Game.play(incorrect_answer)
+          expect(current_game.user_game_score_translation).to eq "15"
+        end
+      
+        it "returns an opponent score of 30" do
+          current_game, current_question = Game.play(incorrect_answer)
+          expect(current_game.opponent_game_score_translation).to eq "30"
+        end
+      end
+  
+      describe "user has three points, opponent has one" do
+        let(:current_game) {Game.get(game_data.id)}
+      
+        before(:each) do
+         current_game.user_points = 2
+         current_game.opponent_points = 1
+         current_game.save
+        end
+
+        it "returns a user score of 40" do
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.user_game_score_translation).to eq "40"
+        end
+      
+        it "returns an opponent score of 15" do
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.opponent_game_score_translation).to eq "15"
+        end
+      
+      end
+      
+      describe "one point to three" do
+        let(:current_game) {Game.get(game_data.id)}
+      
+        before(:each) do
+         current_game.opponent_points = 3
+         current_game.save
+        end
+
+        it "returns a user score of 15" do
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.user_game_score_translation).to eq "15"
+        end
+      
+        it "returns an opponent score of 40" do
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.opponent_game_score_translation).to eq "40"
+        end
+      
+      end
+      
+      
+      describe "deuce" do
+        let(:current_game) {Game.get(game_data.id)}
+      
+        before(:each) do
+         current_game.opponent_points = 4
          current_game.user_points = 4
          current_game.save
         end
-        
-        it "returns a score of deuce for user" do
+      
+        describe "user wins next point" do
+          it "returns score of user advantage" do
           current_game, current_question = Game.play(correct_answer)
-          expect(current_game.user_game_score_translation).to eq "Deuce"
+          expect(current_game.user_game_score_translation).to eq "Ad"
+          end
+        
+          it "returns score of \'-\' for opponent" do
+          current_game, current_question = Game.play(correct_answer)
+          expect(current_game.opponent_game_score_translation).to eq "-"
+          end
         end
+          
+        describe "opponent wins next point" do
+          it "returns score of \'-\' for user" do
+            current_game, current_question = Game.play(incorrect_answer)
+            expect(current_game.user_game_score_translation).to eq "-"
+          end
+
+          it "returns score of \'-\' for opponent" do
+            current_game, current_question = Game.play(incorrect_answer)
+            expect(current_game.opponent_game_score_translation).to eq "Ad"
+          end
+        end
+          
+        describe "user wins next two points" do
+           before(:each) do
+             current_game.opponent_points = 4
+             current_game.user_points = 5
+             current_game.save
+            end
         
-        it "returns a score of deuce for opponent" do
-          current_game, current_question = Game.play(correct_answer)
-          expect(current_game.opponent_game_score_translation).to eq "Deuce"
+          it "changes game context" do
+            current_game, current_question = Game.play(correct_answer)
+            expect(current_game.game_context).to eq "end_of_game"
+          end
+
+          it "increments set score" do
+            current_game, current_question = Game.play(correct_answer)
+            expect(current_game.user_set_score).to eq 5
+          end
+        end
+          
+        describe "opponent wins next two points" do
+          before(:each) do
+           current_game.opponent_points = 5
+           current_game.user_points = 4
+           current_game.save
+          end
+        
+        
+          it "changes game context" do
+            current_game, current_question = Game.play(incorrect_answer)
+            expect(current_game.game_context).to eq "end_of_game"
+          end
+
+          it "increments set score" do
+            current_game, current_question = Game.play(incorrect_answer)
+            expect(current_game.opponent_set_score).to eq 5
+          end
         end
       end
-    end
-  
-    
-      describe "opponent advantage" do
-        describe "second deuce" do
+      
+      describe "second deuce" do
+        describe "with user advantage" do
+          let(:current_game) {Game.get(game_data.id)}
+        
+          before(:each) do
+           current_game.opponent_points = 5
+           current_game.user_points = 4
+           current_game.save
+          end
+        
+          it "returns a score of deuce for user" do
+            current_game, current_question = Game.play(correct_answer)
+            expect(current_game.user_game_score_translation).to eq "Deuce"
+          end
+        
+          it "returns a score of deuce for opponent" do
+            current_game, current_question = Game.play(correct_answer)
+            expect(current_game.opponent_game_score_translation).to eq "Deuce"
+          end
+        end
+        describe "with opponent advantage" do
            let(:current_game) {Game.get(game_data.id)}
 
             before(:each) do
@@ -484,8 +489,8 @@ describe "Game" do
       end
     end #end game scoring
       
-    describe "set scoring" do
-      describe "user wins set 6-4" do
+    describe "when scoring the set" do
+      describe "where user wins set 6-4" do
         let(:current_game) {Game.get(game_data.id)}
      
          before(:each) do

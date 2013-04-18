@@ -33,6 +33,7 @@ module Implementation
       property :leftover_time
       property :last_result
       property :game_context
+      property :question
     end
   end
 end

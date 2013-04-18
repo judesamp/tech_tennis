@@ -10,7 +10,6 @@ gem 'factory_girl'
 gem 'thin'
 gem 'shotgun'
 gem 'representable'
-gem 'virtus'
 gem 'bundler'
 
 group :development, :test do
@@ -24,6 +23,9 @@ group :development, :test do
   gem 'capybara'
   gem 'cucumber'
   gem 'dm-rspec'
+  gem 'haml'
+  gem 'sass'
+  gem 'compass'
   
   #below added to get growl/autotest-like working
   gem 'rb-fsevent', '~> 0.9.1'
