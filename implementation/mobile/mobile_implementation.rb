@@ -4,7 +4,7 @@ module Implementation
    
     get '/' do
       
-      erb :index
+      haml :index
     end
   end
 end

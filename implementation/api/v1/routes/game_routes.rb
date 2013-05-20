@@ -30,33 +30,31 @@ module Implementation
         attributes.to_json
       end
       
-       get '/games' do
-          game, question = Game.start
-          puts game.inspect
-          puts question.inspect
-          game.extend(GameRepresenter)
-          question.extend(QuestionRepresenter)
-          holder = {:games => [game], :questions => [question]}
-          puts holder.to_json
-          holder.to_json
-        end
+      get '/mobile_start' do
+        game = Game.start
+        game.extend(GameRepresenter)
+        # question.extend(QuestionRepresenter)
+        # holder = {:game => game, :question => question}
+        #         puts holder.to_json
+        # holder.to_json
+        new_game = (game.to_json)
+        puts params[:callback] + "(#{new_game})"
+        params[:callback] + "(#{game.to_json})"
         
-        
-        
-         post '/games' do
-            attributes = { :id => params[:question][:game_id], 
-                           :question_id => params[:question][:id],
-                           :user_answer => params[:user_answer] }
-            game, question = Game.play(attributes)
-            game.extend(GameRepresenter)
-            question.extend(QuestionRepresenter)
-            dataegg = game.merge(question)
-            holder = {:games => dataegg}
-            holder.to_json
-          end
+      end
       
-      
-      
+      get '/mobile_play' do
+        puts params
+        attributes = { :id => params[:id], 
+                       :question_id => params[:question_id],
+                       :user_answer => params[:user_answer] }
+        game = Game.play(attributes)
+        game.extend(GameRepresenter)
+        puts game.user_game_score_translation
+        puts game.opponent_game_score_translation
+        puts params[:callback] + "(#{game.to_json})"
+        params[:callback] + "(#{game.to_json})"
+      end
     end
   end
 end
