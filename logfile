@@ -1418,3 +1418,9 @@ LOG:  database system is shut down
 LOG:  database system was shut down at 2013-05-19 22:20:32 EDT
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
+LOG:  database system was interrupted; last known up at 2013-05-20 07:38:23 EDT
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  record with zero length at 0/6520BA50
+LOG:  redo is not required
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
